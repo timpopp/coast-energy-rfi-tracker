@@ -3,266 +3,323 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coast Energy · RFI Program Tracker</title>
+<title>Coast Energy | Morpho Energy · RFI Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --midnight: #051C2C;
-  --midnight-80: #1a3447;
-  --midnight-60: #2d4d63;
-  --golden: #FFB600;
-  --sunrise: #FCD757;
-  --dawn: #A5B0E3;
-  --sunset: #FEAD77;
-  --sandstone: #F9F4E8;
-  --terracotta: #DFC2AC;
-  --white: #ffffff;
-  --gray-50: #f8f8f6;
-  --gray-100: #f0ede6;
-  --gray-200: #e2ddd4;
-  --gray-300: #c8c2b8;
-  --gray-400: #9e9890;
-  --gray-600: #6b6560;
-  --gray-800: #3a3632;
-  --open-bg: #FFF8E1; --open-fg: #B45309; --open-border: #FDE68A;
-  --closed-bg: #ECFDF5; --closed-fg: #065F46; --closed-border: #A7F3D0;
-  --overdue-bg: #FEF2F2; --overdue-fg: #991B1B; --overdue-border: #FECACA;
-  --critical-bg: #FEF2F2; --critical-fg: #991B1B;
-  --urgent-bg: #FFF8E1; --urgent-fg: #B45309;
-  --high-bg: #FFF8E1; --high-fg: #B45309;
-  --medium-bg: #ECFDF5; --medium-fg: #065F46;
-  --standard-bg: #F3F4F6; --standard-fg: #374151;
-  --bic-bg: #EEF2FF; --bic-fg: #3730A3; --bic-border: #C7D2FE;
-  --nem-red: #DC2626;
-  --shadow-sm: 0 1px 3px rgba(5,28,44,0.08), 0 1px 2px rgba(5,28,44,0.06);
-  --shadow-md: 0 4px 12px rgba(5,28,44,0.12), 0 2px 4px rgba(5,28,44,0.08);
-  --shadow-lg: 0 20px 40px rgba(5,28,44,0.18), 0 8px 16px rgba(5,28,44,0.12);
-  --radius: 6px;
-  --radius-lg: 10px;
-  --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --midnight: #051C2C; --midnight-80: #1a3447; --midnight-60: #2d4d63;
+  --golden: #FFB600; --sunrise: #FCD757; --dawn: #A5B0E3;
+  --sunset: #FEAD77; --sandstone: #F9F4E8; --terracotta: #DFC2AC;
+  --white: #ffffff; --gray-50: #f8f8f6; --gray-100: #f0ede6;
+  --gray-200: #e2ddd4; --gray-300: #c8c2b8; --gray-400: #9e9890;
+  --gray-600: #6b6560; --gray-800: #3a3632;
+  --open-bg:#FFF8E1; --open-fg:#B45309; --open-border:#FDE68A;
+  --closed-bg:#ECFDF5; --closed-fg:#065F46; --closed-border:#A7F3D0;
+  --overdue-bg:#FEF2F2; --overdue-fg:#991B1B; --overdue-border:#FECACA;
+  --critical-bg:#FEF2F2; --critical-fg:#991B1B;
+  --urgent-bg:#FFF8E1; --urgent-fg:#B45309;
+  --high-bg:#FFF8E1; --high-fg:#B45309;
+  --medium-bg:#ECFDF5; --medium-fg:#065F46;
+  --standard-bg:#F3F4F6; --standard-fg:#374151;
+  --bic-bg:#EEF2FF; --bic-fg:#3730A3; --bic-border:#C7D2FE;
+  --nem-red:#DC2626;
+  --shadow-sm:0 1px 3px rgba(5,28,44,.08),0 1px 2px rgba(5,28,44,.06);
+  --shadow-md:0 4px 12px rgba(5,28,44,.12),0 2px 4px rgba(5,28,44,.08);
+  --shadow-lg:0 20px 40px rgba(5,28,44,.18),0 8px 16px rgba(5,28,44,.12);
+  --radius:6px; --radius-lg:10px;
+  --transition:150ms cubic-bezier(.4,0,.2,1);
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--sandstone); color: var(--midnight); font-size: 14px; line-height: 1.5; min-height: 100vh; }
-/* ── Layout ── */
-.app { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-.topbar { background: var(--midnight); display: flex; align-items: center; gap: 0; padding: 0; flex-shrink: 0; border-bottom: 2px solid var(--golden); }
-.topbar-brand { display: flex; align-items: center; gap: 10px; padding: 0 24px; height: 52px; border-right: 1px solid var(--midnight-60); }
-.topbar-logo { width: 28px; height: 28px; background: var(--golden); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
-.topbar-logo svg { width: 18px; height: 18px; }
-.topbar-name { color: var(--white); font-weight: 600; font-size: 15px; letter-spacing: -0.3px; }
-.topbar-sub { color: var(--dawn); font-size: 11px; margin-top: -2px; }
-.topbar-nav { display: flex; align-items: center; flex: 1; height: 52px; }
-.nav-btn { height: 52px; padding: 0 20px; background: none; border: none; color: var(--gray-300); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: var(--transition); border-bottom: 2px solid transparent; margin-bottom: -2px; letter-spacing: 0.2px; }
-.nav-btn:hover { color: var(--white); }
-.nav-btn.active { color: var(--golden); border-bottom-color: var(--golden); }
-.topbar-right { padding: 0 20px; display: flex; align-items: center; gap: 12px; }
-.countdown { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 6px 12px; }
-.countdown-label { color: var(--gray-400); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
-.countdown-days { color: var(--golden); font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500; }
-.countdown-days.urgent { color: var(--sunset); animation: pulse 2s ease-in-out infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
-.countdown-suffix { color: var(--gray-400); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: var(--transition); border: none; }
-.btn-primary { background: var(--golden); color: var(--midnight); }
-.btn-primary:hover { background: var(--sunrise); }
-.btn-secondary { background: transparent; color: var(--gray-300); border: 1px solid var(--midnight-60); }
-.btn-secondary:hover { background: var(--midnight-80); color: var(--white); }
-.btn-ghost { background: transparent; color: var(--gray-600); border: 1px solid var(--gray-200); }
-.btn-ghost:hover { background: var(--gray-100); border-color: var(--gray-300); }
-.btn-sm { padding: 5px 10px; font-size: 12px; }
-.btn-icon { width: 32px; height: 32px; padding: 0; justify-content: center; }
-/* ── Main content ── */
-.content { flex: 1; overflow: hidden; display: flex; position: relative; }
-.view { display: none; flex: 1; overflow-y: auto; padding: 24px; }
-.view.active { display: flex; flex-direction: column; gap: 20px; }
-/* ── Dashboard ── */
-.stat-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
-.stat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow-sm); }
-.stat-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--gray-600); font-weight: 500; margin-bottom: 6px; }
-.stat-card .value { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; color: var(--midnight); line-height: 1; }
-.stat-card .value.amber { color: #B45309; }
-.stat-card .value.red { color: #991B1B; }
-.stat-card .value.green { color: #065F46; }
-.stat-card .sub { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
-.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.dash-grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-.panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
-.panel-header { padding: 14px 18px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
-.panel-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 600; color: var(--gray-600); }
-.panel-body { padding: 0; }
-/* Project cards */
-.project-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.project-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow-sm); cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }
-.project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
-.project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-.project-card.blue::before { background: #3B82F6; }
-.project-card.green::before { background: #10B981; }
-.project-card.amber::before { background: var(--golden); }
-.project-card.purple::before { background: #8B5CF6; }
-.project-card-name { font-size: 12px; font-weight: 600; color: var(--midnight); margin-bottom: 2px; line-height: 1.3; }
-.project-card-short { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray-400); margin-bottom: 10px; }
-.project-card-stats { display: flex; gap: 12px; }
-.project-stat { text-align: center; }
-.project-stat .n { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; line-height: 1; }
-.project-stat .n.amber { color: #B45309; }
-.project-stat .n.green { color: #065F46; }
-.project-stat .n.red { color: #991B1B; }
-.project-stat .l { font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
-/* BIC leaderboard */
-.bic-row { display: flex; align-items: center; gap: 12px; padding: 10px 18px; border-bottom: 1px solid var(--gray-100); }
-.bic-row:last-child { border-bottom: none; }
-.bic-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bic-bg); border: 1px solid var(--bic-border); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--bic-fg); flex-shrink: 0; font-family: 'DM Mono', monospace; }
-.bic-org { font-weight: 500; font-size: 13px; flex: 1; }
-.bic-bar-wrap { width: 100px; height: 6px; background: var(--gray-100); border-radius: 3px; }
-.bic-bar { height: 6px; background: var(--dawn); border-radius: 3px; transition: width 0.5s; }
-.bic-count { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--midnight); min-width: 20px; text-align: right; }
-/* Activity feed */
-.activity-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 18px; border-bottom: 1px solid var(--gray-100); }
-.activity-row:last-child { border-bottom: none; }
-.activity-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--golden); margin-top: 5px; flex-shrink: 0; }
-.activity-content { flex: 1; min-width: 0; }
-.activity-rfi { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray-400); }
-.activity-text { font-size: 12px; color: var(--midnight); line-height: 1.4; }
-.activity-time { font-size: 10px; color: var(--gray-400); margin-top: 1px; }
-/* ── List view ── */
-.filter-bar { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; box-shadow: var(--shadow-sm); }
-.filter-bar input[type="text"] { flex: 1; min-width: 200px; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 7px 10px 7px 32px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--midnight); background: var(--gray-50) url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='4.5' stroke='%239e9890' stroke-width='1.5'/%3E%3Cpath d='M10 10L12 12' stroke='%239e9890' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 10px center; }
-.filter-bar input:focus { outline: none; border-color: var(--dawn); box-shadow: 0 0 0 3px rgba(165,176,227,0.15); }
-.filter-bar select { border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 7px 10px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--midnight); background: var(--gray-50); cursor: pointer; }
-.filter-bar select:focus { outline: none; border-color: var(--dawn); }
-.filter-divider { width: 1px; height: 24px; background: var(--gray-200); }
-.list-meta { display: flex; align-items: center; justify-content: space-between; }
-.list-meta-count { font-size: 12px; color: var(--gray-600); }
-/* Table */
-.rfi-table-wrap { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
-.rfi-table { width: 100%; border-collapse: collapse; }
-.rfi-table thead th { background: var(--midnight); color: var(--gray-300); font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; padding: 10px 14px; text-align: left; white-space: nowrap; cursor: pointer; user-select: none; position: sticky; top: 0; z-index: 1; }
-.rfi-table thead th:hover { color: var(--white); }
-.rfi-table thead th.sorted { color: var(--golden); }
-.rfi-table tbody tr { border-bottom: 1px solid var(--gray-100); cursor: pointer; transition: background var(--transition); }
-.rfi-table tbody tr:hover { background: var(--sandstone); }
-.rfi-table tbody tr.selected { background: #EEF2FF; }
-.rfi-table tbody tr.critical-row { border-left: 3px solid var(--nem-red); }
-.rfi-table tbody tr.overdue-row { border-left: 3px solid #DC2626; }
-.rfi-table td { padding: 10px 14px; font-size: 13px; vertical-align: middle; }
-.rfi-num { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--midnight); font-weight: 500; white-space: nowrap; }
-.rfi-rev { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray-400); background: var(--gray-100); padding: 1px 5px; border-radius: 3px; }
-.rfi-title { font-weight: 500; color: var(--midnight); max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.rfi-project { font-size: 11px; color: var(--gray-600); }
-/* Badges */
-.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 100px; font-size: 11px; font-weight: 600; white-space: nowrap; border: 1px solid transparent; }
-.badge-open { background: var(--open-bg); color: var(--open-fg); border-color: var(--open-border); }
-.badge-closed { background: var(--closed-bg); color: var(--closed-fg); border-color: var(--closed-border); }
-.badge-overdue { background: var(--overdue-bg); color: var(--overdue-fg); border-color: var(--overdue-border); }
-.badge-critical { background: var(--critical-bg); color: var(--critical-fg); }
-.badge-urgent, .badge-high { background: var(--urgent-bg); color: var(--urgent-fg); }
-.badge-medium { background: var(--medium-bg); color: var(--medium-fg); }
-.badge-standard, .badge-low { background: var(--standard-bg); color: var(--standard-fg); }
-.badge-yes-cost { background: #FEF2F2; color: #991B1B; }
-.badge-yes-sched { background: #FEF2F2; color: #991B1B; font-weight: 700; }
-.badge-no { background: #F0FDF4; color: #166534; }
-.badge-tbd, .badge-unknown { background: #F3F4F6; color: #374151; }
-.badge-nem { background: #DC2626; color: #fff; font-size: 9px; letter-spacing: 0.5px; }
-.bic-cell { display: flex; align-items: center; gap: 6px; }
-.bic-cell-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--bic-bg); border: 1px solid var(--bic-border); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--bic-fg); flex-shrink: 0; font-family: 'DM Mono', monospace; }
-.bic-cell-name { font-size: 12px; font-weight: 600; color: var(--bic-fg); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.days-cell { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; }
-.days-cell.ok { color: var(--gray-600); }
-.days-cell.warn { color: #B45309; }
-.days-cell.alert { color: #991B1B; font-weight: 700; }
-/* ── Detail Drawer ── */
-.drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(5,28,44,0.3); z-index: 100; }
-.drawer-overlay.open { display: block; }
-.drawer { position: fixed; right: 0; top: 52px; bottom: 0; width: 620px; background: var(--white); box-shadow: var(--shadow-lg); z-index: 101; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-.drawer.open { transform: translateX(0); }
-.drawer-header { background: var(--midnight); padding: 20px 24px 16px; flex-shrink: 0; }
-.drawer-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-.drawer-rfi-num { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: var(--golden); }
-.drawer-close { background: none; border: none; color: var(--gray-400); cursor: pointer; padding: 4px; border-radius: 4px; font-size: 18px; line-height: 1; transition: var(--transition); }
-.drawer-close:hover { color: var(--white); background: var(--midnight-80); }
-.drawer-title { color: var(--white); font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
-.drawer-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.drawer-project { font-size: 11px; color: var(--dawn); letter-spacing: 0.3px; }
-.drawer-body { flex: 1; overflow-y: auto; }
-.drawer-section { padding: 18px 24px; border-bottom: 1px solid var(--gray-100); }
-.drawer-section:last-child { border-bottom: none; }
-.section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; color: var(--gray-400); margin-bottom: 12px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--midnight);font-size:14px;line-height:1.5;min-height:100vh}
+.app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+/* ── Topbar ── */
+.topbar{background:var(--midnight);display:flex;align-items:center;padding:0;flex-shrink:0;border-bottom:2px solid var(--golden)}
+.topbar-brand{display:flex;align-items:center;gap:10px;padding:0 24px;height:52px;border-right:1px solid var(--midnight-60)}
+.topbar-logo{width:30px;height:30px;background:var(--golden);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.topbar-logo svg{width:22px;height:22px}
+.topbar-name{color:var(--white);font-weight:600;font-size:14px;letter-spacing:-0.2px;white-space:nowrap}
+.topbar-sub{color:var(--dawn);font-size:10px;margin-top:-2px;white-space:nowrap}
+.topbar-nav{display:flex;align-items:center;flex:1;height:52px}
+.nav-btn{height:52px;padding:0 20px;background:none;border:none;color:var(--gray-300);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:var(--transition);border-bottom:2px solid transparent;margin-bottom:-2px}
+.nav-btn:hover{color:var(--white)}
+.nav-btn.active{color:var(--golden);border-bottom-color:var(--golden)}
+.topbar-right{padding:0 20px;display:flex;align-items:center;gap:12px}
+.countdown{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:6px 12px}
+.countdown-label{color:var(--gray-400);font-size:10px;text-transform:uppercase;letter-spacing:.8px}
+.countdown-days{color:var(--golden);font-family:'DM Mono',monospace;font-size:18px;font-weight:500}
+.countdown-days.urgent{color:var(--sunset);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.countdown-suffix{color:var(--gray-400);font-size:10px;text-transform:uppercase;letter-spacing:.8px}
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:var(--transition);border:none}
+.btn-primary{background:var(--golden);color:var(--midnight)}
+.btn-primary:hover{background:var(--sunrise)}
+.btn-ghost{background:transparent;color:var(--gray-600);border:1px solid var(--gray-200)}
+.btn-ghost:hover{background:var(--gray-100);border-color:var(--gray-300)}
+.btn-sm{padding:5px 10px;font-size:12px}
+/* ── Views ── */
+.content{flex:1;overflow:hidden;display:flex;position:relative}
+.view{display:none;flex:1;overflow-y:auto;padding:24px}
+.view.active{display:flex;flex-direction:column;gap:20px}
+/* ── Stat strip ── */
+.stat-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.stat-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow-sm)}
+.stat-card .label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--gray-600);font-weight:500;margin-bottom:6px}
+.stat-card .value{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--midnight);line-height:1}
+.stat-card .value.amber{color:#B45309}
+.stat-card .value.red{color:#991B1B}
+.stat-card .value.green{color:#065F46}
+/* ── Dashboard panels ── */
+.dash-grid-3{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.panel{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+.panel-header{padding:14px 18px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:12px;text-transform:uppercase;letter-spacing:.7px;font-weight:600;color:var(--gray-600)}
+/* ── Project cards ── */
+.project-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.project-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow-sm);cursor:pointer;transition:var(--transition);position:relative;overflow:hidden}
+.project-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.project-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.project-card.blue::before{background:#3B82F6}
+.project-card.green::before{background:#10B981}
+.project-card.amber::before{background:var(--golden)}
+.project-card.purple::before{background:#8B5CF6}
+.project-card-name{font-size:12px;font-weight:600;color:var(--midnight);margin-bottom:2px;line-height:1.3}
+.project-card-short{font-family:'DM Mono',monospace;font-size:10px;color:var(--gray-400);margin-bottom:10px}
+.project-card-stats{display:flex;gap:12px}
+.project-stat{text-align:center}
+.project-stat .n{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;line-height:1}
+.project-stat .n.amber{color:#B45309}
+.project-stat .n.green{color:#065F46}
+.project-stat .n.red{color:#991B1B}
+.project-stat .l{font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.5px}
+/* ── BIC leaderboard ── */
+.bic-row{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--gray-100)}
+.bic-row:last-child{border-bottom:none}
+.bic-avatar{width:32px;height:32px;border-radius:50%;background:var(--bic-bg);border:1px solid var(--bic-border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--bic-fg);flex-shrink:0;font-family:'DM Mono',monospace}
+.bic-org{font-weight:500;font-size:13px;flex:1}
+.bic-bar-wrap{width:100px;height:6px;background:var(--gray-100);border-radius:3px}
+.bic-bar{height:6px;background:var(--dawn);border-radius:3px}
+.bic-count{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;min-width:20px;text-align:right}
+/* ── NEM risk list ── */
+.nem-row{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--gray-100);cursor:pointer}
+.nem-row:hover{background:var(--sandstone)}
+.nem-row:last-child{border-bottom:none}
+/* ── Filter bar ── */
+.filter-bar{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;box-shadow:var(--shadow-sm)}
+.filter-bar input[type="text"]{flex:1;min-width:200px;border:1px solid var(--gray-200);border-radius:var(--radius);padding:7px 10px 7px 32px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--midnight);background:var(--gray-50) url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='4.5' stroke='%239e9890' stroke-width='1.5'/%3E%3Cpath d='M10 10L12 12' stroke='%239e9890' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 10px center}
+.filter-bar input:focus{outline:none;border-color:var(--dawn);box-shadow:0 0 0 3px rgba(165,176,227,.15)}
+.filter-bar select{border:1px solid var(--gray-200);border-radius:var(--radius);padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--midnight);background:var(--gray-50);cursor:pointer}
+.filter-bar select:focus{outline:none;border-color:var(--dawn)}
+.list-meta{display:flex;align-items:center;justify-content:space-between}
+.list-meta-count{font-size:12px;color:var(--gray-600)}
+/* ── Table ── */
+.rfi-table-wrap{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+.rfi-table{width:100%;border-collapse:collapse}
+.rfi-table thead th{background:var(--midnight);color:var(--gray-300);font-size:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:600;padding:10px 14px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0;z-index:1}
+.rfi-table thead th:hover{color:var(--white)}
+.rfi-table thead th.sorted{color:var(--golden)}
+.rfi-table tbody tr{border-bottom:1px solid var(--gray-100);cursor:pointer;transition:background var(--transition)}
+.rfi-table tbody tr:hover{background:var(--sandstone)}
+.rfi-table tbody tr.selected{background:#EEF2FF}
+/* Closed rows: grayed out, no critical border */
+.rfi-table tbody tr.row-closed{opacity:.55;background:#f7f7f5}
+.rfi-table tbody tr.row-closed:hover{opacity:.75;background:var(--gray-100)}
+/* Open critical: red left border */
+.rfi-table tbody tr.critical-open-row{border-left:3px solid var(--nem-red)}
+/* Overdue: red left border */
+.rfi-table tbody tr.overdue-row{border-left:3px solid #DC2626}
+.rfi-table td{padding:10px 14px;font-size:13px;vertical-align:middle}
+.rfi-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--midnight);font-weight:500;white-space:nowrap}
+.rfi-rev{font-family:'DM Mono',monospace;font-size:10px;color:var(--gray-400);background:var(--gray-100);padding:1px 5px;border-radius:3px}
+.rfi-desc{font-size:12px;color:var(--midnight);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rfi-project{font-size:11px;color:var(--gray-600)}
+/* ── Badges ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:11px;font-weight:600;white-space:nowrap;border:1px solid transparent}
+.badge-open{background:var(--open-bg);color:var(--open-fg);border-color:var(--open-border)}
+.badge-closed{background:var(--closed-bg);color:var(--closed-fg);border-color:var(--closed-border)}
+.badge-overdue{background:var(--overdue-bg);color:var(--overdue-fg);border-color:var(--overdue-border)}
+.badge-critical{background:var(--critical-bg);color:var(--critical-fg)}
+.badge-urgent,.badge-high{background:var(--urgent-bg);color:var(--urgent-fg)}
+.badge-medium{background:var(--medium-bg);color:var(--medium-fg)}
+.badge-standard,.badge-low{background:var(--standard-bg);color:var(--standard-fg)}
+.badge-yes-cost{background:#FEF2F2;color:#991B1B}
+.badge-yes-sched{background:#FEF2F2;color:#991B1B;font-weight:700}
+.badge-no{background:#F0FDF4;color:#166534}
+.badge-tbd,.badge-unknown{background:#F3F4F6;color:#374151}
+.badge-nem{background:#DC2626;color:#fff;font-size:9px;letter-spacing:.5px}
+.bic-cell{display:flex;align-items:center;gap:6px}
+.bic-cell-avatar{width:24px;height:24px;border-radius:50%;background:var(--bic-bg);border:1px solid var(--bic-border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--bic-fg);flex-shrink:0;font-family:'DM Mono',monospace}
+.bic-cell-name{font-size:12px;font-weight:600;color:var(--bic-fg);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.days-cell{font-family:'DM Mono',monospace;font-size:12px;font-weight:500}
+.days-cell.ok{color:var(--gray-600)}
+.days-cell.warn{color:#B45309}
+.days-cell.alert{color:#991B1B;font-weight:700}
+/* ── Drawer ── */
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(5,28,44,.3);z-index:100}
+.drawer-overlay.open{display:block}
+.drawer{position:fixed;right:0;top:52px;bottom:0;width:660px;background:var(--white);box-shadow:var(--shadow-lg);z-index:101;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+.drawer.open{transform:translateX(0)}
+.drawer-header{background:var(--midnight);padding:20px 24px 16px;flex-shrink:0}
+.drawer-header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.drawer-rfi-num{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--golden)}
+.drawer-close{background:none;border:none;color:var(--gray-400);cursor:pointer;padding:4px;border-radius:4px;font-size:18px;line-height:1;transition:var(--transition)}
+.drawer-close:hover{color:var(--white);background:var(--midnight-80)}
+.drawer-title{color:var(--white);font-size:15px;font-weight:500;line-height:1.4;margin-bottom:8px}
+.drawer-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.drawer-project{font-size:11px;color:var(--dawn);letter-spacing:.3px}
+.drawer-address{font-size:10px;color:var(--gray-400);font-style:italic;margin-top:3px}
+.drawer-body{flex:1;overflow-y:auto}
+.drawer-section{padding:18px 24px;border-bottom:1px solid var(--gray-100)}
+.drawer-section:last-child{border-bottom:none}
+.section-label{font-size:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:600;color:var(--gray-400);margin-bottom:12px}
 /* BIC block */
-.bic-block { background: var(--bic-bg); border: 1px solid var(--bic-border); border-radius: var(--radius-lg); padding: 14px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
-.bic-block-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--dawn); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--midnight); flex-shrink: 0; font-family: 'DM Mono', monospace; border: 2px solid rgba(165,176,227,0.5); }
-.bic-block-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bic-fg); font-weight: 600; margin-bottom: 2px; }
-.bic-block-name { font-size: 16px; font-weight: 600; color: var(--midnight); }
-.bic-block-person { font-size: 12px; color: var(--gray-600); margin-top: 1px; }
+.bic-block{background:var(--bic-bg);border:1px solid var(--bic-border);border-radius:var(--radius-lg);padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.bic-block-avatar{width:44px;height:44px;border-radius:50%;background:var(--dawn);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--midnight);flex-shrink:0;font-family:'DM Mono',monospace;border:2px solid rgba(165,176,227,.5)}
+.bic-block-label{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--bic-fg);font-weight:600;margin-bottom:2px}
+.bic-block-name{font-size:16px;font-weight:600;color:var(--midnight)}
+.bic-block-person{font-size:12px;color:var(--gray-600);margin-top:1px}
 /* Fields grid */
-.fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.field { }
-.field-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--gray-400); font-weight: 600; margin-bottom: 3px; }
-.field-value { font-size: 13px; color: var(--midnight); font-weight: 500; }
-.field-value.mono { font-family: 'DM Mono', monospace; font-size: 12px; }
-.field-value.muted { color: var(--gray-600); font-weight: 400; }
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field-label{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--gray-400);font-weight:600;margin-bottom:3px}
+.field-value{font-size:13px;color:var(--midnight);font-weight:500}
+.field-value.mono{font-family:'DM Mono',monospace;font-size:12px}
+.field-value.muted{color:var(--gray-600);font-weight:400}
 /* Timeline */
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.timeline-item { display: flex; gap: 12px; padding-bottom: 16px; position: relative; }
-.timeline-item:last-child { padding-bottom: 0; }
-.timeline-left { display: flex; flex-direction: column; align-items: center; width: 24px; flex-shrink: 0; }
-.timeline-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--golden); border: 2px solid var(--white); box-shadow: 0 0 0 2px var(--golden); flex-shrink: 0; margin-top: 4px; }
-.timeline-dot.closed { background: #10B981; box-shadow: 0 0 0 2px #10B981; }
-.timeline-dot.submitted { background: var(--dawn); box-shadow: 0 0 0 2px var(--dawn); }
-.timeline-dot.revised { background: var(--sunset); box-shadow: 0 0 0 2px var(--sunset); }
-.timeline-dot.escalated { background: #DC2626; box-shadow: 0 0 0 2px #DC2626; }
-.timeline-line { flex: 1; width: 1px; background: var(--gray-200); margin-top: 4px; }
-.timeline-content { flex: 1; min-width: 0; padding-top: 1px; }
-.timeline-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.timeline-action { font-size: 11px; font-weight: 700; color: var(--midnight); text-transform: uppercase; letter-spacing: 0.5px; }
-.timeline-actor { font-size: 11px; color: var(--gray-600); }
-.timeline-date { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray-400); margin-left: auto; }
-.timeline-note { font-size: 12px; color: var(--gray-800); line-height: 1.5; }
-.add-update-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--bic-fg); font-weight: 500; background: none; border: 1px dashed var(--bic-border); border-radius: var(--radius); padding: 6px 12px; cursor: pointer; transition: var(--transition); margin-top: 10px; }
-.add-update-btn:hover { background: var(--bic-bg); }
-.update-form { margin-top: 12px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 14px; display: none; }
-.update-form.open { display: block; }
-.update-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-.update-form select, .update-form input, .update-form textarea { width: 100%; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 7px 10px; font-family: 'DM Sans', sans-serif; font-size: 12px; background: var(--white); color: var(--midnight); }
-.update-form textarea { resize: vertical; min-height: 60px; margin-bottom: 8px; }
+.timeline{display:flex;flex-direction:column;gap:0}
+.timeline-item{display:flex;gap:12px;padding-bottom:16px;position:relative}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-left{display:flex;flex-direction:column;align-items:center;width:24px;flex-shrink:0}
+.timeline-dot{width:10px;height:10px;border-radius:50%;background:var(--golden);border:2px solid var(--white);box-shadow:0 0 0 2px var(--golden);flex-shrink:0;margin-top:4px}
+.timeline-dot.closed{background:#10B981;box-shadow:0 0 0 2px #10B981}
+.timeline-dot.submitted{background:var(--dawn);box-shadow:0 0 0 2px var(--dawn)}
+.timeline-dot.revised{background:var(--sunset);box-shadow:0 0 0 2px var(--sunset)}
+.timeline-dot.escalated{background:#DC2626;box-shadow:0 0 0 2px #DC2626}
+.timeline-line{flex:1;width:1px;background:var(--gray-200);margin-top:4px}
+.timeline-content{flex:1;min-width:0;padding-top:1px}
+.timeline-header{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.timeline-action{font-size:11px;font-weight:700;color:var(--midnight);text-transform:uppercase;letter-spacing:.5px}
+.timeline-actor{font-size:11px;color:var(--gray-600)}
+.timeline-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gray-400);margin-left:auto}
+.timeline-note{font-size:12px;color:var(--gray-800);line-height:1.5}
+.add-update-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--bic-fg);font-weight:500;background:none;border:1px dashed var(--bic-border);border-radius:var(--radius);padding:6px 12px;cursor:pointer;transition:var(--transition);margin-top:10px}
+.add-update-btn:hover{background:var(--bic-bg)}
+.update-form{margin-top:12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;display:none}
+.update-form.open{display:block}
+.update-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.update-form select,.update-form input,.update-form textarea{width:100%;border:1px solid var(--gray-200);border-radius:var(--radius);padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:12px;background:var(--white);color:var(--midnight)}
+.update-form textarea{resize:vertical;min-height:60px;margin-bottom:8px}
 /* Content blocks */
-.content-block { margin-bottom: 14px; }
-.content-block-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--gray-400); font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-.content-block-text { font-size: 13px; color: var(--midnight); line-height: 1.6; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 10px 12px; }
-.content-block-text.empty { color: var(--gray-400); font-style: italic; }
-.impact-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.content-block-text{font-size:13px;color:var(--midnight);line-height:1.6;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:10px 12px}
+.content-block-text.empty{color:var(--gray-400);font-style:italic}
+.impact-badges{display:flex;gap:8px;flex-wrap:wrap}
+/* Attachments */
+.attach-section{margin-top:12px}
+.attach-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.7px;font-weight:600;color:var(--gray-600);margin-bottom:6px;margin-top:12px}
+.attach-list{display:flex;flex-direction:column;gap:6px}
+.attach-item{display:flex;align-items:center;gap:8px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:8px 10px}
+.attach-icon{width:28px;height:28px;border-radius:4px;background:var(--bic-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.attach-name{font-size:12px;font-weight:500;color:var(--midnight);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.attach-meta{font-size:10px;color:var(--gray-400)}
+.attach-actions{display:flex;gap:4px}
+.attach-link{font-size:11px;color:var(--bic-fg);font-weight:500;text-decoration:none;padding:3px 7px;border:1px solid var(--bic-border);border-radius:4px;background:var(--bic-bg);cursor:pointer}
+.attach-link:hover{background:var(--dawn);color:var(--midnight)}
+.attach-upload-zone{border:2px dashed var(--gray-300);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer;transition:var(--transition);margin-top:8px}
+.attach-upload-zone:hover{border-color:var(--dawn);background:rgba(165,176,227,.06)}
+.attach-upload-zone p{font-size:12px;color:var(--gray-400)}
+.attach-upload-zone strong{font-size:12px;color:var(--bic-fg);font-weight:600}
+.box-link-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.box-link-input{flex:1;border:1px solid var(--gray-200);border-radius:var(--radius);padding:6px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--midnight);background:var(--white)}
 /* Drawer footer */
-.drawer-footer { border-top: 1px solid var(--gray-200); padding: 14px 24px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; background: var(--gray-50); }
+.drawer-footer{border-top:1px solid var(--gray-200);padding:14px 24px;display:flex;align-items:center;gap:8px;flex-shrink:0;background:var(--gray-50)}
 /* ── Modal ── */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(5,28,44,0.5); z-index: 200; align-items: center; justify-content: center; }
-.modal-overlay.open { display: flex; }
-.modal { background: var(--white); border-radius: var(--radius-lg); width: 680px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: var(--shadow-lg); }
-.modal-header { background: var(--midnight); padding: 18px 24px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.modal-title { color: var(--white); font-size: 15px; font-weight: 600; }
-.modal-body { padding: 24px; overflow-y: auto; flex: 1; }
-.modal-footer { padding: 14px 24px; border-top: 1px solid var(--gray-200); display: flex; justify-content: flex-end; gap: 8px; flex-shrink: 0; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-group { }
-.form-group.full { grid-column: 1 / -1; }
-.form-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; color: var(--gray-600); margin-bottom: 5px; display: block; }
-.form-label .req { color: #DC2626; }
-.form-input { width: 100%; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 8px 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--midnight); background: var(--white); transition: var(--transition); }
-.form-input:focus { outline: none; border-color: var(--dawn); box-shadow: 0 0 0 3px rgba(165,176,227,0.2); }
-.form-input.error { border-color: #DC2626; }
-textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,28,44,.5);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:var(--radius-lg);width:700px;max-height:90vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg)}
+.modal-header{background:var(--midnight);padding:18px 24px;border-radius:var(--radius-lg) var(--radius-lg) 0 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-title{color:var(--white);font-size:15px;font-weight:600}
+.modal-body{padding:24px;overflow-y:auto;flex:1}
+.modal-footer{padding:14px 24px;border-top:1px solid var(--gray-200);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{}
+.form-group.full{grid-column:1/-1}
+.form-group.third{grid-column:span 1}
+.form-label{font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:600;color:var(--gray-600);margin-bottom:5px;display:block}
+.form-label .req{color:#DC2626}
+.form-input{width:100%;border:1px solid var(--gray-200);border-radius:var(--radius);padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--midnight);background:var(--white);transition:var(--transition)}
+.form-input:focus{outline:none;border-color:var(--dawn);box-shadow:0 0 0 3px rgba(165,176,227,.2)}
+.form-input.error{border-color:#DC2626}
+textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
+/* Two-tier assignee */
+.assignee-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* In-viewer for attachments */
+.doc-viewer{margin-top:10px;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;display:none}
+.doc-viewer.open{display:block}
+.doc-viewer-header{background:var(--midnight);padding:8px 12px;display:flex;align-items:center;justify-content:space-between}
+.doc-viewer-title{color:var(--white);font-size:11px;font-family:'DM Mono',monospace}
+.doc-viewer-close{background:none;border:none;color:var(--gray-400);cursor:pointer;font-size:14px}
+.doc-viewer iframe{width:100%;height:420px;border:none;display:block}
+.doc-viewer .doc-placeholder{height:200px;display:flex;align-items:center;justify-content:center;background:var(--gray-50);flex-direction:column;gap:8px}
+.doc-viewer .doc-placeholder p{font-size:12px;color:var(--gray-400)}
 /* Toast */
-.toast { position: fixed; bottom: 24px; right: 24px; background: var(--midnight); color: var(--white); padding: 10px 16px; border-radius: var(--radius); font-size: 13px; box-shadow: var(--shadow-md); z-index: 999; opacity: 0; transform: translateY(10px); transition: all 0.2s; pointer-events: none; display: flex; align-items: center; gap: 8px; }
-.toast.show { opacity: 1; transform: translateY(0); }
-.toast-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--golden); }
+.toast{position:fixed;bottom:24px;right:24px;background:var(--midnight);color:var(--white);padding:10px 16px;border-radius:var(--radius);font-size:13px;box-shadow:var(--shadow-md);z-index:999;opacity:0;transform:translateY(10px);transition:all .2s;pointer-events:none;display:flex;align-items:center;gap:8px}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast-dot{width:6px;height:6px;border-radius:50%;background:var(--golden)}
 /* Empty state */
-.empty-state { text-align: center; padding: 48px 24px; color: var(--gray-400); }
-.empty-state-icon { font-size: 32px; margin-bottom: 12px; }
-.empty-state-text { font-size: 14px; font-weight: 500; color: var(--gray-600); margin-bottom: 6px; }
-.empty-state-sub { font-size: 12px; }
+.empty-state{text-align:center;padding:48px 24px;color:var(--gray-400)}
+.empty-state-text{font-size:14px;font-weight:500;color:var(--gray-600);margin-bottom:6px}
+.empty-state-sub{font-size:12px}
 /* Scrollbar */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--gray-400)}
+
+/* ── Official response block ── */
+.official-response{background:#F0FDF4;border:1.5px solid #A7F3D0;border-left:4px solid #10B981;border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:14px}
+.official-response-label{font-size:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:700;color:#065F46;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.official-response-text{font-size:13px;color:#065F46;line-height:1.6}
+.official-response-meta{font-size:11px;color:#6EE7B7;margin-top:6px;font-family:'DM Mono',monospace}
+.timeline-item.official{background:rgba(16,185,129,.06);border-radius:var(--radius);padding:8px;margin-bottom:4px}
+.timeline-item.official .timeline-dot{background:#10B981;box-shadow:0 0 0 2px #10B981}
+.timeline-item.official .timeline-action{color:#065F46}
+.timeline-official-badge{font-size:9px;background:#10B981;color:#fff;padding:1px 6px;border-radius:100px;font-weight:700;letter-spacing:.5px;margin-left:4px}
+.official-check-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border:1px solid #A7F3D0;border-radius:var(--radius);margin-bottom:8px;cursor:pointer}
+.official-check-row input{width:14px;height:14px;cursor:pointer;accent-color:#10B981}
+.official-check-row label{font-size:12px;font-weight:500;color:#065F46;cursor:pointer}
+/* ── Revision rows ── */
+.rfi-table tbody tr.rev-child td:first-child{padding-left:28px}
+.rfi-table tbody tr.rev-child{background:#f9f8f5}
+.rfi-table tbody tr.rev-child.row-closed{opacity:.5}
+.rev-toggle{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--bic-fg);background:var(--bic-bg);border:1px solid var(--bic-border);border-radius:100px;padding:2px 7px;cursor:pointer;margin-left:6px;font-weight:600;white-space:nowrap}
+.rev-toggle:hover{background:var(--dawn);color:var(--midnight)}
+.rev-arrow{display:inline-block;transition:transform .15s;font-size:9px}
+.rev-arrow.open{transform:rotate(90deg)}
+/* ── Close RFI intercept modal ── */
+.close-modal{background:var(--white);border-radius:var(--radius-lg);width:500px;max-height:85vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg)}
+.close-modal-header{background:#065F46;padding:16px 20px;border-radius:var(--radius-lg) var(--radius-lg) 0 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.close-modal-title{color:#fff;font-size:14px;font-weight:600}
+.close-modal-body{padding:20px;overflow-y:auto;flex:1}
+.close-modal-footer{padding:12px 20px;border-top:1px solid var(--gray-200);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0;background:var(--gray-50)}
+.close-form-group{margin-bottom:14px}
+.close-form-group label{font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:600;color:var(--gray-600);margin-bottom:5px;display:block}
+.close-form-group label .req{color:#DC2626}
+.char-counter{font-size:10px;color:var(--gray-400);text-align:right;margin-top:2px}
+.char-counter.good{color:#065F46}
+/* ── Print styles ── */
+@media print{
+  .topbar,.filter-bar,.list-meta,.drawer-overlay,.drawer,.modal-overlay,.toast,.btn,.attach-upload-zone,.box-link-row,.update-form,.add-update-btn,.drawer-footer{display:none!important}
+  body{background:#fff;font-size:12px;color:#000}
+  .app,.content{height:auto;overflow:visible}
+  .view{display:flex!important;overflow:visible;padding:0}
+  .rfi-table-wrap{box-shadow:none;border:1px solid #ccc}
+  .rfi-table thead th{background:#051C2C!important;color:#FFB600!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rfi-table tbody tr{page-break-inside:avoid}
+  .print-header{display:block!important;padding:0 0 16px;border-bottom:2px solid #051C2C;margin-bottom:16px}
+  .print-footer{display:block!important;text-align:center;font-size:10px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:8px}
+  .stat-strip,.project-cards,.dash-grid-3{display:none!important}
+}
+.print-header{display:none}
+.print-footer{display:none}
 </style>
 </head>
 <body>
@@ -271,11 +328,34 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
   <div class="topbar">
     <div class="topbar-brand">
       <div class="topbar-logo">
-        <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#051C2C" stroke-width="2"/><path d="M9 4v5l3 2" stroke="#051C2C" stroke-width="2" stroke-linecap="round"/></svg>
+        <!-- Solar panel icon -->
+        <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="5" width="20" height="12" rx="1.5" fill="#051C2C" stroke="#051C2C" stroke-width=".5"/>
+          <rect x="1" y="5" width="20" height="12" rx="1.5" stroke="#051C2C" stroke-width="1"/>
+          <!-- Grid lines -->
+          <line x1="1" y1="9" x2="21" y2="9" stroke="#FFB600" stroke-width=".8"/>
+          <line x1="1" y1="13" x2="21" y2="13" stroke="#FFB600" stroke-width=".8"/>
+          <line x1="7.67" y1="5" x2="7.67" y2="17" stroke="#FFB600" stroke-width=".8"/>
+          <line x1="14.33" y1="5" x2="14.33" y2="17" stroke="#FFB600" stroke-width=".8"/>
+          <!-- Cells shading -->
+          <rect x="1.5" y="5.5" width="5.5" height="3" fill="rgba(165,176,227,0.35)"/>
+          <rect x="8.2" y="5.5" width="5.5" height="3" fill="rgba(165,176,227,0.2)"/>
+          <rect x="14.8" y="5.5" width="5.7" height="3" fill="rgba(165,176,227,0.35)"/>
+          <rect x="1.5" y="9.5" width="5.5" height="3" fill="rgba(165,176,227,0.2)"/>
+          <rect x="8.2" y="9.5" width="5.5" height="3" fill="rgba(165,176,227,0.35)"/>
+          <rect x="14.8" y="9.5" width="5.7" height="3" fill="rgba(165,176,227,0.2)"/>
+          <rect x="1.5" y="13.5" width="5.5" height="3" fill="rgba(165,176,227,0.35)"/>
+          <rect x="8.2" y="13.5" width="5.5" height="3" fill="rgba(165,176,227,0.2)"/>
+          <rect x="14.8" y="13.5" width="5.7" height="3" fill="rgba(165,176,227,0.35)"/>
+          <!-- Mounting legs -->
+          <line x1="7" y1="17" x2="5" y2="21" stroke="#051C2C" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="15" y1="17" x2="17" y2="21" stroke="#051C2C" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="4" y1="21" x2="18" y2="21" stroke="#051C2C" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
       </div>
       <div>
-        <div class="topbar-name">Coast Energy</div>
-        <div class="topbar-sub">BMR Program · RFI Tracker</div>
+        <div class="topbar-name">Coast Energy | Morpho Energy</div>
+        <div class="topbar-sub">NEM 2.0 Project — RFI Tracker</div>
       </div>
     </div>
     <div class="topbar-nav">
@@ -295,23 +375,22 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
   <div class="content">
-    <!-- DASHBOARD VIEW -->
+    <!-- DASHBOARD -->
     <div class="view active" id="view-dashboard">
       <div class="stat-strip" id="stat-strip"></div>
       <div class="project-cards" id="project-cards"></div>
       <div class="dash-grid-3">
         <div class="panel">
           <div class="panel-header">
-            <span class="panel-title">NEM 2.0 Risk Items — Open + Schedule Impact</span>
+            <span class="panel-title">NEM 2.0 Risk — Open + Schedule Impact</span>
             <span class="badge badge-overdue" id="nem-count-badge"></span>
           </div>
-          <div class="panel-body" id="nem-risk-list"></div>
+          <div id="nem-risk-list"></div>
         </div>
         <div class="panel">
-          <div class="panel-header"><span class="panel-title">Ball in Court — Open Items</span></div>
-          <div class="panel-body" id="bic-leaderboard"></div>
+          <div class="panel-header"><span class="panel-title">Currently Assigned To — Open Items</span></div>
+          <div id="bic-leaderboard"></div>
         </div>
       </div>
     </div>
@@ -319,13 +398,13 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
     <!-- LIST VIEW -->
     <div class="view" id="view-list">
       <div class="filter-bar">
-        <input type="text" id="search" placeholder="Search RFI #, title, description…" oninput="renderTable()">
+        <input type="text" id="search" placeholder="Search RFI #, description, keyword…" oninput="renderTable()">
         <select id="f-project" onchange="renderTable()">
           <option value="">All Projects</option>
-          <option>Berkshire Iron Point</option>
-          <option>BMR-PRC Newark</option>
+          <option>BioMed PRC (Newark)</option>
           <option>AMLI Via Marina (MDR)</option>
           <option>AMLI Broadway (Long Beach)</option>
+          <option>Berkshire (San Jose)</option>
         </select>
         <select id="f-status" onchange="renderTable()">
           <option value="">All Status</option>
@@ -338,14 +417,15 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
         </select>
         <select id="f-discipline" onchange="renderTable()">
           <option value="">All Disciplines</option>
-          <option>Electrical</option><option>Structural</option><option>Civil</option><option>General</option>
+          <option>Electrical</option><option>Structural</option>
+          <option>Civil</option><option>General</option>
         </select>
         <select id="f-sched" onchange="renderTable()">
           <option value="">Sched Impact: All</option>
           <option value="Yes">Schedule Impact: Yes</option>
         </select>
-        <div class="filter-divider"></div>
         <button class="btn btn-ghost btn-sm" onclick="exportCSV()">↓ CSV</button>
+        <button class="btn btn-ghost btn-sm" onclick="printList()">⎙ Print</button>
       </div>
       <div class="list-meta">
         <span class="list-meta-count" id="list-count"></span>
@@ -357,11 +437,11 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
             <tr>
               <th onclick="sortTable('num')">RFI #</th>
               <th onclick="sortTable('project')">Project</th>
-              <th onclick="sortTable('subject')">Subject</th>
-              <th onclick="sortTable('discipline')">Discipline</th>
-              <th onclick="sortTable('priority')">Priority</th>
               <th onclick="sortTable('status')">Status</th>
-              <th onclick="sortTable('bic')">Ball in Court</th>
+              <th onclick="sortTable('priority')">Priority</th>
+              <th onclick="sortTable('subject')">Description</th>
+              <th onclick="sortTable('disc')">Discipline</th>
+              <th onclick="sortTable('bic')">Currently Assigned To</th>
               <th onclick="sortTable('dateReq')">Due</th>
               <th onclick="sortTable('daysOpen')">Days Open</th>
               <th>Impact</th>
@@ -383,7 +463,51 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
     <div class="drawer-footer" id="drawer-footer"></div>
   </div>
 
-  <!-- NEW RFI MODAL -->
+
+  <!-- PRINT HEADER (hidden on screen, visible on print) -->
+  <div class="print-header" id="print-header">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:#051C2C">Coast Energy | Morpho Energy</div>
+        <div style="font-size:11px;color:#6b6560;margin-top:2px">NEM 2.0 Project — RFI Tracker</div>
+      </div>
+      <div style="text-align:right;font-size:10px;color:#9e9890">
+        <div id="print-date"></div>
+        <div>Confidential — NEM 2.0 Program</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSE RFI INTERCEPT MODAL -->
+  <div class="modal-overlay" id="close-modal-overlay">
+    <div class="close-modal">
+      <div class="close-modal-header">
+        <span class="close-modal-title">Close RFI — Official Response Required</span>
+        <button class="drawer-close" onclick="cancelCloseRFI()">✕</button>
+      </div>
+      <div class="close-modal-body">
+        <p style="font-size:13px;color:var(--gray-600);margin-bottom:16px;line-height:1.6">An official response must be recorded before this RFI can be closed. This becomes the permanent record of resolution.</p>
+        <div class="close-form-group">
+          <label>Official Response <span class="req">*</span></label>
+          <textarea class="form-input" id="cr-response" rows="5" placeholder="Describe the resolution, decision, or EOR response in detail. Minimum 20 characters required." oninput="checkCloseForm()"></textarea>
+          <div class="char-counter" id="cr-char">0 / 20 minimum</div>
+        </div>
+        <div class="close-form-group">
+          <label>Responded By <span class="req">*</span></label>
+          <input class="form-input" id="cr-by" placeholder="Company / Name" oninput="checkCloseForm()">
+        </div>
+        <div class="close-form-group">
+          <label>Date Responded</label>
+          <input class="form-input" type="date" id="cr-date">
+        </div>
+      </div>
+      <div class="close-modal-footer">
+        <button class="btn btn-ghost" onclick="cancelCloseRFI()">Cancel</button>
+        <button class="btn btn-primary" id="cr-confirm" onclick="confirmCloseRFI()" disabled style="background:#10B981;opacity:.5">✓ Close RFI</button>
+      </div>
+    </div>
+  </div>
+  <!-- NEW/EDIT RFI MODAL -->
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal">
       <div class="modal-header">
@@ -398,18 +522,16 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
           </div>
           <div class="form-group">
             <label class="form-label">Revision</label>
-            <select class="form-input" id="m-rev">
-              <option>Orig</option><option>Rev</option>
-            </select>
+            <select class="form-input" id="m-rev"><option>Orig</option><option>Rev</option></select>
           </div>
           <div class="form-group">
             <label class="form-label">Project <span class="req">*</span></label>
             <select class="form-input" id="m-project">
               <option value="">Select project…</option>
-              <option>Berkshire Iron Point</option>
-              <option>BMR-PRC Newark</option>
+              <option>BioMed PRC (Newark)</option>
               <option>AMLI Via Marina (MDR)</option>
               <option>AMLI Broadway (Long Beach)</option>
+              <option>Berkshire (San Jose)</option>
             </select>
           </div>
           <div class="form-group">
@@ -437,16 +559,27 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Ball in Court <span class="req">*</span></label>
-            <input class="form-input" id="m-bic" placeholder="Company / Person">
-          </div>
-          <div class="form-group">
             <label class="form-label">Submitted By</label>
             <input class="form-input" id="m-submittedBy" placeholder="Company - Name">
           </div>
           <div class="form-group">
             <label class="form-label">Directed To</label>
             <input class="form-input" id="m-directedTo" placeholder="Company - Name">
+          </div>
+          <!-- Two-tier Assigned To -->
+          <div class="form-group full">
+            <label class="form-label">Currently Assigned To (Company + Person) <span class="req">*</span></label>
+            <div class="assignee-wrap">
+              <select class="form-input" id="m-bic-company" onchange="updatePersonDropdown()">
+                <option value="">Select company…</option>
+                <option value="Morpho Energy">Morpho Energy</option>
+                <option value="Coast Energy">Coast Energy</option>
+                <option value="BPI">BPI</option>
+              </select>
+              <select class="form-input" id="m-bic-person">
+                <option value="">Select person…</option>
+              </select>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label">Date Submitted</label>
@@ -457,7 +590,7 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
             <input class="form-input" type="date" id="m-dateReq">
           </div>
           <div class="form-group full">
-            <label class="form-label">Subject / Title <span class="req">*</span></label>
+            <label class="form-label">Description / Title <span class="req">*</span></label>
             <input class="form-input" id="m-subject" placeholder="Brief descriptive title">
           </div>
           <div class="form-group full">
@@ -503,253 +636,220 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.5; }
 <div class="toast" id="toast"><div class="toast-dot"></div><span id="toast-msg"></span></div>
 
 <script>
-// ── Data ─────────────────────────────────────────────────────────────────────
+// ── Project metadata ───────────────────────────────────────────────────────────
 const PROJECT_META = {
-  "Berkshire Iron Point":        { short: "BBE-BER-001-3401", color: "blue" },
-  "BMR-PRC Newark":              { short: "BMR-PRC-7999",     color: "green" },
-  "AMLI Via Marina (MDR)":       { short: "AMLI-MDR",         color: "amber" },
-  "AMLI Broadway (Long Beach)":  { short: "AMLI-LB",          color: "purple" },
+  "BioMed PRC (Newark)":        { short:"BMR-PRC-7999",     color:"green",  address:"7999 Gateway Boulevard, Newark, California 94560" },
+  "AMLI Via Marina (MDR)":      { short:"AMLI-MDR",         color:"amber",  address:"4242 Via Marina, Marina Del Rey, California 90292" },
+  "AMLI Broadway (Long Beach)": { short:"AMLI-LB",          color:"purple", address:"245 West Broadway, Long Beach, California 90802" },
+  "Berkshire (San Jose)":       { short:"BBE-BER-001-3401", color:"blue",   address:"3401 Iron Point Drive, San Jose, California 95134" },
 };
 
+// Dashboard display order
+const PROJ_ORDER = ["BioMed PRC (Newark)","AMLI Via Marina (MDR)","AMLI Broadway (Long Beach)","Berkshire (San Jose)"];
+
+// ── Two-tier assignee data ─────────────────────────────────────────────────────
+const ASSIGNEES = {
+  "Morpho Energy": ["Danny Hinks","Sadia Afrin","Gina Gavagni","Cole Conway"],
+  "Coast Energy":  ["Pierre Quincy","Dustin Albanese","Haris Hadzic","Chris Jones","Shai Bergerfroind"],
+  "BPI":           ["Dirk Vollbrecht","Wynand van der Wateren"],
+};
+
+function updatePersonDropdown(company, personEl) {
+  const co = company || document.getElementById('m-bic-company').value;
+  const el = personEl || document.getElementById('m-bic-person');
+  const people = ASSIGNEES[co] || [];
+  el.innerHTML = `<option value="">Select person…</option>` +
+    people.map(p => `<option value="${p}">${p}</option>`).join('');
+}
+
+// ── Seed data (all 46 RFIs, updated project names) ───────────────────────────
 const SEED = [
-  // ── Berkshire Iron Point ──────────────────────────────────────────────────
-  {id:"BER-001-Orig",num:"001",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Blocking to roof member attachment",problem:"Rafter blocking required for roof member attachment. Dimensions not specified on plans.",resolution:"Resolution provided by Morpho EOR. Confirmed acceptable approach.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",
-   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"RFI submitted for blocking dimensions at roof member attachment."},
-             {date:"2026-01-23",actor:"Morpho / Cole Conway",action:"Response Issued",note:"EOR confirmed acceptable blocking approach. RFI closed."}]},
-  {id:"BER-002-Orig",num:"002",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-22",subject:"Conduit runs on the outside of building",problem:"Conduit routing on building exterior not detailed on plans. Issue between Coast and building owner.",resolution:"Routing confirmed via email. Issue flagged for Coast / building owner coordination.",planRev:"No",costImp:"Unknown",schedImp:"No",drawRef:"",
-   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Conduit routing exterior detail missing from plans."},
-             {date:"2026-01-22",actor:"Morpho / Danny Hinks",action:"Response Issued",note:"Routing confirmed. Coast and building owner to coordinate ongoing."}]},
-  {id:"BER-003-Orig",num:"003",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-27",subject:"Shims for a sloped roof",problem:"Roof slope requires shim detailing not shown in plans.",resolution:"Shim approach confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",
-   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Shim detail missing for sloped roof sections."},
-             {date:"2026-01-27",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Shim approach confirmed by EOR."}]},
-  {id:"BER-004-Orig",num:"004",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Screw lengths for pads",problem:"Screw lengths for ballast pads not specified.",resolution:"Lengths confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",
-   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Pad screw lengths unspecified."},
-             {date:"2026-01-23",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Lengths confirmed by EOR."}]},
-  {id:"BER-005-Orig",num:"005",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Wire schedule — lengths have changed",problem:"Wire schedule submitted with original design does not match field-measured lengths.",resolution:"",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",
-   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Field-measured lengths differ from wire schedule. Revised schedule required."}]},
-  {id:"BER-006-Orig",num:"006",rev:"Orig",project:"Berkshire Iron Point",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Breaker space not available for POC",problem:"No available breaker space at Point of Connection. BPi notes possible line-side tap alternative.",resolution:"BiC Morpho — review line-side tap notes from BPi.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",
-   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"No breaker space at POC. Proposing line-side tap as alternative."}]},
-  {id:"BER-007-Orig",num:"007",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Request to swap equipment",problem:"Equipment substitution required. Verification of RFI-005 needed before fault current calcs.",resolution:"Swap approved. Should be formalized as submittal.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",
-   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Equipment swap needed. Waiting on RFI-005 for fault current calc inputs."},
-             {date:"2026-01-28",actor:"Morpho / Sadia Afrin",action:"Response Issued",note:"Swap approved. Note: formalize as submittal per project protocol."}]},
-  {id:"BER-008-Orig",num:"008",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-20",dateReq:"2026-02-07",dateResp:"",subject:"DAS — drawings, status, quantity of Gateways",problem:"DAS gateway count, drawings, and installation status unresolved. AE design sheets pending.",resolution:"BiC Coast — share AE design sheets when available.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",
-   timeline:[{date:"2026-01-20",actor:"BPi",action:"Submitted",note:"Gateway count and DAS drawings not available. AE design sheets needed from Coast."}]},
-  {id:"BER-009-Orig",num:"009",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-28",dateReq:"",dateResp:"",subject:"Location of production meters and CT installation",problem:"Meter and CT locations not specified on plans. AE design sheets pending from Coast.",resolution:"BiC Coast — provide AE designs.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",
-   timeline:[{date:"2026-01-28",actor:"BPi",action:"Submitted",note:"Meter and CT locations not on plans. Coast AE designs needed."}]},
-  {id:"BER-010-Orig",num:"010",rev:"Orig",project:"Berkshire Iron Point",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-13",dateReq:"2026-02-17",dateResp:"2026-02-17",subject:"AC disconnect viewing window not required",problem:"Clarification sought whether AC disconnect requires viewing window per code.",resolution:"Morpho confirmed no viewing window required via email 2/17/2026.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",
-   timeline:[{date:"2026-02-13",actor:"BPi",action:"Submitted",note:"Code clarification needed on AC disconnect viewing window."},
-             {date:"2026-02-17",actor:"Morpho / Danny Hinks",action:"Response Issued",note:"Confirmed via email — no viewing window required."}]},
-  {id:"BER-011-Orig",num:"011",rev:"Orig",project:"Berkshire Iron Point",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-19",dateReq:"2026-03-25",dateResp:"",subject:"Existing equipment conflicts with new solar equipment in electrical rooms",problem:"Existing equipment occupies space shown for new solar equipment on drawings.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",
-   timeline:[{date:"2026-02-19",actor:"BPi",action:"Submitted",note:"Existing equipment in electrical rooms conflicts with new solar layout."}]},
-  {id:"BER-014-Orig",num:"014",rev:"Orig",project:"Berkshire Iron Point",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Open",bic:"Morpho / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-16",dateReq:"2026-03-16",dateResp:"",subject:"Remedy for elevation changes on system",problem:"Elevation changes across roof deck require design solution not addressed in current plans.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",
-   timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"Elevation changes on roof deck — no design solution in current plans. ASAP needed."}]},
-  {id:"BER-015-Orig",num:"015",rev:"Orig",project:"Berkshire Iron Point",site:"Elec Room",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-16",dateReq:"2026-03-20",dateResp:"",subject:"Updated stamped SLD — tap instead of breaker connection at POI 2",problem:"Engineer of record stamp required showing load-side tap at POI 2 instead of breaker connection. NEC tap rule applies.",resolution:"BiC Morpho — EEOR stamp required for POI 2 load-side tap.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"E-POI2",
-   timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"EOR stamp needed for load-side tap at POI 2. NEC tap rule — urgent."}]},
-  // ── BMR-PRC Newark ─────────────────────────────────────────────────────────
-  {id:"PRC-003-Orig",num:"003",rev:"Orig",project:"BMR-PRC Newark",site:"7979 (7999-B)",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Coast / Pierre-Marie Quincy",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2025-12-05",dateReq:"ASAP",dateResp:"2025-12-10",subject:"Conduit & wire sizing — Subsystem 7979 trench detail & conductor schedule",problem:"Two issues: (1) Slurry trench detail not followed — conduits installed without encasement. (2) 75°C wire in design; BPi proposes 90°C allowing reduced conductor and conduit sizes.",resolution:"Alternate trench detail approved. 90°C wire approved; conduit schedule revised for 7979 permit.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0068",
-   timeline:[{date:"2025-12-05",actor:"BPi",action:"Submitted",note:"Two field condition issues: trench encasement and conductor temperature rating."},
-             {date:"2025-12-10",actor:"Coast / Pierre-Marie Quincy",action:"Response Issued",note:"Alternate trench detail and 90°C wire both approved. Schedule revised for permit."}]},
-  {id:"PRC-004-Orig",num:"004",rev:"Orig",project:"BMR-PRC Newark",site:"7999-A, 7999-B",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast Energy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Transformer for lighting circuits — Arrays 20–44 (480V to 277V)",problem:"480V lighting circuits cannot power 277V LED fixtures. Stepdown transformers required (~10 units minimum). Blocking release of parking sections to public.",resolution:"Larson Electronics 480V/277V stepdown transformers approved. Change order for material + labor. Min 10 units ordered.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"E-lighting",
-   timeline:[{date:"2026-01-21",actor:"BPi",action:"Submitted",note:"Voltage mismatch blocking public release of parking sections."},
-             {date:"2026-01-23",actor:"Coast Energy",action:"Response Issued",note:"Larson Electronics stepdown transformers approved. CO for 10 units + labor."}]},
-  {id:"PRC-005-Orig",num:"005",rev:"Orig",project:"BMR-PRC Newark",site:"All POIs",disc:"Civil",priority:"Standard",status:"Closed",bic:"Coast Energy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Clean sweeping — 45,468 sf Phase 1 before public release",problem:"Parking lot sections require professional sweeping before public release. Not in original scope. 5 hrs T&M at $161/hr.",resolution:"T&M sweeping approved at $805 for Phase 1. Within BPi scope — separate CO not approved.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"",
-   timeline:[{date:"2026-01-21",actor:"BPi",action:"Submitted",note:"Sweeping required before public release. T&M quotes obtained."},
-             {date:"2026-01-23",actor:"Coast Energy",action:"Response Issued",note:"Approved within BPi scope. No separate CO."}]},
-  {id:"PRC-006-Orig",num:"006",rev:"Orig",project:"BMR-PRC Newark",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"M Bar C / SEoR",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-10",dateReq:"2026-02-12",dateResp:"",subject:"Rebar in concrete slab — POI conduit path 7999-B (initial)",problem:"Unanticipated reinforced concrete slab (~12 in.) in POI conduit path. Not on plans. Inspector requires structural engineering sign-off.",resolution:"SEoR to provide opinion confirming conduit routing under rebar has no structural impact.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"C-conduit",
-   timeline:[{date:"2026-02-10",actor:"BPi",action:"Submitted",note:"Unanticipated concrete slab with rebar in conduit path. Inspector holding work."},
-             {date:"2026-02-11",actor:"M Bar C / SEoR",action:"Under Review",note:"Structural EOR reviewing condition. Site visit scheduled."}]},
-  {id:"PRC-006-Rev",num:"006",rev:"Rev",project:"BMR-PRC Newark",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"M Bar C / Dustin K. Rosenberg PE",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-12",dateReq:"2026-03-14",dateResp:"2026-03-17",subject:"Rebar in concrete slab — 7999-B revised with full rebar detail",problem:"12-in. slab with thickened edges; 3 rebar conditions — two of three locations damaged during excavation.",resolution:"EOR stamped repair 3/17/2026 (MDS-4STEL-2026-03-17): replace rebar, epoxy into slab, backfill 2,500 PSI concrete.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"S2-rebar",
-   timeline:[{date:"2026-03-12",actor:"BPi",action:"Revised",note:"Full rebar detail documented after further excavation. Revised RFI submitted with photos."},
-             {date:"2026-03-14",actor:"M Bar C / Dustin K. Rosenberg PE",action:"Under Review",note:"Structural EOR reviewing revised conditions."},
-             {date:"2026-03-17",actor:"M Bar C / Dustin K. Rosenberg PE",action:"Response Issued",note:"Stamped repair accepted (MDS-4STEL-2026-03-17). Epoxy rebar installation approved. Backfill with 2,500 PSI concrete."}]},
-  {id:"PRC-007-Orig",num:"007",rev:"Orig",project:"BMR-PRC Newark",site:"7575, 7677, 7979",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Coast Energy / BPi",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-02-18",dateReq:"2026-02-20",dateResp:"",subject:"Service panel breakers mismatch — all POIs",problem:"60A breakers delivered vs. 70A per plans (inverter inputs); 300A main breakers vs. 350–400A per plans across multiple POIs.",resolution:"60A inverter breakers accepted per NEC 100% CD rule. Main CB resolution still pending from Coast.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0062 thru 0068",
-   timeline:[{date:"2026-02-18",actor:"BPi",action:"Submitted",note:"Breaker mismatch across all POIs. Equipment as-delivered vs. plan specs."},
-             {date:"2026-02-22",actor:"Coast Energy",action:"Information Provided",note:"60A inverter input breakers accepted — NEC 210.20 / 215.3 100% continuous duty rating exception applies. Main CB answer still pending."}]},
-  {id:"PRC-007-Rev",num:"007",rev:"Rev",project:"BMR-PRC Newark",site:"All POIs",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Coast / Morpho EOR",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Service panel breakers mismatch — revised as-built reconciliation",problem:"All inverter input breakers 60A vs. 70A IFP; all panel main breakers 300A vs. 350/400A. Two EOR letters required for electrical final inspection sign-off.",resolution:"Two EOR letters required: (1) 60A NEC 100% CD exception; (2) 300A main CB acceptance.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062–0068",
-   timeline:[{date:"2026-03-25",actor:"BPi",action:"Revised",note:"Full as-built reconciliation across all POIs. Two EOR letters needed for electrical final."}]},
-  {id:"PRC-008-Orig",num:"008",rev:"Orig",project:"BMR-PRC Newark",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast / Pierre-Marie Quincy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"2026-03-04",subject:"Conductor & conduit sizing — Subsystem 7575 panel to disconnect",problem:"Delivered equipment cannot accommodate 7 sets #600kcmil per IFP. Conduits oversized.",resolution:"Approved 3/4/2026: 6 sets #400kcmil Al, 3-in conduit, VD=1.45%. SLD revised accordingly.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",
-   timeline:[{date:"2026-03-03",actor:"BPi",action:"Submitted",note:"Equipment cannot accommodate 7 sets #600kcmil. Recalculation submitted via Southwire VD calculator."},
-             {date:"2026-03-04",actor:"Coast / Pierre-Marie Quincy",action:"Response Issued",note:"Approved: 6 sets #400kcmil Al, 3-in conduit, VD=1.45%. SLD revised."}]},
-  {id:"PRC-008-Rev",num:"008",rev:"Rev",project:"BMR-PRC Newark",site:"7575",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast / Morpho EOR",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7575 revised, splice box required",problem:"Panel-A and disconnect each accept max 3 conductor sets — prior 6-set solution not feasible. Splice box approach proposed.",resolution:"EOR approval urgently required: 4 sets #350kcmil + splice box at Panel-A, VD=2.52%, 3-in conduit.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",
+  // ── BioMed PRC (Newark) ──────────────────────────────────────────────────
+  {id:"PRC-003-Orig",num:"003",rev:"Orig",project:"BioMed PRC (Newark)",site:"7979 (7999-B)",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2025-12-05",dateReq:"2025-12-10",dateResp:"2025-12-10",subject:"Conduit & wire sizing — Subsystem 7979 trench detail & conductor schedule",problem:"Two issues: (1) Slurry trench detail not followed — conduits installed without encasement. (2) 75°C wire in design; BPi proposes 90°C allowing reduced conductor and conduit sizes.",resolution:"Alternate trench detail approved. 90°C wire approved; conduit schedule revised for 7979 permit.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0068",attachments:[],boxLinks:[],
+   timeline:[{date:"2025-12-05",actor:"BPi",action:"Submitted",note:"Two field condition issues: trench encasement and conductor temperature rating."},{date:"2025-12-10",actor:"Coast / Pierre Quincy",action:"Response Issued",note:"Alternate trench detail and 90°C wire both approved."}]},
+  {id:"PRC-004-Orig",num:"004",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-A, 7999-B",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Transformer for lighting circuits — Arrays 20–44 (480V to 277V)",problem:"480V lighting circuits cannot power 277V LED fixtures. Stepdown transformers required (~10 units minimum). Blocking release of parking sections to public.",resolution:"Larson Electronics 480V/277V stepdown transformers approved. Change order for material + labor.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"E-lighting",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-21",actor:"BPi",action:"Submitted",note:"Voltage mismatch blocking public release."},{date:"2026-01-23",actor:"Coast Energy",action:"Response Issued",note:"Stepdown transformers approved. CO issued."}]},
+  {id:"PRC-005-Orig",num:"005",rev:"Orig",project:"BioMed PRC (Newark)",site:"All POIs",disc:"Civil",priority:"Standard",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Clean sweeping — 45,468 sf Phase 1 before public release",problem:"Parking lot sections require professional sweeping before public release. Not in original scope.",resolution:"T&M sweeping approved at $805 for Phase 1. Within BPi scope.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-21",actor:"BPi",action:"Submitted",note:"Sweeping required before public release."},{date:"2026-01-23",actor:"Coast Energy",action:"Response Issued",note:"Approved within BPi scope."}]},
+  {id:"PRC-006-Orig",num:"006",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-10",dateReq:"2026-02-12",dateResp:"2026-02-12",subject:"Rebar in concrete slab — POI conduit path 7999-B (initial)",problem:"Unanticipated reinforced concrete slab (~12 in.) in POI conduit path. Not on plans. Inspector requires structural sign-off.",resolution:"SEoR to provide opinion confirming conduit routing under rebar has no structural impact.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"C-conduit",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-10",actor:"BPi",action:"Submitted",note:"Unanticipated concrete slab with rebar. Inspector holding work."},{date:"2026-02-11",actor:"Morpho Energy",action:"Under Review",note:"Structural EOR reviewing. Site visit scheduled."}]},
+  {id:"PRC-006-Rev",num:"006",rev:"Rev",project:"BioMed PRC (Newark)",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-12",dateReq:"2026-03-14",dateResp:"2026-03-17",subject:"Rebar in concrete slab — 7999-B revised with full rebar detail",problem:"12-in. slab with thickened edges; 3 rebar conditions — two of three locations damaged during excavation.",resolution:"EOR stamped repair 3/17/2026 (MDS-4STEL-2026-03-17): replace rebar, epoxy into slab, backfill 2,500 PSI concrete.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"S2-rebar",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-12",actor:"BPi",action:"Revised",note:"Full rebar detail documented. Revised RFI with photos."},{date:"2026-03-17",actor:"Morpho Energy / Danny Hinks",action:"Response Issued",note:"Stamped repair accepted. Epoxy rebar + 2,500 PSI concrete backfill."}]},
+  {id:"PRC-007-Orig",num:"007",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575, 7677, 7979",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-02-18",dateReq:"2026-02-20",dateResp:"",subject:"Service panel breakers mismatch — all POIs",problem:"60A breakers delivered vs. 70A per plans (inverter inputs); 300A main breakers vs. 350–400A per plans across multiple POIs.",resolution:"60A inverter breakers accepted per NEC 100% CD rule. Main CB resolution still pending.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0062 thru 0068",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-18",actor:"BPi",action:"Submitted",note:"Breaker mismatch across all POIs."},{date:"2026-02-22",actor:"Coast Energy",action:"Information Provided",note:"60A inverter input breakers accepted — NEC 100% CD rule. Main CB still pending."}]},
+  {id:"PRC-007-Rev",num:"007",rev:"Rev",project:"BioMed PRC (Newark)",site:"All POIs",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Service panel breakers mismatch — revised as-built reconciliation",problem:"All inverter input breakers 60A vs. 70A IFP; all panel main breakers 300A vs. 350/400A. Two EOR letters required for electrical final.",resolution:"Two EOR letters required: (1) 60A NEC 100% CD exception; (2) 300A main CB acceptance.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062–0068",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-25",actor:"BPi",action:"Revised",note:"Full as-built reconciliation. Two EOR letters needed for electrical final."}]},
+  {id:"PRC-008-Orig",num:"008",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"2026-03-04",subject:"Conductor & conduit sizing — Subsystem 7575 panel to disconnect",problem:"Delivered equipment cannot accommodate 7 sets #600kcmil per IFP. Conduits oversized.",resolution:"Approved 3/4/2026: 6 sets #400kcmil Al, 3-in conduit, VD=1.45%. SLD revised.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-03",actor:"BPi",action:"Submitted",note:"Equipment cannot accommodate 7 sets #600kcmil."},{date:"2026-03-04",actor:"Coast / Pierre Quincy",action:"Response Issued",note:"Approved: 6 sets #400kcmil Al, 3-in conduit."}]},
+  {id:"PRC-008-Rev",num:"008",rev:"Rev",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7575 revised, splice box required",problem:"Panel-A and disconnect each accept max 3 conductor sets — prior 6-set solution not feasible.",resolution:"EOR approval urgently required: 4 sets #350kcmil + splice box at Panel-A, VD=2.52%, 3-in conduit.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-25",actor:"BPi",action:"Revised",note:"Prior solution not feasible — panel max 3 sets. Splice box solution proposed. URGENT."}]},
-  {id:"PRC-009-Orig",num:"009",rev:"Orig",project:"BMR-PRC Newark",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Morpho / SEoR",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"",subject:"Panel reallocation — Array 8 at POI 7575 (loss of 30 PV panels)",problem:"Unforeseen underground conditions required revision of Array 8; net loss of 30 PV panels from permitted design.",resolution:"SEoR provided revised layout. BPi to provide revised stringing in as-built. E-2.0, E-3.0, E-5.0 to be updated.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0062 E-2.0/E-5.0",
-   timeline:[{date:"2026-03-03",actor:"BPi",action:"Submitted",note:"Underground conditions forced Array 8 revision. 30-panel loss."},
-             {date:"2026-03-06",actor:"Morpho / SEoR",action:"Response Issued",note:"Revised layout provided. BPi to update stringing in as-built."}]},
-  {id:"PRC-010-Orig",num:"010",rev:"Orig",project:"BMR-PRC Newark",site:"7707",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Coast / Morpho EOR",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-05",dateReq:"2026-03-06",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7707 all panels to SWBD",problem:"Delivered equipment cannot accommodate conductor sizes per IFP PV2025-0065 E-3.1. All 7 panel runs require resizing.",resolution:"Proposed: all runs reduced to #250–#350kcmil, all conduits standardized to 3-in. Awaiting EOR approval.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0065 E-3.1",
-   timeline:[{date:"2026-03-05",actor:"BPi",action:"Submitted",note:"7 panel runs require resizing. Southwire calcs submitted for EOR review."}]},
-  {id:"PRC-011-Orig",num:"011",rev:"Orig",project:"BMR-PRC Newark",site:"7677",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast / Morpho EOR",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-24",dateReq:"2026-03-25",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7677 Panel-A to disconnect",problem:"Panel-A and disconnect max 3 conductor sets, max #350kcmil lugs. Bore rig on site — approval urgent.",resolution:"Proposed: 3 sets #350kcmil, 3-in conduit, 613 ft, VD=2.64%. EOR approval urgently required.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0063 E-3.0",
-   timeline:[{date:"2026-03-24",actor:"BPi",action:"Submitted",note:"Bore rig on site now. Hardware constraint forces redesign. URGENT approval needed."}]},
-  {id:"PRC-012-Orig",num:"012",rev:"Orig",project:"BMR-PRC Newark",site:"7999-A",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Coast / Morpho EOR",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-16",dateReq:"2026-03-18",dateResp:"",subject:"7999-A disconnect breaker/fusing discrepancy vs. plans",problem:"Delivered disconnect is 600A/500A fused Siemens unit; plans specify 400A rated unit with 400A fuses.",resolution:"Pending resolution under RFI-007 main CB answer.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0066 SLD",
-   timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"Disconnect rating mismatch. Linked to RFI-007 pending main CB resolution."}]},
-  // ── AMLI Via Marina (MDR) ──────────────────────────────────────────────────
-  {id:"MDR-001-Orig",num:"001",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"14024 Panay / 4252-4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Closed",bic:"Chris Jones (Coast)",submittedBy:"SGS - Peter R.",directedTo:"Coast / Morpho",dateSub:"2025-12-17",dateReq:"",dateResp:"2026-01-06",subject:"Fault current rating — non-fused AC disconnects",problem:"Non-fused PV system AC disconnects may not meet fault current ratings. Fused disconnects requested.",resolution:"Chris Jones directed to proceed with fused disconnects 1/6/2026. SGS procured and installed.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E 3.1",
-   timeline:[{date:"2025-12-17",actor:"SGS - Peter R.",action:"Submitted",note:"Non-fused disconnect fault current concern raised."},
-             {date:"2026-01-06",actor:"Chris Jones (Coast)",action:"Response Issued",note:"Proceed with fused disconnects. SGS to procure and install."}]},
-  {id:"MDR-002-Orig",num:"002",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"All Buildings",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast / Morpho",submittedBy:"SGS",directedTo:"Coast / Morpho",dateSub:"",dateReq:"",dateResp:"2026-03-06",subject:"Need placards — signed and stamped",problem:"Required placards not included in plan set. City submission requires stamped placards.",resolution:"Received stamped placards 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",
-   timeline:[{date:"2026-01-15",actor:"SGS",action:"Submitted",note:"Stamped placards needed for city submission."},
-             {date:"2026-03-06",actor:"Morpho",action:"Response Issued",note:"Stamped placards received and delivered."}]},
-  {id:"MDR-003-Orig",num:"003",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho",submittedBy:"SGS",directedTo:"Coast / Morpho",dateSub:"",dateReq:"",dateResp:"2026-03-06",subject:"Update plans — new transformer locations (roof to electrical room)",problem:"Rooftop transformers relocated to electrical room. Plans must reflect new location for city.",resolution:"Updated plans received from Morpho on 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",
-   timeline:[{date:"2026-02-01",actor:"SGS",action:"Submitted",note:"Transformer relocation from roof to electrical room — plans need updating."},
-             {date:"2026-03-06",actor:"Morpho",action:"Response Issued",note:"Updated plans issued showing new transformer locations."}]},
-  {id:"MDR-004-Orig",num:"004",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho / Sadia Afrin",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B6",problem:"Stringing plan does not match approved structural sheets. Official request sent 3/3/2026.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",
-   timeline:[{date:"2026-02-19",actor:"SGS - Victoria V.",action:"Submitted",note:"Stringing plan/structural mismatch identified."},
-             {date:"2026-03-09",actor:"SGS",action:"Information Provided",note:"SGS generated updated stringing plan and provided to Morpho. Awaiting stamped revision."}]},
-  {id:"MDR-005-Orig",num:"005",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho / Sadia Afrin",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B2",problem:"Same issue as RFI-004 for Building B2.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",
-   timeline:[{date:"2026-02-19",actor:"SGS - Victoria V.",action:"Submitted",note:"Stringing plan/structural mismatch for B2."},
-             {date:"2026-03-09",actor:"SGS",action:"Information Provided",note:"Updated stringing plan provided to Morpho. Awaiting stamp."}]},
-  {id:"MDR-006-Orig",num:"006",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast - Chris Jones",submittedBy:"SGS - Ken L.",directedTo:"Coast - Chris J.",dateSub:"2026-03-10",dateReq:"",dateResp:"2026-03-10",subject:"Update SLD — load side tap at 2000A section",problem:"SLD needs to reflect load-side tap configuration at 2000A section for City, SCE, and UL submission.",resolution:"Resolved 3/10/2026.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.1",
-   timeline:[{date:"2026-03-10",actor:"SGS - Ken L.",action:"Submitted",note:"SLD update needed for city, SCE, UL. Load-side tap at 2000A section."},
-             {date:"2026-03-10",actor:"Coast - Chris Jones",action:"Response Issued",note:"Resolved same day."}]},
-  {id:"MDR-007-Orig",num:"007",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho - Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho - Sadia A.",dateSub:"2026-03-24",dateReq:"ASAP",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B2)",problem:"Electrical layout does not match fire-department-approved structural layout. Side-by-side comparison on file.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",
-   timeline:[{date:"2026-03-24",actor:"SGS - Rick H.",action:"Submitted",note:"Electrical vs. fire-approved structural layout discrepancy. Comparison on file. ASAP."}]},
-  {id:"MDR-008-Orig",num:"008",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B3 — 14064 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho - Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho - Sadia A.",dateSub:"2026-03-24",dateReq:"ASAP",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B3)",problem:"Same issue as RFI-007 for Building B3.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",
+  {id:"PRC-009-Orig",num:"009",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"2026-03-06",subject:"Panel reallocation — Array 8 at POI 7575 (loss of 30 PV panels)",problem:"Unforeseen underground conditions required revision of Array 8; net loss of 30 PV panels.",resolution:"SEoR provided revised layout. BPi to provide revised stringing in as-built.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0062 E-2.0/E-5.0",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-03",actor:"BPi",action:"Submitted",note:"Underground conditions forced Array 8 revision. 30-panel loss."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"Revised layout provided."}]},
+  {id:"PRC-010-Orig",num:"010",rev:"Orig",project:"BioMed PRC (Newark)",site:"7707",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-05",dateReq:"2026-03-06",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7707 all panels to SWBD",problem:"Delivered equipment cannot accommodate conductor sizes per IFP PV2025-0065 E-3.1. All 7 panel runs require resizing.",resolution:"Proposed: all runs reduced to #250–#350kcmil, all conduits standardized to 3-in. Awaiting EOR approval.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0065 E-3.1",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-05",actor:"BPi",action:"Submitted",note:"7 panel runs require resizing. Southwire calcs submitted."}]},
+  {id:"PRC-011-Orig",num:"011",rev:"Orig",project:"BioMed PRC (Newark)",site:"7677",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-24",dateReq:"2026-03-25",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7677 Panel-A to disconnect",problem:"Panel-A and disconnect max 3 conductor sets, max #350kcmil lugs. Bore rig on site — approval urgent.",resolution:"Proposed: 3 sets #350kcmil, 3-in conduit, 613 ft, VD=2.64%. EOR approval urgently required.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0063 E-3.0",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-24",actor:"BPi",action:"Submitted",note:"Bore rig on site. Hardware constraint. URGENT."}]},
+  {id:"PRC-012-Orig",num:"012",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-A",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-16",dateReq:"2026-03-18",dateResp:"",subject:"7999-A disconnect breaker/fusing discrepancy vs. plans",problem:"Delivered disconnect is 600A/500A fused Siemens unit; plans specify 400A rated unit with 400A fuses.",resolution:"Pending resolution under RFI-007 main CB answer.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0066 SLD",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"Disconnect rating mismatch. Linked to RFI-007."}]},
+  // ── AMLI Via Marina (MDR) ─────────────────────────────────────────────────
+  {id:"MDR-001-Orig",num:"001",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"14024 Panay / 4252-4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Closed",bic:"Coast Energy / Chris Jones",submittedBy:"SGS - Peter R.",directedTo:"Coast / Morpho",dateSub:"2025-12-17",dateReq:"2026-01-06",dateResp:"2026-01-06",subject:"Fault current rating — non-fused AC disconnects",problem:"Non-fused PV system AC disconnects may not meet fault current ratings. Fused disconnects requested.",resolution:"Chris Jones directed to proceed with fused disconnects 1/6/2026. SGS procured and installed.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E 3.1",attachments:[],boxLinks:[],
+   timeline:[{date:"2025-12-17",actor:"SGS - Peter R.",action:"Submitted",note:"Non-fused disconnect fault current concern."},{date:"2026-01-06",actor:"Coast / Chris Jones",action:"Response Issued",note:"Proceed with fused disconnects."}]},
+  {id:"MDR-002-Orig",num:"002",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"All Buildings",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS",directedTo:"Coast / Morpho",dateSub:"2026-01-15",dateReq:"2026-03-06",dateResp:"2026-03-06",subject:"Need placards — signed and stamped",problem:"Required placards not included in plan set. City submission requires stamped placards.",resolution:"Received stamped placards 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-15",actor:"SGS",action:"Submitted",note:"Stamped placards needed for city."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"Stamped placards received."}]},
+  {id:"MDR-003-Orig",num:"003",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS",directedTo:"Coast / Morpho",dateSub:"2026-02-01",dateReq:"2026-03-06",dateResp:"2026-03-06",subject:"Update plans — new transformer locations (roof to electrical room)",problem:"Rooftop transformers relocated to electrical room. Plans must reflect new location for city.",resolution:"Updated plans received from Morpho on 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-01",actor:"SGS",action:"Submitted",note:"Transformer relocation — plans need updating."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"Updated plans issued."}]},
+  {id:"MDR-004-Orig",num:"004",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B6",problem:"Stringing plan does not match approved structural sheets. Official request sent 3/3/2026.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-19",actor:"SGS - Victoria V.",action:"Submitted",note:"Stringing plan/structural mismatch."},{date:"2026-03-09",actor:"SGS",action:"Information Provided",note:"Updated stringing plan provided to Morpho."}]},
+  {id:"MDR-005-Orig",num:"005",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B2",problem:"Same issue as RFI-004 for Building B2.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-19",actor:"SGS - Victoria V.",action:"Submitted",note:"Stringing plan/structural mismatch for B2."},{date:"2026-03-09",actor:"SGS",action:"Information Provided",note:"Updated stringing plan provided."}]},
+  {id:"MDR-006-Orig",num:"006",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast Energy / Chris Jones",submittedBy:"SGS - Ken L.",directedTo:"Coast Energy",dateSub:"2026-03-10",dateReq:"2026-03-10",dateResp:"2026-03-10",subject:"Update SLD — load side tap at 2000A section",problem:"SLD needs to reflect load-side tap configuration at 2000A section for City, SCE, and UL submission.",resolution:"Resolved 3/10/2026.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.1",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-10",actor:"SGS - Ken L.",action:"Submitted",note:"SLD update needed for city, SCE, UL."},{date:"2026-03-10",actor:"Coast / Chris Jones",action:"Response Issued",note:"Resolved same day."}]},
+  {id:"MDR-007-Orig",num:"007",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho Energy",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B2)",problem:"Electrical layout does not match fire-department-approved structural layout.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-24",actor:"SGS - Rick H.",action:"Submitted",note:"Electrical vs. fire-approved structural layout discrepancy. ASAP."}]},
+  {id:"MDR-008-Orig",num:"008",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B3 — 14064 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho Energy",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B3)",problem:"Same issue as RFI-007 for Building B3.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-24",actor:"SGS - Rick H.",action:"Submitted",note:"Electrical vs. fire-approved structural layout discrepancy for B3."}]},
-  {id:"MDR-009-Orig",num:"009",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho - Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho - Sadia A.",dateSub:"2026-03-24",dateReq:"ASAP",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B6)",problem:"Same issue as RFI-007 for Building B6.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",
+  {id:"MDR-009-Orig",num:"009",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho Energy",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B6)",problem:"Same issue as RFI-007 for Building B6.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-24",actor:"SGS - Rick H.",action:"Submitted",note:"Electrical vs. fire-approved structural layout discrepancy for B6."}]},
-  {id:"MDR-010-Orig",num:"010",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho - Sadia Afrin",submittedBy:"SGS - Ken L.",directedTo:"Morpho - Sadia A.",dateSub:"2026-03-26",dateReq:"ASAP",dateResp:"",subject:"Update SLD — 600AS/500AF disconnect and revised Wire H",problem:"SLD must reflect 600AS/500AF AC disconnect and Wire H revised to #250 KCMIL in 2½\" conduit.",resolution:"BiC Morpho — urgent SLD update required for city.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"E 3.1",
-   timeline:[{date:"2026-03-26",actor:"SGS - Ken L.",action:"Submitted",note:"SLD revision needed for disconnect rating and wire sizing. City deadline imminent."}]},
-  // ── AMLI Broadway Long Beach ───────────────────────────────────────────────
-  {id:"LB-001-Orig",num:"001",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast / Morpho",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2025-08-18",dateReq:"",dateResp:"2026-03-24",subject:"Existing conduit size vs. plan — feeder from electrical room to roof",problem:"Plans call for (2) 2½\" conduits; existing spare conduits are (3) 2\" conduits. Wire size changed from 4/0 to 3/0 per prior email.",resolution:"Pierre approved use of existing conduit with revised wire size.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",
-   timeline:[{date:"2025-08-18",actor:"SGS - Victoria V.",action:"Submitted",note:"Conduit size mismatch between plan and existing field conditions."},
-             {date:"2025-11-01",actor:"Coast / Pierre",action:"Information Provided",note:"Email confirmation: use existing conduits, revised wire size acceptable."},
-             {date:"2026-03-24",actor:"Morpho",action:"Response Issued",note:"Stamped plan revision received."}]},
-  {id:"LB-002-Orig",num:"002",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"Standard",status:"Closed",bic:"Morpho",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"",dateReq:"",dateResp:"2025-10-30",subject:"Revised stamped plans — Array 1 to Array 36 split (window conflict)",problem:"Plans needed showing Array 1 redesigned to accommodate window that opens into array footprint.",resolution:"Signed and stamped plans received (planset dated 8/14/2025).",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"S-1",
-   timeline:[{date:"2025-09-01",actor:"SGS - Victoria V.",action:"Submitted",note:"Array 1 window conflict identified."},
-             {date:"2025-10-30",actor:"Morpho",action:"Response Issued",note:"Stamped revised plans received."}]},
-  {id:"LB-003-Orig",num:"003",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"General",priority:"Standard",status:"Closed",bic:"Morpho",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-09",dateReq:"",dateResp:"2026-03-06",subject:"Fire placards — engineered and stamped per Inspector Rosen",problem:"Inspector Rosen requested engineered and stamped fire placards.",resolution:"SGS provided CAD, Morpho provided stamped version.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E-7.0",
-   timeline:[{date:"2026-02-09",actor:"SGS - Victoria V.",action:"Submitted",note:"Inspector Rosen requires stamped fire placards."},
-             {date:"2026-03-06",actor:"Morpho",action:"Response Issued",note:"SGS CAD + Morpho stamp provided."}]},
-  {id:"LB-004-Orig",num:"004",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"High",status:"Open",bic:"Coast / Morpho",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-09",dateReq:"",dateResp:"",subject:"Revised plans — Array 29 pinch point (fire access comment)",problem:"Inspector identified fire access issue at Array 29. Panels shifted but updated drawings not yet received.",resolution:"Decision to shift panels made; revised stamped drawings still pending.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"S-1",
-   timeline:[{date:"2026-02-09",actor:"SGS - Victoria V.",action:"Submitted",note:"Fire inspector flagged Array 29 pinch point. Panels shifted in field."},
-             {date:"2026-02-20",actor:"Coast / Morpho",action:"Information Provided",note:"Decision made to shift panels. Stamped drawings being prepared."}]},
-  {id:"LB-005-Orig",num:"005",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Elec Room",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast / Morpho",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-17",dateReq:"",dateResp:"2026-03-24",subject:"150 kVA transformer installed vs. 75 kVA per plans",problem:"Larger 150 kVA transformer was provided and installed. Plans must be revised for city.",resolution:"SGS received 150 kVA transformer; revised stamped plans received 3/24/2026.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",
-   timeline:[{date:"2026-02-17",actor:"SGS - Victoria V.",action:"Submitted",note:"150 kVA installed vs. 75 kVA on plans. Plan revision needed for city."},
-             {date:"2026-03-24",actor:"Morpho",action:"Response Issued",note:"Revised stamped plans received reflecting 150 kVA."}]},
+  {id:"MDR-010-Orig",num:"010",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Ken L.",directedTo:"Morpho Energy",dateSub:"2026-03-26",dateReq:"2026-03-27",dateResp:"",subject:"Update SLD — 600AS/500AF disconnect and revised Wire H",problem:"SLD must reflect 600AS/500AF AC disconnect and Wire H revised to #250 KCMIL in 2½\" conduit.",resolution:"BiC Morpho — urgent SLD update required for city.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"E 3.1",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-26",actor:"SGS - Ken L.",action:"Submitted",note:"SLD revision needed. City deadline imminent."}]},
+  // ── AMLI Broadway (Long Beach) ────────────────────────────────────────────
+  {id:"LB-001-Orig",num:"001",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2025-08-18",dateReq:"2025-10-01",dateResp:"2026-03-24",subject:"Existing conduit size vs. plan — feeder from electrical room to roof",problem:"Plans call for (2) 2½\" conduits; existing spare conduits are (3) 2\" conduits. Wire size changed from 4/0 to 3/0 per prior email.",resolution:"Pierre approved use of existing conduit with revised wire size.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",attachments:[],boxLinks:[],
+   timeline:[{date:"2025-08-18",actor:"SGS - Victoria V.",action:"Submitted",note:"Conduit size mismatch."},{date:"2026-03-24",actor:"Morpho Energy",action:"Response Issued",note:"Stamped plan revision received."}]},
+  {id:"LB-002-Orig",num:"002",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2025-09-01",dateReq:"2025-10-01",dateResp:"2025-10-30",subject:"Revised stamped plans — Array 1 to Array 36 split (window conflict)",problem:"Plans needed showing Array 1 redesigned to accommodate window that opens into array footprint.",resolution:"Signed and stamped plans received (planset dated 8/14/2025).",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"S-1",attachments:[],boxLinks:[],
+   timeline:[{date:"2025-09-01",actor:"SGS - Victoria V.",action:"Submitted",note:"Array 1 window conflict."},{date:"2025-10-30",actor:"Morpho Energy",action:"Response Issued",note:"Stamped revised plans received."}]},
+  {id:"LB-003-Orig",num:"003",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"General",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-09",dateReq:"2026-02-28",dateResp:"2026-03-06",subject:"Fire placards — engineered and stamped per Inspector Rosen",problem:"Inspector Rosen requested engineered and stamped fire placards.",resolution:"SGS provided CAD, Morpho provided stamped version.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E-7.0",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-09",actor:"SGS - Victoria V.",action:"Submitted",note:"Inspector Rosen requires stamped fire placards."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"SGS CAD + Morpho stamp provided."}]},
+  {id:"LB-004-Orig",num:"004",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"High",status:"Open",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-09",dateReq:"2026-03-15",dateResp:"",subject:"Revised plans — Array 29 pinch point (fire access comment)",problem:"Inspector identified fire access issue at Array 29. Panels shifted but updated drawings not yet received.",resolution:"Decision to shift panels made; revised stamped drawings still pending.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"S-1",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-09",actor:"SGS - Victoria V.",action:"Submitted",note:"Fire inspector flagged Array 29 pinch point."},{date:"2026-02-20",actor:"Coast / Morpho",action:"Information Provided",note:"Decision to shift panels. Stamped drawings being prepared."}]},
+  {id:"LB-005-Orig",num:"005",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Elec Room",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-17",dateReq:"2026-03-01",dateResp:"2026-03-24",subject:"150 kVA transformer installed vs. 75 kVA per plans",problem:"Larger 150 kVA transformer was provided and installed. Plans must be revised for city.",resolution:"Revised stamped plans received 3/24/2026 reflecting 150 kVA.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-17",actor:"SGS - Victoria V.",action:"Submitted",note:"150 kVA installed vs. 75 kVA on plans."},{date:"2026-03-24",actor:"Morpho Energy",action:"Response Issued",note:"Revised stamped plans received."}]},
+  // ── Berkshire (San Jose) ──────────────────────────────────────────────────
+  {id:"BER-001-Orig",num:"001",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Blocking to roof member attachment",problem:"Rafter blocking required for roof member attachment. Dimensions not specified on plans.",resolution:"Resolution provided by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Rafter blocking dimensions missing."},{date:"2026-01-23",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Acceptable blocking approach confirmed."}]},
+  {id:"BER-002-Orig",num:"002",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-22",subject:"Conduit runs on the outside of building",problem:"Conduit routing on building exterior not detailed on plans. Issue between Coast and building owner.",resolution:"Routing confirmed via email.",planRev:"No",costImp:"Unknown",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Conduit exterior routing detail missing."},{date:"2026-01-22",actor:"Morpho / Danny Hinks",action:"Response Issued",note:"Routing confirmed."}]},
+  {id:"BER-003-Orig",num:"003",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-27",subject:"Shims for a sloped roof",problem:"Roof slope requires shim detailing not shown in plans.",resolution:"Shim approach confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Shim detail missing for sloped roof."},{date:"2026-01-27",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Shim approach confirmed."}]},
+  {id:"BER-004-Orig",num:"004",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Screw lengths for pads",problem:"Screw lengths for ballast pads not specified.",resolution:"Lengths confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Pad screw lengths unspecified."},{date:"2026-01-23",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Lengths confirmed."}]},
+  {id:"BER-005-Orig",num:"005",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Wire schedule — lengths have changed",problem:"Wire schedule from original design does not match field-measured lengths.",resolution:"",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Field lengths differ from wire schedule. Revised schedule required."}]},
+  {id:"BER-006-Orig",num:"006",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Breaker space not available for POC",problem:"No available breaker space at Point of Connection. BPi notes possible line-side tap alternative.",resolution:"BiC Morpho — review line-side tap notes from BPi.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"No breaker space at POC. Proposing line-side tap."}]},
+  {id:"BER-007-Orig",num:"007",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-28",subject:"Request to swap equipment",problem:"Equipment substitution required. Verification of RFI-005 needed before fault current calcs.",resolution:"Swap approved. Should be formalized as submittal.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Equipment swap needed. Waiting on RFI-005."},{date:"2026-01-28",actor:"Morpho / Sadia Afrin",action:"Response Issued",note:"Swap approved."}]},
+  {id:"BER-008-Orig",num:"008",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-20",dateReq:"2026-02-07",dateResp:"",subject:"DAS — drawings, status, quantity of Gateways",problem:"DAS gateway count, drawings, and installation status unresolved. AE design sheets pending.",resolution:"BiC Coast — share AE design sheets when available.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-20",actor:"BPi",action:"Submitted",note:"Gateway count and DAS drawings not available."}]},
+  {id:"BER-009-Orig",num:"009",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-28",dateReq:"",dateResp:"",subject:"Location of production meters and CT installation",problem:"Meter and CT locations not specified on plans. AE design sheets pending from Coast.",resolution:"BiC Coast — provide AE designs.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-01-28",actor:"BPi",action:"Submitted",note:"Meter and CT locations not on plans."}]},
+  {id:"BER-010-Orig",num:"010",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-13",dateReq:"2026-02-17",dateResp:"2026-02-17",subject:"AC disconnect viewing window not required",problem:"Clarification sought whether AC disconnect requires viewing window per code.",resolution:"Morpho confirmed no viewing window required via email 2/17/2026.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-13",actor:"BPi",action:"Submitted",note:"Code clarification on AC disconnect viewing window."},{date:"2026-02-17",actor:"Morpho / Danny Hinks",action:"Response Issued",note:"No viewing window required — confirmed via email."}]},
+  {id:"BER-011-Orig",num:"011",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-19",dateReq:"2026-03-25",dateResp:"",subject:"Existing equipment conflicts with new solar equipment in electrical rooms",problem:"Existing equipment occupies space shown for new solar equipment on drawings.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-02-19",actor:"BPi",action:"Submitted",note:"Existing equipment conflicts with new solar layout."}]},
+  {id:"BER-014-Orig",num:"014",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Open",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-16",dateReq:"2026-03-16",dateResp:"",subject:"Remedy for elevation changes on system",problem:"Elevation changes across roof deck require design solution not addressed in current plans.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"Elevation changes on roof deck — no design solution in plans. ASAP."}]},
+  {id:"BER-015-Orig",num:"015",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-16",dateReq:"2026-03-20",dateResp:"",subject:"Updated stamped SLD — tap instead of breaker connection at POI 2",problem:"Engineer of record stamp required showing load-side tap at POI 2 instead of breaker connection.",resolution:"BiC Morpho — EEOR stamp required for POI 2 load-side tap.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"E-POI2",attachments:[],boxLinks:[],
+   timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"EOR stamp needed for load-side tap at POI 2. Urgent."}]},
 ];
 
-// ── State ─────────────────────────────────────────────────────────────────────
-let DATA = JSON.parse(localStorage.getItem('ce_rfis') || 'null') || SEED;
-let sortField = 'dateSub', sortDir = -1, selectedId = null, editId = null;
-
-function save() { localStorage.setItem('ce_rfis', JSON.stringify(DATA)); }
+// ── State ──────────────────────────────────────────────────────────────────────
+let DATA = JSON.parse(localStorage.getItem('ce_rfis_v2')||'null') || SEED;
+let sortField='num', sortDir=1, selectedId=null, editId=null;
+function save(){localStorage.setItem('ce_rfis_v2',JSON.stringify(DATA))}
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
-function nem() {
-  const d = new Date('2026-04-14');
-  const now = new Date();
-  return Math.ceil((d - now) / 86400000);
+function nem(){return Math.ceil((new Date('2026-04-14')-new Date())/86400000)}
+
+// Days open: always from dateSub to TODAY (not dateResp), stops counting when closed
+function daysOpen(r){
+  if(!r.dateSub) return null;
+  const s=new Date(r.dateSub);
+  const e=new Date();
+  return Math.max(0,Math.floor((e-s)/86400000));
 }
 
-function daysOpen(r) {
-  if (r.status === 'Closed') return null;
-  if (!r.dateSub) return null;
-  const s = new Date(r.dateSub);
-  const e = r.dateResp ? new Date(r.dateResp) : new Date();
-  return Math.floor((e - s) / 86400000);
+function initials(str){
+  return (str||'?').split(/[\s\/\-]+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase().slice(0,2)||'?';
 }
 
-function initials(str) {
-  return str.split(/[\s\/\-]+/).slice(0,2).map(w => w[0]).join('').toUpperCase().slice(0,2);
+function statusBadge(s){return`<span class="badge badge-${s.toLowerCase()}">${s}</span>`}
+function priBadge(p){return`<span class="badge badge-${p.toLowerCase()}">${p}</span>`}
+function impBadge(v,type){
+  if(!v||v==='—') return`<span class="badge badge-tbd">—</span>`;
+  const v2=v.toLowerCase();
+  if(v2==='yes') return`<span class="badge badge-yes-${type}">⚠ ${v}</span>`;
+  if(v2==='no') return`<span class="badge badge-no">${v}</span>`;
+  return`<span class="badge badge-tbd">${v}</span>`;
 }
 
-function statusBadge(s) {
-  const cls = s.toLowerCase();
-  return `<span class="badge badge-${cls}">${s}</span>`;
-}
-
-function priBadge(p) {
-  const cls = p.toLowerCase();
-  return `<span class="badge badge-${cls}">${p}</span>`;
-}
-
-function impBadge(v, type) {
-  if (!v || v === '—') return `<span class="badge badge-tbd">—</span>`;
-  const v2 = v.toLowerCase();
-  if (v2 === 'yes') return `<span class="badge badge-yes-${type}">⚠ ${v}</span>`;
-  if (v2 === 'no') return `<span class="badge badge-no">${v}</span>`;
-  return `<span class="badge badge-tbd">${v}</span>`;
-}
-
-function autoOverdue(r) {
-  if (r.status === 'Closed') return r;
-  if (r.dateReq && r.dateReq !== 'ASAP' && !r.dateResp) {
-    const req = new Date(r.dateReq);
-    if (req < new Date()) r.status = 'Overdue';
+function autoOverdue(r){
+  if(r.status==='Closed') return r;
+  if(r.dateReq&&r.dateReq!=='ASAP'){
+    if(new Date(r.dateReq)<new Date()) r.status='Overdue';
   }
   return r;
 }
 
-function filteredData() {
-  const q = (document.getElementById('search')?.value || '').toLowerCase();
-  const fp = document.getElementById('f-project')?.value || '';
-  const fs = document.getElementById('f-status')?.value || '';
-  const fpr = document.getElementById('f-priority')?.value || '';
-  const fd = document.getElementById('f-discipline')?.value || '';
-  const fsc = document.getElementById('f-sched')?.value || '';
-
-  return DATA.map(autoOverdue).filter(r => {
-    if (fp && r.project !== fp) return false;
-    if (fs && r.status !== fs) return false;
-    if (fpr && r.priority !== fpr) return false;
-    if (fd && r.disc !== fd) return false;
-    if (fsc && r.schedImp !== fsc) return false;
-    if (q && !`${r.num} ${r.subject} ${r.problem} ${r.bic} ${r.site}`.toLowerCase().includes(q)) return false;
-    return true;
-  }).sort((a, b) => {
-    let va = a[sortField] || '', vb = b[sortField] || '';
-    if (sortField === 'daysOpen') { va = daysOpen(a) || 0; vb = daysOpen(b) || 0; return (va - vb) * sortDir; }
-    return String(va).localeCompare(String(vb)) * sortDir;
-  });
+// ── Sort: open first (by RFI #), closed last (by RFI #) ─────────────────────
+function sortedData(rows){
+  const open=rows.filter(r=>r.status!=='Closed').sort((a,b)=>a.num.localeCompare(b.num,'en',{numeric:true}));
+  const closed=rows.filter(r=>r.status==='Closed').sort((a,b)=>a.num.localeCompare(b.num,'en',{numeric:true}));
+  return [...open,...closed];
 }
 
-// ── Views ──────────────────────────────────────────────────────────────────────
-function showView(v) {
-  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('view-' + v).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(el => {
-    if (el.textContent.toLowerCase().includes(v === 'list' ? 'rfi' : v)) el.classList.add('active');
+function filteredData(){
+  const q=(document.getElementById('search')?.value||'').toLowerCase();
+  const fp=document.getElementById('f-project')?.value||'';
+  const fs=document.getElementById('f-status')?.value||'';
+  const fpr=document.getElementById('f-priority')?.value||'';
+  const fd=document.getElementById('f-discipline')?.value||'';
+  const fsc=document.getElementById('f-sched')?.value||'';
+  const base=DATA.map(autoOverdue).filter(r=>{
+    if(fp&&r.project!==fp) return false;
+    if(fs&&r.status!==fs) return false;
+    if(fpr&&r.priority!==fpr) return false;
+    if(fd&&r.disc!==fd) return false;
+    if(fsc&&r.schedImp!==fsc) return false;
+    if(q&&!`${r.num} ${r.subject} ${r.problem} ${r.bic} ${r.site}`.toLowerCase().includes(q)) return false;
+    return true;
   });
-  if (v === 'dashboard') renderDashboard();
-  if (v === 'list') renderTable();
+  return sortedData(base);
+}
+
+// ── Views ─────────────────────────────────────────────────────────────────────
+function showView(v){
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(el=>{
+    if(el.textContent.toLowerCase().includes(v==='list'?'rfi':v)) el.classList.add('active');
+  });
+  if(v==='dashboard') renderDashboard();
+  if(v==='list') renderTable();
 }
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
-function renderDashboard() {
-  const all = DATA.map(autoOverdue);
-  const open = all.filter(r => r.status === 'Open' || r.status === 'Overdue');
-  const closed = all.filter(r => r.status === 'Closed');
-  const critOpen = all.filter(r => (r.status === 'Open' || r.status === 'Overdue') && r.priority === 'Critical');
-  const costYes = all.filter(r => r.costImp === 'Yes');
-  const schedYes = all.filter(r => r.schedImp === 'Yes');
+function renderDashboard(){
+  const all=DATA.map(autoOverdue);
+  const open=all.filter(r=>r.status==='Open'||r.status==='Overdue');
+  document.getElementById('stat-strip').innerHTML=[
+    {label:'Total RFIs',value:all.length,cls:''},
+    {label:'Open',value:open.length,cls:'amber'},
+    {label:'Closed',value:all.filter(r=>r.status==='Closed').length,cls:'green'},
+    {label:'Critical Open',value:all.filter(r=>(r.status==='Open'||r.status==='Overdue')&&r.priority==='Critical').length,cls:'red'},
+    {label:'Cost Impact',value:all.filter(r=>r.costImp==='Yes').length,cls:'amber'},
+    {label:'Schedule Impact',value:all.filter(r=>r.schedImp==='Yes').length,cls:'red'},
+  ].map(s=>`<div class="stat-card"><div class="label">${s.label}</div><div class="value ${s.cls}">${s.value}</div></div>`).join('');
 
-  document.getElementById('stat-strip').innerHTML = [
-    {label:'Total RFIs', value: all.length, cls:''},
-    {label:'Open', value: open.length, cls:'amber'},
-    {label:'Closed', value: closed.length, cls:'green'},
-    {label:'Critical Open', value: critOpen.length, cls:'red'},
-    {label:'Cost Impact', value: costYes.length, cls:'amber'},
-    {label:'Schedule Impact', value: schedYes.length, cls:'red'},
-  ].map(s => `<div class="stat-card">
-    <div class="label">${s.label}</div>
-    <div class="value ${s.cls}">${s.value}</div>
-  </div>`).join('');
-
-  const projColors = {
-    "Berkshire Iron Point": "blue",
-    "BMR-PRC Newark": "green",
-    "AMLI Via Marina (MDR)": "amber",
-    "AMLI Broadway (Long Beach)": "purple"
-  };
-  document.getElementById('project-cards').innerHTML = Object.keys(PROJECT_META).map(p => {
-    const pr = all.filter(r => r.project === p);
-    const po = pr.filter(r => r.status === 'Open' || r.status === 'Overdue').length;
-    const pc = pr.filter(r => r.status === 'Closed').length;
-    const pcrit = pr.filter(r => (r.status === 'Open' || r.status === 'Overdue') && r.priority === 'Critical').length;
-    const color = projColors[p] || 'blue';
-    return `<div class="project-card ${color}" onclick="filterToProject('${p}')">
+  document.getElementById('project-cards').innerHTML=PROJ_ORDER.map(p=>{
+    const meta=PROJECT_META[p];
+    const pr=all.filter(r=>r.project===p);
+    const po=pr.filter(r=>r.status==='Open'||r.status==='Overdue').length;
+    const pc=pr.filter(r=>r.status==='Closed').length;
+    const pcrit=pr.filter(r=>(r.status==='Open'||r.status==='Overdue')&&r.priority==='Critical').length;
+    return`<div class="project-card ${meta.color}" onclick="filterToProject('${p}')">
       <div class="project-card-name">${p}</div>
-      <div class="project-card-short">${PROJECT_META[p].short}</div>
+      <div class="project-card-short">${meta.short}</div>
       <div class="project-card-stats">
         <div class="project-stat"><div class="n amber">${po}</div><div class="l">Open</div></div>
         <div class="project-stat"><div class="n green">${pc}</div><div class="l">Closed</div></div>
@@ -758,33 +858,29 @@ function renderDashboard() {
     </div>`;
   }).join('');
 
-  // NEM risk
-  const nemItems = all.filter(r => (r.status === 'Open' || r.status === 'Overdue') && r.schedImp === 'Yes');
-  document.getElementById('nem-count-badge').textContent = nemItems.length;
-  document.getElementById('nem-risk-list').innerHTML = nemItems.length === 0
-    ? `<div class="empty-state"><div class="empty-state-text">No open schedule-impact items</div></div>`
-    : nemItems.slice(0, 8).map(r => `
-    <div class="bic-row" onclick="openDrawer('${r.id}')" style="cursor:pointer;">
-      <div style="flex:1;min-width:0;">
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-400);">${r.project.split(' ')[0]} · ${r.num}${r.rev==='Rev'?' (Rev)':''}</div>
-        <div style="font-size:12px;font-weight:500;color:var(--midnight);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${r.subject}</div>
+  const nemItems=all.filter(r=>(r.status==='Open'||r.status==='Overdue')&&r.schedImp==='Yes');
+  document.getElementById('nem-count-badge').textContent=nemItems.length;
+  document.getElementById('nem-risk-list').innerHTML=nemItems.length===0
+    ?`<div class="empty-state"><div class="empty-state-text">No open schedule-impact items</div></div>`
+    :nemItems.slice(0,8).map(r=>`<div class="nem-row" onclick="openDrawer('${r.id}')">
+      <div style="flex:1;min-width:0">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-400)">${r.project} · RFI-${r.num}${r.rev==='Rev'?' (Rev)':''}</div>
+        <div style="font-size:12px;font-weight:500;color:var(--midnight);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.subject}</div>
       </div>
       <span class="badge badge-nem">NEM</span>
       ${statusBadge(r.status)}
     </div>`).join('');
 
-  // BIC leaderboard
-  const bicCount = {};
-  all.filter(r => r.status !== 'Closed').forEach(r => {
-    const org = r.bic.split(' /')[0].split(' -')[0].trim();
-    bicCount[org] = (bicCount[org] || 0) + 1;
+  const bicCount={};
+  all.filter(r=>r.status!=='Closed').forEach(r=>{
+    const org=(r.bic||'').split('/')[0].split(' /')[0].trim();
+    bicCount[org]=(bicCount[org]||0)+1;
   });
-  const bicSorted = Object.entries(bicCount).sort((a,b) => b[1]-a[1]);
-  const maxBic = bicSorted[0]?.[1] || 1;
-  document.getElementById('bic-leaderboard').innerHTML = bicSorted.length === 0
-    ? `<div class="empty-state"><div class="empty-state-text">No open items</div></div>`
-    : bicSorted.map(([org, n]) => `
-    <div class="bic-row">
+  const bicSorted=Object.entries(bicCount).sort((a,b)=>b[1]-a[1]);
+  const maxBic=bicSorted[0]?.[1]||1;
+  document.getElementById('bic-leaderboard').innerHTML=bicSorted.length===0
+    ?`<div class="empty-state"><div class="empty-state-text">No open items</div></div>`
+    :bicSorted.map(([org,n])=>`<div class="bic-row">
       <div class="bic-avatar">${initials(org)}</div>
       <div class="bic-org">${org}</div>
       <div class="bic-bar-wrap"><div class="bic-bar" style="width:${Math.round(n/maxBic*100)}%"></div></div>
@@ -792,66 +888,116 @@ function renderDashboard() {
     </div>`).join('');
 }
 
-function filterToProject(p) {
+function filterToProject(p){
   showView('list');
-  document.getElementById('f-project').value = p;
+  document.getElementById('f-project').value=p;
   renderTable();
 }
 
-// ── Table ─────────────────────────────────────────────────────────────────────
-function renderTable() {
-  const rows = filteredData();
-  document.getElementById('list-count').textContent = `${rows.length} RFIs`;
-  const tbody = document.getElementById('rfi-tbody');
-  if (rows.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-text">No RFIs match your filters</div><div class="empty-state-sub">Try clearing filters or adding a new RFI</div></div></td></tr>`;
+// ── Table with collapsible revisions ──────────────────────────────────────────
+let expandedRevs=new Set(); // track which base RFI nums have revisions expanded
+
+function renderTable(){
+  const rows=filteredData();
+  // Group: pair Orig rows with their Rev children
+  const grouped=[];
+  const seen=new Set();
+  rows.forEach(r=>{
+    if(seen.has(r.id)) return;
+    seen.add(r.id);
+    // Find if this is a base (Orig) row with a matching Rev
+    if(r.rev==='Orig'){
+      const revs=rows.filter(x=>x.num===r.num&&x.project===r.project&&x.rev!=='Orig'&&!seen.has(x.id));
+      revs.forEach(x=>seen.add(x.id));
+      grouped.push({base:r,revs});
+    } else {
+      // Rev with no matching Orig in filtered set — show standalone
+      grouped.push({base:r,revs:[]});
+    }
+  });
+
+  const totalUnique=grouped.length;
+  const totalRevs=grouped.reduce((s,g)=>s+g.revs.length,0);
+  document.getElementById('list-count').textContent=
+    `${totalUnique} RFIs${totalRevs>0?' ('+totalRevs+' revision'+(totalRevs>1?'s':'')+' collapsed)':''}`;
+
+  const tbody=document.getElementById('rfi-tbody');
+  if(grouped.length===0){
+    tbody.innerHTML=`<tr><td colspan="10"><div class="empty-state"><div class="empty-state-text">No RFIs match your filters</div><div class="empty-state-sub">Try clearing filters or adding a new RFI</div></div></td></tr>`;
     return;
   }
-  tbody.innerHTML = rows.map(r => {
-    const do_ = daysOpen(r);
-    const doClass = do_ === null ? '' : do_ > 14 ? 'alert' : do_ > 7 ? 'warn' : 'ok';
-    const isCrit = r.priority === 'Critical';
-    const isOver = r.status === 'Overdue';
-    const rowCls = isOver ? 'overdue-row' : isCrit ? 'critical-row' : '';
-    const selCls = r.id === selectedId ? 'selected' : '';
-    return `<tr class="${rowCls} ${selCls}" onclick="openDrawer('${r.id}')">
-      <td><div class="rfi-num">${r.num}</div>${r.rev==='Rev'?`<span class="rfi-rev">Rev</span>`:''}</td>
-      <td><div class="rfi-project">${r.project}</div></td>
-      <td><div class="rfi-title" title="${r.subject}">${r.subject}</div></td>
-      <td style="font-size:12px;color:var(--gray-600)">${r.disc}</td>
-      <td>${priBadge(r.priority)}</td>
-      <td>${statusBadge(r.status)}</td>
-      <td><div class="bic-cell"><div class="bic-cell-avatar">${initials(r.bic)}</div><div class="bic-cell-name">${r.bic}</div></div></td>
-      <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-600)">${r.dateReq||'—'}</td>
-      <td><span class="days-cell ${doClass}">${do_!==null?do_+'d':'—'}</span></td>
-      <td style="white-space:nowrap;">
-        ${r.schedImp==='Yes'?'<span class="badge badge-nem" style="font-size:9px;">SCHED</span> ':''}
-        ${r.costImp==='Yes'?'<span class="badge badge-urgent" style="font-size:9px;">COST</span>':''}
-      </td>
-    </tr>`;
-  }).join('');
+
+  const html=[];
+  grouped.forEach(({base:r,revs})=>{
+    const expandKey=`${r.project}::${r.num}`;
+    const isExpanded=expandedRevs.has(expandKey);
+    html.push(buildRow(r,false,revs.length>0,isExpanded,expandKey));
+    if(revs.length>0&&isExpanded){
+      revs.forEach(rv=>html.push(buildRow(rv,true,false,false,null)));
+    }
+  });
+  tbody.innerHTML=html.join('');
 }
 
-function sortTable(f) {
-  if (sortField === f) sortDir *= -1; else { sortField = f; sortDir = 1; }
+function buildRow(r,isChild,hasRevs,isExpanded,expandKey){
+  const do_=daysOpen(r);
+  const doClass=do_===null?'':do_>14?'alert':do_>7?'warn':'ok';
+  const isClosed=r.status==='Closed';
+  const isCritOpen=(r.priority==='Critical')&&!isClosed;
+  const isOver=r.status==='Overdue';
+  let rowCls=isClosed?'row-closed':isOver?'overdue-row':isCritOpen?'critical-open-row':'';
+  if(isChild) rowCls+=' rev-child';
+  if(r.id===selectedId) rowCls+=' selected';
+  const bicParts=(r.bic||'').split('/');
+  const bicCompany=bicParts[0]?.trim()||r.bic;
+  const bicPerson=bicParts[1]?.trim()||'';
+  const revToggle=hasRevs
+    ?`<span class="rev-toggle" onclick="event.stopPropagation();toggleRevs('${expandKey}')"><span class="rev-arrow ${isExpanded?'open':''}">▶</span> 1 rev</span>`
+    :(isChild?`<span style="font-size:9px;color:var(--gray-400);margin-left:4px">↳ REV</span>`:'');
+  return`<tr class="${rowCls}" onclick="openDrawer('${r.id}')">
+    <td><div class="rfi-num">${r.num}${revToggle}</div></td>
+    <td><div class="rfi-project">${r.project}</div></td>
+    <td>${statusBadge(r.status)}</td>
+    <td>${priBadge(r.priority)}</td>
+    <td><div class="rfi-desc" title="${r.subject}">${r.subject}</div></td>
+    <td style="font-size:12px;color:var(--gray-600)">${r.disc}</td>
+    <td><div class="bic-cell"><div class="bic-cell-avatar">${initials(bicCompany)}</div><div><div class="bic-cell-name">${bicCompany}</div>${bicPerson?`<div style="font-size:10px;color:var(--gray-400)">${bicPerson}</div>`:''}</div></div></td>
+    <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-600)">${r.dateReq||'—'}</td>
+    <td><span class="days-cell ${doClass}">${do_!==null?do_+'d':'—'}</span></td>
+    <td style="white-space:nowrap">
+      ${r.schedImp==='Yes'?'<span class="badge badge-nem" style="font-size:9px">SCHED</span> ':''}
+      ${r.costImp==='Yes'?'<span class="badge badge-urgent" style="font-size:9px">COST</span>':''}
+    </td>
+  </tr>`;
+}
+
+function toggleRevs(expandKey){
+  if(expandedRevs.has(expandKey)) expandedRevs.delete(expandKey);
+  else expandedRevs.add(expandKey);
   renderTable();
 }
 
-// ── Drawer ────────────────────────────────────────────────────────────────────
-function openDrawer(id) {
-  selectedId = id;
-  const r = DATA.find(x => x.id === id);
-  if (!r) return;
-  autoOverdue(r);
+function sortTable(f){if(sortField===f)sortDir*=-1;else{sortField=f;sortDir=1;}renderTable()}
 
-  document.getElementById('drawer-header').innerHTML = `
+// ── Drawer ────────────────────────────────────────────────────────────────────
+function openDrawer(id){
+  selectedId=id;
+  const r=DATA.find(x=>x.id===id);
+  if(!r) return;
+  autoOverdue(r);
+  const meta=PROJECT_META[r.project]||{};
+  const do_=daysOpen(r);
+  const bicParts=(r.bic||'').split('/');
+  const bicCompany=bicParts[0]?.trim()||r.bic;
+  const bicPerson=bicParts[1]?.trim()||'';
+
+  document.getElementById('drawer-header').innerHTML=`
     <div class="drawer-header-top">
       <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
           <span class="drawer-rfi-num">RFI-${r.num}</span>
-          ${r.rev==='Rev'?`<span style="background:rgba(255,255,255,0.15);color:var(--dawn);font-size:11px;padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace;">REV</span>`:''}
-          ${statusBadge(r.status)}
-          ${priBadge(r.priority)}
+          ${r.rev==='Rev'?`<span style="background:rgba(255,255,255,.15);color:var(--dawn);font-size:11px;padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace">REV</span>`:''}
+          ${statusBadge(r.status)} ${priBadge(r.priority)}
           ${r.schedImp==='Yes'?'<span class="badge badge-nem">NEM RISK</span>':''}
         </div>
         <div class="drawer-title">${r.subject}</div>
@@ -860,57 +1006,60 @@ function openDrawer(id) {
     </div>
     <div class="drawer-meta">
       <span class="drawer-project">${r.project}</span>
-      <span style="color:var(--midnight-60);">·</span>
-      <span class="drawer-project">${r.site || '—'}</span>
-      <span style="color:var(--midnight-60);">·</span>
+      <span style="color:var(--midnight-60)">·</span>
+      <span class="drawer-project">${r.site||'—'}</span>
+      <span style="color:var(--midnight-60)">·</span>
       <span class="drawer-project">${r.disc}</span>
-    </div>`;
+    </div>
+    ${meta.address?`<div class="drawer-address">📍 ${meta.address}</div>`:''}`;
 
-  const do_ = daysOpen(r);
-
-  document.getElementById('drawer-body').innerHTML = `
-    <!-- Responsibility -->
+  document.getElementById('drawer-body').innerHTML=`
+    <!-- Accountability -->
     <div class="drawer-section">
       <div class="section-label">Accountability</div>
       <div class="bic-block">
-        <div class="bic-block-avatar">${initials(r.bic)}</div>
+        <div class="bic-block-avatar">${initials(bicCompany)}</div>
         <div>
-          <div class="bic-block-label">Ball in Court</div>
-          <div class="bic-block-name">${r.bic.split('/')[0].trim()}</div>
-          <div class="bic-block-person">${r.bic.includes('/')? r.bic.split('/').slice(1).join('/').trim() : ''}</div>
+          <div class="bic-block-label">Currently Assigned To</div>
+          <div class="bic-block-name">${bicCompany}</div>
+          <div class="bic-block-person">${bicPerson}</div>
         </div>
       </div>
       <div class="fields-grid">
-        <div class="field"><div class="field-label">Submitted By</div><div class="field-value">${r.submittedBy||'—'}</div></div>
-        <div class="field"><div class="field-label">Directed To</div><div class="field-value">${r.directedTo||'—'}</div></div>
-        <div class="field"><div class="field-label">Date Submitted</div><div class="field-value mono">${r.dateSub||'—'}</div></div>
-        <div class="field"><div class="field-label">Date Required</div><div class="field-value mono ${r.dateReq&&r.dateReq!=='ASAP'&&!r.dateResp&&new Date(r.dateReq)<new Date()?'' :''}">${r.dateReq||'—'}</div></div>
-        <div class="field"><div class="field-label">Date Responded</div><div class="field-value mono">${r.dateResp||'Pending'}</div></div>
-        <div class="field"><div class="field-label">Days Open</div><div class="field-value mono ${do_>14?'':''}${do_===null?'muted':''}">${do_!==null?do_+' days':'—'}</div></div>
+        <div><div class="field-label">Submitted By</div><div class="field-value">${r.submittedBy||'—'}</div></div>
+        <div><div class="field-label">Directed To</div><div class="field-value">${r.directedTo||'—'}</div></div>
+        <div><div class="field-label">Date Submitted</div><div class="field-value mono">${r.dateSub||'—'}</div></div>
+        <div><div class="field-label">Date Required</div><div class="field-value mono">${r.dateReq||'—'}</div></div>
+        <div><div class="field-label">Date Responded</div><div class="field-value mono">${r.dateResp||'Pending'}</div></div>
+        <div><div class="field-label">Days Open (from submission)</div><div class="field-value mono ${do_>14?'':''}${do_===null?'muted':''}">${do_!==null?do_+' days':'—'}</div></div>
       </div>
     </div>
+    <!-- Official Response (if exists) -->
+    ${(()=>{const off=r.officialResponse;return off?`<div class="drawer-section"><div class="section-label">Official Response</div><div class="official-response"><div class="official-response-label">Verified Resolution</div><div class="official-response-text">${off.text}</div><div class="official-response-meta">${off.by} · ${off.date}</div></div></div>`:''})()}
     <!-- Timeline -->
     <div class="drawer-section">
-      <div class="section-label" style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="section-label" style="display:flex;align-items:center;justify-content:space-between">
         Resolution Timeline
-        <button class="add-update-btn" id="add-update-btn" onclick="toggleUpdateForm('${r.id}')">+ Add Update</button>
+        <button class="add-update-btn" onclick="toggleUpdateForm('${r.id}')">+ Add Update</button>
       </div>
-      <div class="timeline" id="timeline-${r.id}">
-        ${renderTimeline(r)}
-      </div>
+      <div class="timeline">${renderTimeline(r)}</div>
       <div class="update-form" id="update-form-${r.id}">
         <div class="form-row">
-          <select id="uf-action"><option>Submitted</option><option>Under Review</option><option>Information Provided</option><option>Response Issued</option><option>Revision Required</option><option>Escalated</option><option>Closed</option><option>Voided</option></select>
+          <select id="uf-action"><option>Submitted</option><option>Under Review</option><option>Information Provided</option><option>Response Issued</option><option>Revision Required</option><option>Escalated</option><option>Voided</option></select>
           <input type="text" id="uf-actor" placeholder="Your name / org">
         </div>
+        <div class="official-check-row" onclick="document.getElementById('uf-official').click()">
+          <input type="checkbox" id="uf-official">
+          <label for="uf-official">Mark as Official Response — this will be pinned as the verified resolution</label>
+        </div>
         <textarea id="uf-note" placeholder="Describe the update or action taken…"></textarea>
-        <div style="display:flex;gap:8px;">
+        <div style="display:flex;gap:8px">
           <button class="btn btn-primary btn-sm" onclick="submitUpdate('${r.id}')">Add to Timeline</button>
           <button class="btn btn-ghost btn-sm" onclick="toggleUpdateForm('${r.id}')">Cancel</button>
         </div>
       </div>
     </div>
-    <!-- Content -->
+    <!-- Problem / Resolution -->
     <div class="drawer-section">
       <div class="section-label">Problem Description</div>
       <div class="content-block-text ${!r.problem?'empty':''}">${r.problem||'No description provided.'}</div>
@@ -922,20 +1071,26 @@ function openDrawer(id) {
     <!-- Impacts -->
     <div class="drawer-section">
       <div class="section-label">Impact Summary</div>
-      <div class="fields-grid" style="margin-bottom:12px;">
-        <div class="field"><div class="field-label">Plan Revision</div>${impBadge(r.planRev,'cost')}</div>
-        <div class="field"><div class="field-label">Drawing / Spec</div><div class="field-value mono">${r.drawRef||'—'}</div></div>
+      <div class="fields-grid" style="margin-bottom:12px">
+        <div><div class="field-label">Plan Revision Required</div>${impBadge(r.planRev,'cost')}</div>
+        <div><div class="field-label">Drawing / Spec Ref</div><div class="field-value mono">${r.drawRef||'—'}</div></div>
       </div>
       <div class="impact-badges">
-        <div><div class="field-label" style="font-size:10px;margin-bottom:3px;">Cost Impact</div>${impBadge(r.costImp,'cost')}</div>
-        <div><div class="field-label" style="font-size:10px;margin-bottom:3px;">Schedule Impact</div>${impBadge(r.schedImp,'sched')}</div>
+        <div><div class="field-label" style="font-size:10px;margin-bottom:3px">Cost Impact</div>${impBadge(r.costImp,'cost')}</div>
+        <div><div class="field-label" style="font-size:10px;margin-bottom:3px">Schedule Impact</div>${impBadge(r.schedImp,'sched')}</div>
       </div>
+    </div>
+    <!-- Documents & Attachments -->
+    <div class="drawer-section">
+      <div class="section-label">Documents & Attachments</div>
+      ${renderAttachments(r)}
     </div>`;
 
-  document.getElementById('drawer-footer').innerHTML = `
+  document.getElementById('drawer-footer').innerHTML=`
     <button class="btn btn-ghost btn-sm" onclick="openEditModal('${r.id}')">✎ Edit</button>
-    <button class="btn btn-ghost btn-sm" onclick="quickStatus('${r.id}','Closed')" ${r.status==='Closed'?'disabled':''}>✓ Close RFI</button>
-    <button class="btn btn-ghost btn-sm" onclick="reassignBIC('${r.id}')">↔ Reassign BIC</button>
+    <button class="btn btn-ghost btn-sm" onclick="openCloseModal('${r.id}')" ${r.status==='Closed'?'disabled style="opacity:.4;cursor:not-allowed"':''}>✓ Close RFI</button>
+    <button class="btn btn-ghost btn-sm" onclick="reassignBIC('${r.id}')">↔ Reassign</button>
+    <button class="btn btn-ghost btn-sm" onclick="printRFI('${r.id}')">⎙ Print</button>
     <div style="flex:1"></div>
     <button class="btn btn-ghost btn-sm" style="color:var(--gray-400)" onclick="closeDrawer()">Close Panel</button>`;
 
@@ -944,20 +1099,21 @@ function openDrawer(id) {
   renderTable();
 }
 
-function renderTimeline(r) {
-  if (!r.timeline || r.timeline.length === 0)
-    return `<div style="color:var(--gray-400);font-size:12px;">No activity logged.</div>`;
-  return r.timeline.map((t, i) => {
-    const isLast = i === r.timeline.length - 1;
-    const dotCls = t.action === 'Closed' ? 'closed' : t.action === 'Submitted' ? 'submitted' : t.action === 'Revised' ? 'revised' : t.action === 'Escalated' ? 'escalated' : '';
-    return `<div class="timeline-item">
+function renderTimeline(r){
+  if(!r.timeline||!r.timeline.length) return`<div style="color:var(--gray-400);font-size:12px">No activity logged.</div>`;
+  return r.timeline.map((t,i)=>{
+    const isLast=i===r.timeline.length-1;
+    const isOfficial=t.official===true;
+    const dotCls=isOfficial?'closed':t.action==='Closed'?'closed':t.action==='Submitted'?'submitted':t.action==='Revised'?'revised':t.action==='Escalated'?'escalated':'';
+    return`<div class="timeline-item ${isOfficial?'official':''}">
       <div class="timeline-left">
         <div class="timeline-dot ${dotCls}"></div>
-        ${!isLast ? '<div class="timeline-line"></div>' : ''}
+        ${!isLast?'<div class="timeline-line"></div>':''}
       </div>
       <div class="timeline-content">
         <div class="timeline-header">
           <span class="timeline-action">${t.action}</span>
+          ${isOfficial?'<span class="timeline-official-badge">OFFICIAL</span>':''}
           <span class="timeline-actor">· ${t.actor}</span>
           <span class="timeline-date">${t.date}</span>
         </div>
@@ -967,196 +1123,343 @@ function renderTimeline(r) {
   }).join('');
 }
 
-function toggleUpdateForm(id) {
-  const f = document.getElementById('update-form-' + id);
-  f.classList.toggle('open');
+function renderAttachments(r){
+  const atts=r.attachments||[];
+  const boxes=r.boxLinks||[];
+  return`
+    <div class="attach-group-label">Uploaded Documents</div>
+    <div class="attach-list" id="attach-list-${r.id}">
+      ${atts.length===0?`<div style="font-size:12px;color:var(--gray-400);font-style:italic">No documents uploaded yet.</div>`
+      :atts.map((a,i)=>`<div class="attach-item">
+        <div class="attach-icon">📄</div>
+        <div class="attach-name">${a.name}</div>
+        <div class="attach-meta">${a.type||''}</div>
+        <div class="attach-actions">
+          <button class="attach-link" onclick="viewDoc('${r.id}',${i})">View</button>
+          <button class="attach-link" onclick="removeAttachment('${r.id}',${i})">✕</button>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="attach-upload-zone" onclick="triggerUpload('${r.id}','orig')">
+      <input type="file" id="file-orig-${r.id}" style="display:none" accept=".pdf,.png,.jpg,.jpeg,.dwg,.docx,.xlsx" onchange="handleUpload(event,'${r.id}','Original RFI')">
+      <strong>+ Upload Original RFI Document</strong>
+      <p>PDF, image, DWG, Word, Excel</p>
+    </div>
+    <div class="attach-upload-zone" onclick="triggerUpload('${r.id}','rev')">
+      <input type="file" id="file-rev-${r.id}" style="display:none" accept=".pdf,.png,.jpg,.jpeg,.dwg,.docx,.xlsx" onchange="handleUpload(event,'${r.id}','Revision')">
+      <strong>+ Upload Revision Document</strong>
+      <p>Upload revised drawings, responses, or stamped plans</p>
+    </div>
+    <div id="doc-viewer-${r.id}" class="doc-viewer"></div>
+
+    <div class="attach-group-label" style="margin-top:16px">Box.com Links</div>
+    <div id="box-links-${r.id}">
+      ${boxes.length===0?`<div style="font-size:12px;color:var(--gray-400);font-style:italic;margin-bottom:8px">No Box links added yet.</div>`
+      :boxes.map((b,i)=>`<div class="attach-item">
+        <div class="attach-icon" style="font-size:16px">📦</div>
+        <div style="flex:1;min-width:0">
+          <div class="attach-name">${b.label||'Box File'}</div>
+          <div style="font-size:10px;color:var(--gray-400);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.url}</div>
+        </div>
+        <div class="attach-actions">
+          <a class="attach-link" href="${b.url}" target="_blank">Open ↗</a>
+          <button class="attach-link" onclick="removeBoxLink('${r.id}',${i})">✕</button>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="box-link-row">
+      <input class="box-link-input" id="box-url-${r.id}" placeholder="Paste Box.com share link…" onkeydown="if(event.key==='Enter')addBoxLink('${r.id}')">
+      <input class="box-link-input" id="box-label-${r.id}" placeholder="Label (e.g. RFI-007 Response)" style="max-width:180px" onkeydown="if(event.key==='Enter')addBoxLink('${r.id}')">
+      <button class="btn btn-ghost btn-sm" onclick="addBoxLink('${r.id}')">+ Add</button>
+    </div>`;
 }
 
-function submitUpdate(id) {
-  const action = document.getElementById('uf-action').value;
-  const actor = document.getElementById('uf-actor').value || 'Unknown';
-  const note = document.getElementById('uf-note').value;
-  if (!note) { showToast('Add a note before saving.'); return; }
-  const r = DATA.find(x => x.id === id);
-  if (!r.timeline) r.timeline = [];
-  r.timeline.push({ date: new Date().toISOString().slice(0,10), actor, action, note });
-  if (action === 'Closed') { r.status = 'Closed'; r.dateResp = new Date().toISOString().slice(0,10); }
-  if (action === 'Response Issued') { r.status = 'Closed'; r.dateResp = new Date().toISOString().slice(0,10); }
-  save();
-  openDrawer(id);
-  showToast('Update added to timeline');
-}
+function triggerUpload(id,type){document.getElementById(`file-${type}-${id}`).click()}
 
-function quickStatus(id, status) {
-  const r = DATA.find(x => x.id === id);
-  r.status = status;
-  if (status === 'Closed') r.dateResp = new Date().toISOString().slice(0,10);
-  if (!r.timeline) r.timeline = [];
-  r.timeline.push({ date: new Date().toISOString().slice(0,10), actor: 'System', action: 'Closed', note: 'Marked closed via action button.' });
-  save();
-  openDrawer(id);
-  showToast('RFI marked as ' + status);
-}
-
-function reassignBIC(id) {
-  const r = DATA.find(x => x.id === id);
-  const newBIC = prompt('Reassign Ball in Court to:', r.bic);
-  if (newBIC && newBIC !== r.bic) {
-    const old = r.bic;
-    r.bic = newBIC;
-    if (!r.timeline) r.timeline = [];
-    r.timeline.push({ date: new Date().toISOString().slice(0,10), actor: 'System', action: 'Information Provided', note: `Ball in Court reassigned from ${old} to ${newBIC}.` });
+function handleUpload(event,id,type){
+  const file=event.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const r=DATA.find(x=>x.id===id);
+    if(!r.attachments) r.attachments=[];
+    r.attachments.push({name:file.name,type,dataUrl:e.target.result,mimeType:file.type});
     save();
     openDrawer(id);
-    showToast('Ball in Court updated');
+    showToast(`${file.name} uploaded`);
+  };
+  reader.readAsDataURL(file);
+}
+
+function viewDoc(id,idx){
+  const r=DATA.find(x=>x.id===id);
+  const att=r.attachments[idx];
+  const viewer=document.getElementById(`doc-viewer-${id}`);
+  viewer.classList.add('open');
+  if(att.mimeType&&att.mimeType.startsWith('image/')){
+    viewer.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><img src="${att.dataUrl}" style="width:100%;max-height:500px;object-fit:contain;display:block;background:#000">`;
+  } else if(att.mimeType==='application/pdf'){
+    viewer.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><iframe src="${att.dataUrl}" title="${att.name}"></iframe>`;
+  } else {
+    viewer.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><div class="doc-placeholder"><p>Preview not available for this file type.</p><a class="attach-link" href="${att.dataUrl}" download="${att.name}">⬇ Download ${att.name}</a></div>`;
+  }
+  viewer.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeViewer(id){
+  const v=document.getElementById(`doc-viewer-${id}`);
+  v.classList.remove('open');v.innerHTML='';
+}
+
+function removeAttachment(id,idx){
+  const r=DATA.find(x=>x.id===id);
+  r.attachments.splice(idx,1);
+  save();openDrawer(id);showToast('Document removed');
+}
+
+function addBoxLink(id){
+  const url=document.getElementById(`box-url-${id}`).value.trim();
+  const label=document.getElementById(`box-label-${id}`).value.trim()||'Box File';
+  if(!url){showToast('Paste a Box link first');return;}
+  const r=DATA.find(x=>x.id===id);
+  if(!r.boxLinks) r.boxLinks=[];
+  r.boxLinks.push({url,label});
+  save();openDrawer(id);showToast('Box link added');
+}
+
+function removeBoxLink(id,idx){
+  const r=DATA.find(x=>x.id===id);
+  r.boxLinks.splice(idx,1);
+  save();openDrawer(id);showToast('Box link removed');
+}
+
+function toggleUpdateForm(id){document.getElementById('update-form-'+id).classList.toggle('open')}
+
+function submitUpdate(id){
+  const action=document.getElementById('uf-action').value;
+  const actor=document.getElementById('uf-actor').value||'Unknown';
+  const note=document.getElementById('uf-note').value;
+  const isOfficial=document.getElementById('uf-official')?.checked||false;
+  if(!note){showToast('Add a note before saving.');return;}
+  const r=DATA.find(x=>x.id===id);
+  if(!r.timeline) r.timeline=[];
+  const entry={date:new Date().toISOString().slice(0,10),actor,action,note};
+  if(isOfficial) entry.official=true;
+  r.timeline.push(entry);
+  if(isOfficial){r.officialResponse={text:note,by:actor,date:new Date().toISOString().slice(0,10)};}
+  save();openDrawer(id);showToast(isOfficial?'Official response recorded':'Update added to timeline');
+}
+
+// ── Close RFI intercept ───────────────────────────────────────────────────────
+let closeTargetId=null;
+function openCloseModal(id){
+  const r=DATA.find(x=>x.id===id);
+  if(r.status==='Closed'){showToast('RFI is already closed.');return;}
+  closeTargetId=id;
+  document.getElementById('cr-response').value='';
+  document.getElementById('cr-by').value=r.bic||'';
+  document.getElementById('cr-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('cr-char').textContent='0 / 20 minimum';
+  document.getElementById('cr-char').className='char-counter';
+  document.getElementById('cr-confirm').disabled=true;
+  document.getElementById('cr-confirm').style.opacity='.5';
+  document.getElementById('close-modal-overlay').classList.add('open');
+}
+function checkCloseForm(){
+  const txt=document.getElementById('cr-response').value.trim();
+  const by=document.getElementById('cr-by').value.trim();
+  const len=txt.length;
+  const counter=document.getElementById('cr-char');
+  counter.textContent=`${len} / 20 minimum`;
+  counter.className='char-counter'+(len>=20?' good':'');
+  const ok=len>=20&&by.length>0;
+  document.getElementById('cr-confirm').disabled=!ok;
+  document.getElementById('cr-confirm').style.opacity=ok?'1':'.5';
+}
+function confirmCloseRFI(){
+  const id=closeTargetId;
+  if(!id) return;
+  const r=DATA.find(x=>x.id===id);
+  const txt=document.getElementById('cr-response').value.trim();
+  const by=document.getElementById('cr-by').value.trim();
+  const dt=document.getElementById('cr-date').value||new Date().toISOString().slice(0,10);
+  if(txt.length<20||!by){showToast('Please complete all required fields.');return;}
+  r.status='Closed';
+  r.dateResp=dt;
+  r.officialResponse={text:txt,by,date:dt};
+  if(!r.timeline) r.timeline=[];
+  r.timeline.push({date:dt,actor:by,action:'Response Issued',note:txt,official:true});
+  save();
+  document.getElementById('close-modal-overlay').classList.remove('open');
+  closeTargetId=null;
+  openDrawer(id);
+  renderDashboard();
+  showToast('RFI closed — official response recorded');
+}
+function cancelCloseRFI(){
+  document.getElementById('close-modal-overlay').classList.remove('open');
+  closeTargetId=null;
+}
+
+function reassignBIC(id){
+  const r=DATA.find(x=>x.id===id);
+  const newBIC=prompt('Reassign to (Company / Person):',r.bic);
+  if(newBIC&&newBIC!==r.bic){
+    const old=r.bic;r.bic=newBIC;
+    if(!r.timeline) r.timeline=[];
+    r.timeline.push({date:new Date().toISOString().slice(0,10),actor:'System',action:'Information Provided',note:`Reassigned from ${old} to ${newBIC}.`});
+    save();openDrawer(id);showToast('Assignment updated');
   }
 }
 
-function closeDrawer() {
+function closeDrawer(){
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('drawer-overlay').classList.remove('open');
-  selectedId = null;
-  renderTable();
+  selectedId=null;renderTable();
 }
 
 // ── Modal ─────────────────────────────────────────────────────────────────────
-function openModal() {
-  editId = null;
-  document.getElementById('modal-title').textContent = 'New RFI';
-  ['m-num','m-site','m-bic','m-submittedBy','m-directedTo','m-dateSub','m-dateReq','m-subject','m-problem','m-resolution','m-drawRef'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('m-rev').value = 'Orig';
-  document.getElementById('m-project').value = '';
-  document.getElementById('m-disc').value = 'Electrical';
-  document.getElementById('m-priority').value = 'Standard';
-  document.getElementById('m-status').value = 'Open';
-  document.getElementById('m-planRev').value = 'No';
-  document.getElementById('m-costImp').value = 'No';
-  document.getElementById('m-schedImp').value = 'No';
+function openModal(){
+  editId=null;
+  document.getElementById('modal-title').textContent='New RFI';
+  ['m-num','m-site','m-submittedBy','m-directedTo','m-dateSub','m-dateReq','m-subject','m-problem','m-resolution','m-drawRef'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('m-rev').value='Orig';
+  document.getElementById('m-project').value='';
+  document.getElementById('m-disc').value='Electrical';
+  document.getElementById('m-priority').value='Standard';
+  document.getElementById('m-status').value='Open';
+  document.getElementById('m-planRev').value='No';
+  document.getElementById('m-costImp').value='No';
+  document.getElementById('m-schedImp').value='No';
+  document.getElementById('m-bic-company').value='';
+  document.getElementById('m-bic-person').innerHTML='<option value="">Select person…</option>';
   document.getElementById('modal-overlay').classList.add('open');
 }
 
-function openEditModal(id) {
-  const r = DATA.find(x => x.id === id);
-  editId = id;
-  document.getElementById('modal-title').textContent = 'Edit RFI';
-  document.getElementById('m-num').value = r.num;
-  document.getElementById('m-rev').value = r.rev;
-  document.getElementById('m-project').value = r.project;
-  document.getElementById('m-site').value = r.site;
-  document.getElementById('m-disc').value = r.disc;
-  document.getElementById('m-priority').value = r.priority;
-  document.getElementById('m-status').value = r.status;
-  document.getElementById('m-bic').value = r.bic;
-  document.getElementById('m-submittedBy').value = r.submittedBy;
-  document.getElementById('m-directedTo').value = r.directedTo;
-  document.getElementById('m-dateSub').value = r.dateSub;
-  document.getElementById('m-dateReq').value = (r.dateReq === 'ASAP' ? '' : r.dateReq) || '';
-  document.getElementById('m-subject').value = r.subject;
-  document.getElementById('m-problem').value = r.problem;
-  document.getElementById('m-resolution').value = r.resolution;
-  document.getElementById('m-planRev').value = r.planRev;
-  document.getElementById('m-costImp').value = r.costImp;
-  document.getElementById('m-schedImp').value = r.schedImp;
-  document.getElementById('m-drawRef').value = r.drawRef;
+function openEditModal(id){
+  const r=DATA.find(x=>x.id===id);
+  editId=id;
+  document.getElementById('modal-title').textContent='Edit RFI';
+  document.getElementById('m-num').value=r.num;
+  document.getElementById('m-rev').value=r.rev;
+  document.getElementById('m-project').value=r.project;
+  document.getElementById('m-site').value=r.site;
+  document.getElementById('m-disc').value=r.disc;
+  document.getElementById('m-priority').value=r.priority;
+  document.getElementById('m-status').value=r.status;
+  document.getElementById('m-submittedBy').value=r.submittedBy;
+  document.getElementById('m-directedTo').value=r.directedTo;
+  document.getElementById('m-dateSub').value=r.dateSub;
+  document.getElementById('m-dateReq').value=(r.dateReq==='ASAP'?'':r.dateReq)||'';
+  document.getElementById('m-subject').value=r.subject;
+  document.getElementById('m-problem').value=r.problem;
+  document.getElementById('m-resolution').value=r.resolution;
+  document.getElementById('m-planRev').value=r.planRev;
+  document.getElementById('m-costImp').value=r.costImp;
+  document.getElementById('m-schedImp').value=r.schedImp;
+  document.getElementById('m-drawRef').value=r.drawRef;
+  // Parse BIC
+  const parts=(r.bic||'').split('/');
+  const co=parts[0]?.trim()||'';
+  const pe=parts[1]?.trim()||'';
+  const coEl=document.getElementById('m-bic-company');
+  coEl.value=co;
+  updatePersonDropdown(co);
+  setTimeout(()=>{document.getElementById('m-bic-person').value=pe;},50);
   document.getElementById('modal-overlay').classList.add('open');
 }
 
-function saveRFI() {
-  const num = document.getElementById('m-num').value.trim();
-  const project = document.getElementById('m-project').value;
-  const bic = document.getElementById('m-bic').value.trim();
-  const subject = document.getElementById('m-subject').value.trim();
-  let valid = true;
-  ['m-num','m-project','m-bic','m-subject'].forEach(id => {
-    const el = document.getElementById(id);
-    const val = el.value.trim();
-    if (!val) { el.classList.add('error'); valid = false; } else el.classList.remove('error');
+function saveRFI(){
+  const num=document.getElementById('m-num').value.trim();
+  const project=document.getElementById('m-project').value;
+  const subject=document.getElementById('m-subject').value.trim();
+  const bicCo=document.getElementById('m-bic-company').value;
+  const bicPe=document.getElementById('m-bic-person').value;
+  const bic=bicCo?(bicCo+(bicPe?' / '+bicPe:'')):'';
+  let valid=true;
+  [['m-num',num],['m-project',project],['m-subject',subject],['m-bic-company',bicCo]].forEach(([id,val])=>{
+    const el=document.getElementById(id);
+    if(!val){el.classList.add('error');valid=false;}else el.classList.remove('error');
   });
-  if (!valid) { showToast('Please fill in required fields'); return; }
-
-  const rfi = {
-    id: editId || `${project.split(' ')[0].substring(0,3).toUpperCase()}-${num}-${document.getElementById('m-rev').value}`,
-    num, rev: document.getElementById('m-rev').value,
-    project, site: document.getElementById('m-site').value,
-    disc: document.getElementById('m-disc').value,
-    priority: document.getElementById('m-priority').value,
-    status: document.getElementById('m-status').value,
-    bic, submittedBy: document.getElementById('m-submittedBy').value,
-    directedTo: document.getElementById('m-directedTo').value,
-    dateSub: document.getElementById('m-dateSub').value,
-    dateReq: document.getElementById('m-dateReq').value,
-    dateResp: '', subject,
-    problem: document.getElementById('m-problem').value,
-    resolution: document.getElementById('m-resolution').value,
-    planRev: document.getElementById('m-planRev').value,
-    costImp: document.getElementById('m-costImp').value,
-    schedImp: document.getElementById('m-schedImp').value,
-    drawRef: document.getElementById('m-drawRef').value,
-    timeline: [{ date: new Date().toISOString().slice(0,10), actor: bic, action: 'Submitted', note: subject }]
+  if(!valid){showToast('Please fill in required fields');return;}
+  const rfi={
+    id:editId||`${(project.split(' ')[0]||'RFI').slice(0,3).toUpperCase()}-${num}-${document.getElementById('m-rev').value}-${Date.now()}`,
+    num,rev:document.getElementById('m-rev').value,project,
+    site:document.getElementById('m-site').value,disc:document.getElementById('m-disc').value,
+    priority:document.getElementById('m-priority').value,status:document.getElementById('m-status').value,
+    bic,submittedBy:document.getElementById('m-submittedBy').value,
+    directedTo:document.getElementById('m-directedTo').value,
+    dateSub:document.getElementById('m-dateSub').value,
+    dateReq:document.getElementById('m-dateReq').value,dateResp:'',subject,
+    problem:document.getElementById('m-problem').value,
+    resolution:document.getElementById('m-resolution').value,
+    planRev:document.getElementById('m-planRev').value,
+    costImp:document.getElementById('m-costImp').value,
+    schedImp:document.getElementById('m-schedImp').value,
+    drawRef:document.getElementById('m-drawRef').value,
+    attachments:[],boxLinks:[],
+    timeline:[{date:new Date().toISOString().slice(0,10),actor:bic,action:'Submitted',note:subject}]
   };
-
-  if (editId) {
-    const idx = DATA.findIndex(x => x.id === editId);
-    rfi.timeline = DATA[idx].timeline;
-    DATA[idx] = rfi;
-  } else {
-    DATA.push(rfi);
-  }
-  save();
-  closeModal();
-  renderTable();
-  renderDashboard();
-  showToast(editId ? 'RFI updated' : 'New RFI added');
-  if (editId) openDrawer(rfi.id);
+  if(editId){
+    const idx=DATA.findIndex(x=>x.id===editId);
+    rfi.timeline=DATA[idx].timeline;
+    rfi.attachments=DATA[idx].attachments||[];
+    rfi.boxLinks=DATA[idx].boxLinks||[];
+    DATA[idx]=rfi;
+  } else DATA.push(rfi);
+  save();closeModal();renderTable();renderDashboard();
+  showToast(editId?'RFI updated':'New RFI added');
+  if(editId) openDrawer(rfi.id);
 }
 
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open')}
+
+// ── Print ─────────────────────────────────────────────────────────────────────
+function printRFI(id){
+  document.getElementById('print-date').textContent='Printed: '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  window.print();
+}
+
+function printList(){
+  document.getElementById('print-date').textContent='Printed: '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  window.print();
+}
 
 // ── Export ────────────────────────────────────────────────────────────────────
-function exportCSV() {
-  const rows = filteredData();
-  const cols = ['num','rev','project','site','disc','priority','status','bic','submittedBy','directedTo','dateSub','dateReq','dateResp','subject','problem','resolution','planRev','costImp','schedImp','drawRef'];
-  const header = 'RFI #,Rev,Project,Site,Discipline,Priority,Status,Ball in Court,Submitted By,Directed To,Date Sub,Date Req,Date Resp,Subject,Problem,Resolution,Plan Rev,Cost Impact,Sched Impact,Drawing Ref';
-  const csv = [header, ...rows.map(r => cols.map(c => `"${(r[c]||'').replace(/"/g,'""')}"`).join(','))].join('\n');
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
-  a.download = 'Coast_Energy_RFI_Export.csv';
-  a.click();
+function exportCSV(){
+  const rows=filteredData();
+  const cols=['num','rev','project','site','disc','priority','status','bic','submittedBy','directedTo','dateSub','dateReq','dateResp','subject','problem','resolution','planRev','costImp','schedImp','drawRef'];
+  const header='RFI #,Rev,Project,Site,Discipline,Priority,Status,Currently Assigned To,Submitted By,Directed To,Date Sub,Date Req,Date Resp,Description,Problem,Resolution,Plan Rev,Cost Impact,Sched Impact,Drawing Ref';
+  const csv=[header,...rows.map(r=>cols.map(c=>`"${(r[c]||'').replace(/"/g,'""')}"`).join(','))].join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='Coast_Energy_RFI_Export.csv';a.click();
 }
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 // ── Keyboard shortcuts ────────────────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeDrawer(); closeModal(); }
-  if (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) {
-    e.preventDefault();
-    showView('list');
-    document.getElementById('search').focus();
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeDrawer();closeModal();cancelCloseRFI();}
+  if(e.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){
+    e.preventDefault();showView('list');document.getElementById('search').focus();
   }
-  if (e.key === 'n' && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) {
-    e.preventDefault(); openModal();
-  }
+  if(e.key==='n'&&!['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){e.preventDefault();openModal();}
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────
-function init() {
-  // NEM countdown
-  const days = nem();
-  const el = document.getElementById('countdown-val');
-  el.textContent = days;
-  if (days <= 14) el.classList.add('urgent');
-
+(function init(){
+  const days=nem();
+  const el=document.getElementById('countdown-val');
+  el.textContent=days;
+  if(days<=14) el.classList.add('urgent');
   renderDashboard();
-}
-
-init();
+})();
 </script>
 </body>
 </html>
