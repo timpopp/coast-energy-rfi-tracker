@@ -69,6 +69,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .stat-card .value.amber{color:#B45309}
 .stat-card .value.red{color:#991B1B}
 .stat-card .value.green{color:#065F46}
+.stat-card-clickable{cursor:pointer;transition:var(--transition)}
+.stat-card-clickable:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);border-color:var(--dawn)}
+.stat-card-clickable:hover .stat-hint{opacity:1}
+.stat-hint{font-size:10px;color:var(--dawn);margin-top:4px;opacity:0;transition:opacity .15s}
 /* ── Dashboard panels ── */
 .dash-grid-3{display:grid;grid-template-columns:2fr 1fr;gap:20px}
 .panel{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
@@ -100,8 +104,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .bic-bar-wrap{width:100px;height:6px;background:var(--gray-100);border-radius:3px}
 .bic-bar{height:6px;background:var(--dawn);border-radius:3px}
 .bic-count{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;min-width:20px;text-align:right}
+.bic-row-clickable:hover{background:var(--bic-bg);border-radius:var(--radius)}
+/* ── Inline table dropdowns ── */
+.inline-select{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;border-radius:100px;padding:3px 10px;appearance:none;-webkit-appearance:none;max-width:140px;outline:none;border:1.5px solid transparent}
+.inline-select:hover{filter:brightness(.95)}
+.inline-select:focus{box-shadow:0 0 0 2px rgba(165,176,227,.3)}
+.inline-select option{background:var(--white);color:var(--midnight);font-weight:400}
+.inline-status{color:var(--open-fg);background:var(--open-bg);border-color:var(--open-border)}
+.row-closed .inline-status{color:var(--closed-fg);background:var(--closed-bg);border-color:var(--closed-border)}
+.overdue-row .inline-status{color:var(--overdue-fg);background:var(--overdue-bg);border-color:var(--overdue-border)}
+.inline-priority-critical{color:var(--critical-fg);background:var(--critical-bg);border-color:#FECACA}
+.inline-priority-urgent,.inline-priority-high{color:var(--urgent-fg);background:var(--urgent-bg);border-color:var(--open-border)}
+.inline-priority-medium{color:var(--medium-fg);background:var(--medium-bg);border-color:var(--closed-border)}
+.inline-priority-standard,.inline-priority-low{color:var(--standard-fg);background:var(--standard-bg);border-color:var(--gray-200)}
+.bic-inline-wrap{display:flex;flex-direction:column;gap:2px}
+.inline-bic-co{color:var(--bic-fg);font-size:11px;font-weight:700}
+.inline-bic-pe{color:var(--gray-600);font-size:11px;font-weight:400}
 /* ── NEM risk list ── */
-.nem-row{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--gray-100);cursor:pointer}
+.nem-row{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;border-bottom:1px solid var(--gray-100);cursor:pointer}
 .nem-row:hover{background:var(--sandstone)}
 .nem-row:last-child{border-bottom:none}
 /* ── Filter bar ── */
@@ -147,6 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .badge-no{background:#F0FDF4;color:#166534}
 .badge-tbd,.badge-unknown{background:#F3F4F6;color:#374151}
 .badge-nem{background:#DC2626;color:#fff;font-size:9px;letter-spacing:.5px}
+.badge-cost-risk{background:#D97706;color:#fff;font-size:9px;letter-spacing:.5px}
 .bic-cell{display:flex;align-items:center;gap:6px}
 .bic-cell-avatar{width:24px;height:24px;border-radius:50%;background:var(--bic-bg);border:1px solid var(--bic-border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--bic-fg);flex-shrink:0;font-family:'DM Mono',monospace}
 .bic-cell-name{font-size:12px;font-weight:600;color:var(--bic-fg);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -305,6 +326,12 @@ textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
 .close-form-group label .req{color:#DC2626}
 .char-counter{font-size:10px;color:var(--gray-400);text-align:right;margin-top:2px}
 .char-counter.good{color:#065F46}
+/* ── Draggable columns ── */
+.rfi-table thead th{cursor:grab;user-select:none;position:sticky;top:0;z-index:1}
+.rfi-table thead th.dragging{opacity:.5;background:var(--midnight-60)!important}
+.rfi-table thead th.drag-over{border-left:3px solid var(--golden)!important}
+.col-drag-hint{font-size:9px;color:var(--gray-400);opacity:0;transition:opacity .2s;margin-left:4px}
+.rfi-table thead th:hover .col-drag-hint{opacity:1}
 /* ── Print styles ── */
 @media print{
   .topbar,.filter-bar,.list-meta,.drawer-overlay,.drawer,.modal-overlay,.toast,.btn,.attach-upload-zone,.box-link-row,.update-form,.add-update-btn,.drawer-footer{display:none!important}
@@ -383,8 +410,8 @@ textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
       <div class="dash-grid-3">
         <div class="panel">
           <div class="panel-header">
-            <span class="panel-title">NEM 2.0 Risk — Open + Schedule Impact</span>
-            <span class="badge badge-overdue" id="nem-count-badge"></span>
+            <span class="panel-title">Overdue, Critical &amp; At-Risk</span>
+            <span class="badge badge-overdue" id="nem-count-badge" title="Open items that are Critical, Urgent, NEM Risk, Cost Risk, or New"></span>
           </div>
           <div id="nem-risk-list"></div>
         </div>
@@ -420,12 +447,25 @@ textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
           <option>Electrical</option><option>Structural</option>
           <option>Civil</option><option>General</option>
         </select>
-        <select id="f-sched" onchange="renderTable()">
-          <option value="">Sched Impact: All</option>
-          <option value="Yes">Schedule Impact: Yes</option>
+        <select id="f-company" onchange="renderTable()">
+          <option value="">All Companies</option>
+          <option value="Coast Energy">Coast Energy</option>
+          <option value="Morpho Energy">Morpho Energy</option>
+          <option value="BPI">BPI</option>
         </select>
-        <button class="btn btn-ghost btn-sm" onclick="exportCSV()">↓ CSV</button>
-        <button class="btn btn-ghost btn-sm" onclick="printList()">⎙ Print</button>
+        <select id="f-impact" onchange="renderTable()">
+          <option value="">Impact: All</option>
+          <option value="nem">NEM Risk</option>
+          <option value="cost">Cost Risk</option>
+        </select>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+          <button class="btn btn-ghost btn-sm" onclick="exportCSV()">↓ CSV</button>
+          <button class="btn btn-ghost btn-sm" onclick="printList()">⎙ Print</button>
+        </div>
+        <div style="width:100%;display:flex;gap:6px;padding-top:6px;border-top:1px solid var(--gray-100);margin-top:2px">
+          <button class="btn btn-ghost btn-sm" onclick="resetAllFilters()" title="Clear all filters" style="color:var(--nem-red);border-color:var(--nem-red)">✕ Reset Filters</button>
+          <button class="btn btn-ghost btn-sm" onclick="resetColOrder()" title="Reset column order to default">↺ Reset Columns</button>
+        </div>
       </div>
       <div class="list-meta">
         <span class="list-meta-count" id="list-count"></span>
@@ -433,20 +473,7 @@ textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
       </div>
       <div class="rfi-table-wrap">
         <table class="rfi-table">
-          <thead>
-            <tr>
-              <th onclick="sortTable('num')">RFI #</th>
-              <th onclick="sortTable('project')">Project</th>
-              <th onclick="sortTable('status')">Status</th>
-              <th onclick="sortTable('priority')">Priority</th>
-              <th onclick="sortTable('subject')">Description</th>
-              <th onclick="sortTable('disc')">Discipline</th>
-              <th onclick="sortTable('bic')">Currently Assigned To</th>
-              <th onclick="sortTable('dateReq')">Due</th>
-              <th onclick="sortTable('daysOpen')">Days Open</th>
-              <th>Impact</th>
-            </tr>
-          </thead>
+          <thead><tr></tr></thead>
           <tbody id="rfi-tbody"></tbody>
         </table>
       </div>
@@ -560,12 +587,19 @@ textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
           </div>
           <div class="form-group">
             <label class="form-label">Submitted By</label>
-            <input class="form-input" id="m-submittedBy" placeholder="Company - Name">
+            <select class="form-input" id="m-submittedBy">
+              <option value="">Select…</option>
+              <option value="BPi">BPi</option>
+              <option value="SGS">SGS</option>
+              <option value="SGS - Ken L.">SGS - Ken L.</option>
+              <option value="SGS - Peter R.">SGS - Peter R.</option>
+              <option value="SGS - Rick H.">SGS - Rick H.</option>
+              <option value="SGS - Victoria V.">SGS - Victoria V.</option>
+              <option value="Coast Energy">Coast Energy</option>
+              <option value="Morpho Energy">Morpho Energy</option>
+            </select>
           </div>
-          <div class="form-group">
-            <label class="form-label">Directed To</label>
-            <input class="form-input" id="m-directedTo" placeholder="Company - Name">
-          </div>
+
           <!-- Two-tier Assigned To -->
           <div class="form-group full">
             <label class="form-label">Currently Assigned To (Company + Person) <span class="req">*</span></label>
@@ -753,9 +787,9 @@ const SEED = [
 ];
 
 // ── State ──────────────────────────────────────────────────────────────────────
-let DATA = JSON.parse(localStorage.getItem('ce_rfis_v2')||'null') || SEED;
+let DATA = JSON.parse(localStorage.getItem('ce_rfis_v6')||'null') || SEED;
 let sortField='num', sortDir=1, selectedId=null, editId=null;
-function save(){localStorage.setItem('ce_rfis_v2',JSON.stringify(DATA))}
+function save(){localStorage.setItem('ce_rfis_v6',JSON.stringify(DATA))}
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 function nem(){return Math.ceil((new Date('2026-04-14')-new Date())/86400000)}
@@ -803,13 +837,16 @@ function filteredData(){
   const fs=document.getElementById('f-status')?.value||'';
   const fpr=document.getElementById('f-priority')?.value||'';
   const fd=document.getElementById('f-discipline')?.value||'';
-  const fsc=document.getElementById('f-sched')?.value||'';
+  const fsc=document.getElementById('f-impact')?.value||'';
+  const fco=document.getElementById('f-company')?.value||'';
   const base=DATA.map(autoOverdue).filter(r=>{
     if(fp&&r.project!==fp) return false;
     if(fs&&r.status!==fs) return false;
     if(fpr&&r.priority!==fpr) return false;
     if(fd&&r.disc!==fd) return false;
-    if(fsc&&r.schedImp!==fsc) return false;
+    if(fsc==='nem'&&r.schedImp!=='Yes') return false;
+    if(fsc==='cost'&&r.costImp!=='Yes') return false;
+    if(fco&&!(r.bic||'').startsWith(fco)) return false;
     if(q&&!`${r.num} ${r.subject} ${r.problem} ${r.bic} ${r.site}`.toLowerCase().includes(q)) return false;
     return true;
   });
@@ -832,14 +869,21 @@ function showView(v){
 function renderDashboard(){
   const all=DATA.map(autoOverdue);
   const open=all.filter(r=>r.status==='Open'||r.status==='Overdue');
-  document.getElementById('stat-strip').innerHTML=[
-    {label:'Total RFIs',value:all.length,cls:''},
-    {label:'Open',value:open.length,cls:'amber'},
-    {label:'Closed',value:all.filter(r=>r.status==='Closed').length,cls:'green'},
-    {label:'Critical Open',value:all.filter(r=>(r.status==='Open'||r.status==='Overdue')&&r.priority==='Critical').length,cls:'red'},
-    {label:'Cost Impact',value:all.filter(r=>r.costImp==='Yes').length,cls:'amber'},
-    {label:'Schedule Impact',value:all.filter(r=>r.schedImp==='Yes').length,cls:'red'},
-  ].map(s=>`<div class="stat-card"><div class="label">${s.label}</div><div class="value ${s.cls}">${s.value}</div></div>`).join('');
+  const statDefs=[
+    {label:'Total RFIs',   value:all.length,                                                                                cls:'',      fn:()=>{clearFilters();showView('list');}},
+    {label:'Open',         value:open.length,                                                                               cls:'amber', fn:()=>{clearFilters();document.getElementById('f-status').value='Open';showView('list');renderTable();}},
+    {label:'Closed',       value:all.filter(r=>r.status==='Closed').length,                                                cls:'green', fn:()=>{clearFilters();document.getElementById('f-status').value='Closed';showView('list');renderTable();}},
+    {label:'Critical Open',value:all.filter(r=>(r.status==='Open'||r.status==='Overdue')&&r.priority==='Critical').length, cls:'red',   fn:()=>{clearFilters();document.getElementById('f-priority').value='Critical';showView('list');renderTable();}},
+    {label:'NEM Risk',     value:all.filter(r=>r.schedImp==='Yes').length,                                                 cls:'red',   fn:()=>{clearFilters();document.getElementById('f-impact').value='nem';showView('list');renderTable();}},
+    {label:'Cost Risk',    value:all.filter(r=>r.costImp==='Yes').length,                                                  cls:'amber', fn:()=>{clearFilters();document.getElementById('f-impact').value='cost';showView('list');renderTable();}},
+  ];
+  window._statFns=statDefs.map(s=>s.fn);
+  document.getElementById('stat-strip').innerHTML=statDefs.map((s,i)=>
+    `<div class="stat-card stat-card-clickable" onclick="window._statFns[${i}]()" title="Click to view in RFI Log">
+      <div class="label">${s.label}</div>
+      <div class="value ${s.cls}">${s.value}</div>
+      <div class="stat-hint">View all ↗</div>
+    </div>`).join('');
 
   document.getElementById('project-cards').innerHTML=PROJ_ORDER.map(p=>{
     const meta=PROJECT_META[p];
@@ -849,7 +893,7 @@ function renderDashboard(){
     const pcrit=pr.filter(r=>(r.status==='Open'||r.status==='Overdue')&&r.priority==='Critical').length;
     return`<div class="project-card ${meta.color}" onclick="filterToProject('${p}')">
       <div class="project-card-name">${p}</div>
-      <div class="project-card-short">${meta.short}</div>
+      <div class="project-card-short" style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--gray-400);margin-bottom:8px;letter-spacing:0;line-height:1.4">${meta.address}</div>
       <div class="project-card-stats">
         <div class="project-stat"><div class="n amber">${po}</div><div class="l">Open</div></div>
         <div class="project-stat"><div class="n green">${pc}</div><div class="l">Closed</div></div>
@@ -858,18 +902,50 @@ function renderDashboard(){
     </div>`;
   }).join('');
 
-  const nemItems=all.filter(r=>(r.status==='Open'||r.status==='Overdue')&&r.schedImp==='Yes');
-  document.getElementById('nem-count-badge').textContent=nemItems.length;
-  document.getElementById('nem-risk-list').innerHTML=nemItems.length===0
-    ?`<div class="empty-state"><div class="empty-state-text">No open schedule-impact items</div></div>`
-    :nemItems.slice(0,8).map(r=>`<div class="nem-row" onclick="openDrawer('${r.id}')">
+  // Priority panel: Overdue first, then New, then Critical/Urgent/Risk items
+  const now=new Date();
+  const priorityItems=all.filter(r=>r.status!=='Closed').filter(r=>{
+    const isCritical=r.priority==='Critical'||r.priority==='Urgent';
+    const isNemRisk=r.schedImp==='Yes';
+    const isCostRisk=r.costImp==='Yes';
+    return r.status==='Overdue'||isCritical||isNemRisk||isCostRisk;
+  }).sort((a,b)=>{
+    // Sort: overdue first, then by priority score
+    const isOverdueA=a.status==='Overdue'?1:0;
+    const isOverdueB=b.status==='Overdue'?1:0;
+    if(isOverdueB!==isOverdueA) return isOverdueB-isOverdueA;
+
+    const score=r=>((r.priority==='Critical'?4:r.priority==='Urgent'?3:r.priority==='High'?2:0)+(r.schedImp==='Yes'?1:0)+(r.costImp==='Yes'?.5:0));
+    return score(b)-score(a);
+  });
+  document.getElementById('nem-count-badge').textContent=priorityItems.length;
+  document.getElementById('nem-risk-list').innerHTML=priorityItems.length===0
+    ?`<div class="empty-state"><div class="empty-state-text">No overdue, critical, or at-risk items</div></div>`
+    :priorityItems.slice(0,12).map(r=>{
+      const dateFmt=r.dateSub?(()=>{const d=new Date(r.dateSub+'T00:00:00');return'Submitted '+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+'/'+d.getFullYear();})():'';
+      // Tag order: (i) Priority (ii) NEM Risk (iii) Cost Risk (iv) New
+      const priTags=[];
+      if(r.priority==='Critical') priTags.push(`<span class="badge badge-critical" style="font-size:9px;padding:2px 6px">Critical</span>`);
+      else if(r.priority==='Urgent') priTags.push(`<span class="badge badge-urgent" style="font-size:9px;padding:2px 6px">Urgent</span>`);
+      else if(r.priority==='High') priTags.push(`<span class="badge badge-high" style="font-size:9px;padding:2px 6px">High</span>`);
+      if(r.schedImp==='Yes') priTags.push(`<span class="badge badge-nem" style="font-size:9px;padding:2px 6px">NEM Risk</span>`);
+      if(r.costImp==='Yes') priTags.push(`<span class="badge badge-cost-risk" style="font-size:9px;padding:2px 6px">Cost Risk</span>`);
+
+      return`<div class="nem-row" onclick="openDrawer('${r.id}')">
       <div style="flex:1;min-width:0">
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-400)">${r.project} · RFI-${r.num}${r.rev==='Rev'?' (Rev)':''}</div>
-        <div style="font-size:12px;font-weight:500;color:var(--midnight);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.subject}</div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-400)">${r.project.split('(')[0].trim()} · RFI-${r.num}${r.rev==='Rev'?' (Rev)':''}</span>
+          <span style="color:var(--gray-400);font-size:11px;font-family:'DM Mono',monospace">·</span>
+          <span style="font-size:11px;color:var(--gray-400);font-family:'DM Mono',monospace">${dateFmt}</span>
+        </div>
+        <div style="font-size:12px;font-weight:500;color:var(--midnight);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:4px">${r.subject}</div>
       </div>
-      <span class="badge badge-nem">NEM</span>
-      ${statusBadge(r.status)}
-    </div>`).join('');
+      <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0;max-width:180px">
+        ${statusBadge(r.status)}
+        ${priTags.join('')}
+      </div>
+    </div>`;
+    }).join('');
 
   const bicCount={};
   all.filter(r=>r.status!=='Closed').forEach(r=>{
@@ -880,38 +956,118 @@ function renderDashboard(){
   const maxBic=bicSorted[0]?.[1]||1;
   document.getElementById('bic-leaderboard').innerHTML=bicSorted.length===0
     ?`<div class="empty-state"><div class="empty-state-text">No open items</div></div>`
-    :bicSorted.map(([org,n])=>`<div class="bic-row">
-      <div class="bic-avatar">${initials(org)}</div>
-      <div class="bic-org">${org}</div>
-      <div class="bic-bar-wrap"><div class="bic-bar" style="width:${Math.round(n/maxBic*100)}%"></div></div>
-      <div class="bic-count">${n}</div>
-    </div>`).join('');
+    :bicSorted.map(([org,n])=>{
+      const knownCo=['Coast Energy','Morpho Energy','BPI'].find(co=>org.startsWith(co));
+      const clickable=knownCo?`onclick="filterToCompany('${knownCo}')" style="cursor:pointer" title="View all open RFIs assigned to ${knownCo}"`:'';
+      return`<div class="bic-row ${knownCo?'bic-row-clickable':''}" ${clickable}>
+        <div class="bic-avatar">${initials(org)}</div>
+        <div class="bic-org">${org}${knownCo?` <span style="font-size:10px;color:var(--bic-fg);opacity:.7">↗</span>`:''}</div>
+        <div class="bic-bar-wrap"><div class="bic-bar" style="width:${Math.round(n/maxBic*100)}%"></div></div>
+        <div class="bic-count">${n}</div>
+      </div>`;
+    }).join('');
+}
+
+function resetAllFilters(){
+  clearFilters();
+  renderTable();
+  showToast('All filters cleared');
+}
+
+function clearFilters(){
+  ['f-project','f-status','f-priority','f-discipline','f-impact','f-company'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  const s=document.getElementById('search');
+  if(s) s.value='';
+}
+
+function statTileClick(idx){
+  if(window._statTileActions&&window._statTileActions[idx]){
+    clearFilters();
+    window._statTileActions[idx]();
+  }
 }
 
 function filterToProject(p){
   showView('list');
   document.getElementById('f-project').value=p;
+  document.getElementById('f-company').value='';
   renderTable();
 }
+
+function filterToCompany(company){
+  showView('list');
+  document.getElementById('f-company').value=company;
+  document.getElementById('f-project').value='';
+  document.getElementById('f-status').value='';
+  renderTable();
+}
+
+// ── Column ordering with drag-to-reorder ─────────────────────────────────────
+const COL_DEFS = [
+  {id:'num',      label:'RFI #',                sortKey:'num'},
+  {id:'project',  label:'Project',              sortKey:'project'},
+  {id:'status',   label:'Status',               sortKey:'status'},
+  {id:'priority', label:'Priority',             sortKey:'priority'},
+  {id:'subject',  label:'Description',          sortKey:'subject'},
+  {id:'disc',     label:'Discipline',           sortKey:'disc'},
+  {id:'bic',      label:'Currently Assigned To',sortKey:'bic'},
+  {id:'dateReq',  label:'Due',                  sortKey:'dateReq'},
+  {id:'daysOpen', label:'Days Open',            sortKey:'daysOpen'},
+  {id:'impact',   label:'Impact',               sortKey:null},
+];
+
+function loadColOrder(){
+  try{
+    const saved=localStorage.getItem('ce_col_order_v1');
+    if(saved){
+      const ids=JSON.parse(saved);
+      const ordered=[];
+      ids.forEach(id=>{const d=COL_DEFS.find(c=>c.id===id);if(d)ordered.push(d);});
+      COL_DEFS.forEach(d=>{if(!ordered.find(o=>o.id===d.id))ordered.push(d);});
+      return ordered;
+    }
+  }catch(e){}
+  return [...COL_DEFS];
+}
+function saveColOrder(cols){
+  localStorage.setItem('ce_col_order_v1',JSON.stringify(cols.map(c=>c.id)));
+}
+let colOrder=loadColOrder();
 
 // ── Table with collapsible revisions ──────────────────────────────────────────
 let expandedRevs=new Set(); // track which base RFI nums have revisions expanded
 
 function renderTable(){
   const rows=filteredData();
+  // Build dynamic headers
+  const thead=document.querySelector('.rfi-table thead tr');
+  if(thead){
+    thead.innerHTML=colOrder.map(col=>`
+      <th data-col="${col.id}" class="${sortField===col.sortKey?'sorted':''}"
+        onclick="handleThClick(event,'${col.sortKey||''}')"
+        draggable="true"
+        ondragstart="colDragStart(event,'${col.id}')"
+        ondragover="colDragOver(event)"
+        ondrop="colDrop(event,'${col.id}')"
+        ondragleave="colDragLeave(event)"
+        ondragend="colDragEnd()"
+      >${col.label}<span class="col-drag-hint">⠿</span></th>`).join('');
+  }
+
   // Group: pair Orig rows with their Rev children
   const grouped=[];
   const seen=new Set();
   rows.forEach(r=>{
     if(seen.has(r.id)) return;
     seen.add(r.id);
-    // Find if this is a base (Orig) row with a matching Rev
     if(r.rev==='Orig'){
       const revs=rows.filter(x=>x.num===r.num&&x.project===r.project&&x.rev!=='Orig'&&!seen.has(x.id));
       revs.forEach(x=>seen.add(x.id));
       grouped.push({base:r,revs});
     } else {
-      // Rev with no matching Orig in filtered set — show standalone
       grouped.push({base:r,revs:[]});
     }
   });
@@ -923,7 +1079,7 @@ function renderTable(){
 
   const tbody=document.getElementById('rfi-tbody');
   if(grouped.length===0){
-    tbody.innerHTML=`<tr><td colspan="10"><div class="empty-state"><div class="empty-state-text">No RFIs match your filters</div><div class="empty-state-sub">Try clearing filters or adding a new RFI</div></div></td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="${colOrder.length}"><div class="empty-state"><div class="empty-state-text">No RFIs match your filters</div><div class="empty-state-sub">Try clearing filters or adding a new RFI</div></div></td></tr>`;
     return;
   }
 
@@ -937,6 +1093,43 @@ function renderTable(){
     }
   });
   tbody.innerHTML=html.join('');
+}
+
+// ── Column drag-to-reorder ────────────────────────────────────────────────────
+let dragColId=null;
+function colDragStart(e,id){
+  dragColId=id;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed='move';
+}
+function colDragOver(e){
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  e.currentTarget.classList.add('drag-over');
+}
+function colDragLeave(e){e.currentTarget.classList.remove('drag-over');}
+function colDrop(e,targetId){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if(!dragColId||dragColId===targetId) return;
+  const from=colOrder.findIndex(c=>c.id===dragColId);
+  const to=colOrder.findIndex(c=>c.id===targetId);
+  if(from<0||to<0) return;
+  const moved=colOrder.splice(from,1)[0];
+  colOrder.splice(to,0,moved);
+  saveColOrder(colOrder);
+  renderTable();
+}
+function colDragEnd(){
+  dragColId=null;
+  document.querySelectorAll('.rfi-table thead th').forEach(th=>{
+    th.classList.remove('dragging','drag-over');
+  });
+}
+function handleThClick(e,sortKey){
+  if(!sortKey) return;
+  // Only sort if not a drag operation
+  if(e.target.closest('th')&&!dragColId) sortTable(sortKey);
 }
 
 function buildRow(r,isChild,hasRevs,isExpanded,expandKey){
@@ -954,21 +1147,92 @@ function buildRow(r,isChild,hasRevs,isExpanded,expandKey){
   const revToggle=hasRevs
     ?`<span class="rev-toggle" onclick="event.stopPropagation();toggleRevs('${expandKey}')"><span class="rev-arrow ${isExpanded?'open':''}">▶</span> 1 rev</span>`
     :(isChild?`<span style="font-size:9px;color:var(--gray-400);margin-left:4px">↳ REV</span>`:'');
-  return`<tr class="${rowCls}" onclick="openDrawer('${r.id}')">
-    <td><div class="rfi-num">${r.num}${revToggle}</div></td>
-    <td><div class="rfi-project">${r.project}</div></td>
-    <td>${statusBadge(r.status)}</td>
-    <td>${priBadge(r.priority)}</td>
-    <td><div class="rfi-desc" title="${r.subject}">${r.subject}</div></td>
-    <td style="font-size:12px;color:var(--gray-600)">${r.disc}</td>
-    <td><div class="bic-cell"><div class="bic-cell-avatar">${initials(bicCompany)}</div><div><div class="bic-cell-name">${bicCompany}</div>${bicPerson?`<div style="font-size:10px;color:var(--gray-400)">${bicPerson}</div>`:''}</div></div></td>
-    <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-600)">${r.dateReq||'—'}</td>
-    <td><span class="days-cell ${doClass}">${do_!==null?do_+'d':'—'}</span></td>
-    <td style="white-space:nowrap">
-      ${r.schedImp==='Yes'?'<span class="badge badge-nem" style="font-size:9px">SCHED</span> ':''}
-      ${r.costImp==='Yes'?'<span class="badge badge-urgent" style="font-size:9px">COST</span>':''}
-    </td>
-  </tr>`;
+
+  // Build cells in current column order
+  const cellMap={
+    num:  `<td><div class="rfi-num">${r.num}${revToggle}</div></td>`,
+    project: `<td><div class="rfi-project">${r.project}</div></td>`,
+    status: `<td onclick="event.stopPropagation()"><select class="inline-select inline-status" onchange="quickFieldUpdate('${r.id}','status',this.value)" title="Change status">
+      ${['Open','Closed','Overdue'].map(s=>`<option value="${s}" ${r.status===s?'selected':''}>${s}</option>`).join('')}
+    </select></td>`,
+    priority: `<td onclick="event.stopPropagation()"><select class="inline-select inline-priority-${r.priority.toLowerCase()}" onchange="quickFieldUpdate('${r.id}','priority',this.value)" title="Change priority">
+      ${['Critical','Urgent','High','Medium','Standard'].map(s=>`<option value="${s}" ${r.priority===s?'selected':''}>${s}</option>`).join('')}
+    </select></td>`,
+    subject: `<td><div class="rfi-desc" title="${r.subject.replace(/"/g,'&quot;')}">${r.subject}</div></td>`,
+    disc: `<td style="font-size:12px;color:var(--gray-600)">${r.disc}</td>`,
+    bic: `<td onclick="event.stopPropagation()">${buildBICCell(r)}</td>`,
+    dateReq: `<td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-600)">${r.dateReq||'—'}</td>`,
+    daysOpen: `<td><span class="days-cell ${doClass}">${do_!==null?do_+'d':'—'}</span></td>`,
+    impact: `<td style="white-space:nowrap">${r.schedImp==='Yes'?'<span class="badge badge-nem" style="font-size:9px">NEM Risk</span> ':''}${r.costImp==='Yes'?'<span class="badge badge-cost-risk" style="font-size:9px">Cost Risk</span>':''}</td>`,
+  };
+  const cells=colOrder.map(col=>cellMap[col.id]||`<td></td>`).join('');
+  return`<tr class="${rowCls}" onclick="openDrawer('${r.id}')">${cells}</tr>`;
+}
+
+// ── Inline field updates from table ──────────────────────────────────────────
+function quickFieldUpdate(id, field, value){
+  const r=DATA.find(x=>x.id===id);
+  if(!r) return;
+  if(field==='status'&&value==='Closed'){
+    // Intercept — require official response
+    openCloseModal(id);
+    renderTable(); // re-render to reset the select
+    return;
+  }
+  r[field]=value;
+  if(!r.timeline) r.timeline=[];
+  r.timeline.push({date:new Date().toISOString().slice(0,10),actor:'User',action:'Information Provided',
+    note:`${field.charAt(0).toUpperCase()+field.slice(1)} updated to "${value}" via quick edit.`});
+  save();
+  renderTable();
+  renderDashboard();
+  showToast(`${field.charAt(0).toUpperCase()+field.slice(1)} updated to ${value}`);
+}
+
+function buildBICCell(r){
+  const parts=(r.bic||'').split('/');
+  const co=parts[0]?.trim()||'';
+  const pe=parts[1]?.trim()||'';
+  const knownCos=Object.keys(ASSIGNEES);
+  if(knownCos.includes(co)){
+    const people=ASSIGNEES[co]||[];
+    return`<div class="bic-inline-wrap">
+      <select class="inline-select inline-bic-co" onchange="updateInlineBICCompany('${r.id}',this.value)" title="Change company">
+        <option value="">—</option>
+        ${knownCos.map(c2=>`<option value="${c2}" ${co===c2?'selected':''}>${c2}</option>`).join('')}
+      </select>
+      <select class="inline-select inline-bic-pe" id="bic-pe-${r.id}" onchange="updateInlineBICPerson('${r.id}',this.value)" title="Change person">
+        <option value="">—</option>
+        ${people.map(p=>`<option value="${p}" ${pe===p?'selected':''}>${p}</option>`).join('')}
+      </select>
+    </div>`;
+  }
+  // Fallback for non-standard BIC values
+  return`<div class="bic-cell"><div class="bic-cell-avatar">${initials(co||r.bic)}</div><div><div class="bic-cell-name">${co||r.bic}</div>${pe?`<div style="font-size:10px;color:var(--gray-400)">${pe}</div>`:''}</div></div>`;
+}
+
+function updateInlineBICCompany(id, company){
+  const r=DATA.find(x=>x.id===id);
+  if(!r) return;
+  r.bic=company;
+  save();
+  renderTable();
+  showToast('Company updated');
+}
+
+function updateInlineBICPerson(id, person){
+  const r=DATA.find(x=>x.id===id);
+  if(!r) return;
+  const parts=(r.bic||'').split('/');
+  const co=parts[0]?.trim()||'';
+  r.bic=co+(person?' / '+person:'');
+  if(!r.timeline) r.timeline=[];
+  r.timeline.push({date:new Date().toISOString().slice(0,10),actor:'User',action:'Information Provided',
+    note:`Assigned to updated to "${r.bic}" via quick edit.`});
+  save();
+  renderTable();
+  renderDashboard();
+  showToast('Assignment updated');
 }
 
 function toggleRevs(expandKey){
@@ -977,7 +1241,8 @@ function toggleRevs(expandKey){
   renderTable();
 }
 
-function sortTable(f){if(sortField===f)sortDir*=-1;else{sortField=f;sortDir=1;}renderTable()}
+function sortTable(f){if(!f)return;if(sortField===f)sortDir*=-1;else{sortField=f;sortDir=1;}renderTable()}
+function resetColOrder(){colOrder=[...COL_DEFS];saveColOrder(colOrder);renderTable();showToast('Column order reset to default');}
 
 // ── Drawer ────────────────────────────────────────────────────────────────────
 function openDrawer(id){
@@ -998,7 +1263,7 @@ function openDrawer(id){
           <span class="drawer-rfi-num">RFI-${r.num}</span>
           ${r.rev==='Rev'?`<span style="background:rgba(255,255,255,.15);color:var(--dawn);font-size:11px;padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace">REV</span>`:''}
           ${statusBadge(r.status)} ${priBadge(r.priority)}
-          ${r.schedImp==='Yes'?'<span class="badge badge-nem">NEM RISK</span>':''}
+          ${r.schedImp==='Yes'?'<span class="badge badge-nem">NEM Risk</span>':''}
         </div>
         <div class="drawer-title">${r.subject}</div>
       </div>
@@ -1076,8 +1341,8 @@ function openDrawer(id){
         <div><div class="field-label">Drawing / Spec Ref</div><div class="field-value mono">${r.drawRef||'—'}</div></div>
       </div>
       <div class="impact-badges">
-        <div><div class="field-label" style="font-size:10px;margin-bottom:3px">Cost Impact</div>${impBadge(r.costImp,'cost')}</div>
-        <div><div class="field-label" style="font-size:10px;margin-bottom:3px">Schedule Impact</div>${impBadge(r.schedImp,'sched')}</div>
+        <div><div class="field-label" style="font-size:10px;margin-bottom:3px">Cost Risk</div>${impBadge(r.costImp,'cost')}</div>
+        <div><div class="field-label" style="font-size:10px;margin-bottom:3px">NEM Risk</div>${impBadge(r.schedImp,'sched')}</div>
       </div>
     </div>
     <!-- Documents & Attachments -->
@@ -1322,7 +1587,7 @@ function closeDrawer(){
 function openModal(){
   editId=null;
   document.getElementById('modal-title').textContent='New RFI';
-  ['m-num','m-site','m-submittedBy','m-directedTo','m-dateSub','m-dateReq','m-subject','m-problem','m-resolution','m-drawRef'].forEach(id=>document.getElementById(id).value='');
+  ['m-num','m-site','m-submittedBy','m-dateSub','m-dateReq','m-subject','m-problem','m-resolution','m-drawRef'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('m-rev').value='Orig';
   document.getElementById('m-project').value='';
   document.getElementById('m-disc').value='Electrical';
@@ -1348,7 +1613,7 @@ function openEditModal(id){
   document.getElementById('m-priority').value=r.priority;
   document.getElementById('m-status').value=r.status;
   document.getElementById('m-submittedBy').value=r.submittedBy;
-  document.getElementById('m-directedTo').value=r.directedTo;
+  // directedTo removed
   document.getElementById('m-dateSub').value=r.dateSub;
   document.getElementById('m-dateReq').value=(r.dateReq==='ASAP'?'':r.dateReq)||'';
   document.getElementById('m-subject').value=r.subject;
@@ -1388,7 +1653,7 @@ function saveRFI(){
     site:document.getElementById('m-site').value,disc:document.getElementById('m-disc').value,
     priority:document.getElementById('m-priority').value,status:document.getElementById('m-status').value,
     bic,submittedBy:document.getElementById('m-submittedBy').value,
-    directedTo:document.getElementById('m-directedTo').value,
+    directedTo:'',  // field removed from UI
     dateSub:document.getElementById('m-dateSub').value,
     dateReq:document.getElementById('m-dateReq').value,dateResp:'',subject,
     problem:document.getElementById('m-problem').value,
