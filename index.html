@@ -247,6 +247,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .attach-upload-zone{border:2px dashed var(--gray-300);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer;transition:var(--transition);margin-top:8px}
 .attach-upload-zone:hover{border-color:var(--dawn);background:rgba(165,176,227,.06)}
 .attach-upload-zone p{font-size:12px;color:var(--gray-400)}
+.attach-card{border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;margin-top:10px}
+.attach-card-header{background:var(--gray-50);border-bottom:1px solid var(--gray-200);padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.attach-card-label{font-size:11px;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:.6px}
+.attach-card-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.attach-drop-zone{border:2px dashed var(--gray-200);border-radius:var(--radius);padding:12px;text-align:center;cursor:pointer;transition:var(--transition);background:var(--white)}
+.attach-drop-zone:hover{border-color:var(--dawn);background:rgba(165,176,227,.06)}
+.attach-drop-zone strong{font-size:12px;color:var(--bic-fg);font-weight:600;display:block;margin-bottom:2px}
+.attach-drop-zone p{font-size:11px;color:var(--gray-400);margin:0}
+.attach-box-row{display:flex;gap:6px;align-items:center}
+.attach-box-row input{flex:1;border:1px solid var(--gray-200);border-radius:var(--radius);padding:6px 9px;font-family:'DM Mono',monospace;font-size:11px;color:var(--midnight);background:var(--white)}
+.attach-box-row input:focus{outline:none;border-color:var(--dawn)}
+.attach-box-row input::placeholder{color:var(--gray-300);font-family:'DM Sans',sans-serif}
+.attach-box-label{font-size:10px;color:var(--gray-400);font-weight:500;white-space:nowrap;flex-shrink:0}
+.attach-uploaded-file{display:flex;align-items:center;gap:8px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:7px 10px}
+.attach-uploaded-icon{font-size:16px;flex-shrink:0;width:24px;text-align:center}
+.attach-uploaded-name{font-size:12px;font-weight:500;color:var(--midnight);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.attach-uploaded-meta{font-size:9px;color:var(--gray-400);font-family:'DM Mono',monospace;white-space:nowrap}
+.attach-linked-box{display:flex;align-items:center;gap:6px;background:#EEF2FF;border:1px solid var(--bic-border);border-radius:var(--radius);padding:5px 10px;margin-top:4px}
+.attach-linked-box-icon{font-size:12px;flex-shrink:0}
+.attach-linked-box-url{font-size:10px;color:var(--bic-fg);font-family:'DM Mono',monospace;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .attach-upload-zone strong{font-size:12px;color:var(--bic-fg);font-weight:600}
 .box-link-row{display:flex;align-items:center;gap:8px;margin-top:8px}
 .box-link-input{flex:1;border:1px solid var(--gray-200);border-radius:var(--radius);padding:6px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--midnight);background:var(--white)}
@@ -326,6 +346,35 @@ textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
 .close-form-group label .req{color:#DC2626}
 .char-counter{font-size:10px;color:var(--gray-400);text-align:right;margin-top:2px}
 .char-counter.good{color:#065F46}
+/* ── Drawer tabs ── */
+.drawer-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.12);margin-top:10px}
+.drawer-tab{padding:7px 16px;font-size:12px;font-weight:500;color:var(--gray-400);cursor:pointer;border-bottom:2px solid transparent;transition:var(--transition);background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif}
+.drawer-tab:hover{color:var(--white)}
+.drawer-tab.active{color:var(--golden);border-bottom-color:var(--golden)}
+/* ── Audit log ── */
+.audit-log{padding:0}
+.audit-entry{display:flex;gap:12px;padding:11px 24px;border-bottom:1px solid var(--gray-100)}
+.audit-entry:last-child{border-bottom:none}
+.audit-entry:hover{background:var(--sandstone)}
+.audit-left{display:flex;flex-direction:column;align-items:center;width:20px;flex-shrink:0;padding-top:3px}
+.audit-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--golden)}
+.audit-dot.system{background:var(--gray-300)}
+.audit-dot.close{background:#10B981}
+.audit-dot.escalate{background:#DC2626}
+.audit-dot.edit{background:var(--dawn)}
+.audit-line{flex:1;width:1px;background:var(--gray-200);margin-top:3px}
+.audit-content{flex:1;min-width:0}
+.audit-header{display:flex;align-items:baseline;gap:8px;margin-bottom:2px;flex-wrap:wrap}
+.audit-action{font-size:12px;font-weight:600;color:var(--midnight)}
+.audit-actor{font-size:11px;color:var(--gray-600)}
+.audit-source{font-size:10px;color:var(--gray-400);background:var(--gray-100);padding:1px 6px;border-radius:3px;font-style:italic}
+.audit-ts{font-family:'DM Mono',monospace;font-size:10px;color:var(--gray-400);margin-left:auto;white-space:nowrap}
+.audit-detail{font-size:12px;color:var(--gray-800);line-height:1.5}
+.audit-change{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-family:'DM Mono',monospace;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:4px;padding:2px 6px;margin-top:3px}
+.audit-change .old{color:var(--overdue-fg);text-decoration:line-through}
+.audit-change .arrow{color:var(--gray-400)}
+.audit-change .new{color:var(--closed-fg);font-weight:600}
+.audit-empty{padding:32px 24px;text-align:center;color:var(--gray-400);font-size:13px}
 /* ── Draggable columns ── */
 .rfi-table thead th{cursor:grab;user-select:none;position:sticky;top:0;z-index:1}
 .rfi-table thead th.dragging{opacity:.5;background:var(--midnight-60)!important}
@@ -699,90 +748,90 @@ function updatePersonDropdown(company, personEl) {
 // ── Seed data (all 46 RFIs, updated project names) ───────────────────────────
 const SEED = [
   // ── BioMed PRC (Newark) ──────────────────────────────────────────────────
-  {id:"PRC-003-Orig",num:"003",rev:"Orig",project:"BioMed PRC (Newark)",site:"7979 (7999-B)",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2025-12-05",dateReq:"2025-12-10",dateResp:"2025-12-10",subject:"Conduit & wire sizing — Subsystem 7979 trench detail & conductor schedule",problem:"Two issues: (1) Slurry trench detail not followed — conduits installed without encasement. (2) 75°C wire in design; BPi proposes 90°C allowing reduced conductor and conduit sizes.",resolution:"Alternate trench detail approved. 90°C wire approved; conduit schedule revised for 7979 permit.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0068",attachments:[],boxLinks:[],
+  {id:"PRC-003-Orig",num:"003",rev:"Orig",project:"BioMed PRC (Newark)",site:"7979 (7999-B)",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Pierre Quincy",submittedBy:"BPi",dateSub:"2025-12-05",dateReq:"2025-12-10",dateResp:"2025-12-10",subject:"Conduit & wire sizing — Subsystem 7979 trench detail & conductor schedule",problem:"Two issues: (1) Slurry trench detail not followed — conduits installed without encasement. (2) 75°C wire in design; BPi proposes 90°C allowing reduced conductor and conduit sizes.",resolution:"Alternate trench detail approved. 90°C wire approved; conduit schedule revised for 7979 permit.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0068",attachments:[],boxLinks:[],
    timeline:[{date:"2025-12-05",actor:"BPi",action:"Submitted",note:"Two field condition issues: trench encasement and conductor temperature rating."},{date:"2025-12-10",actor:"Coast / Pierre Quincy",action:"Response Issued",note:"Alternate trench detail and 90°C wire both approved."}]},
-  {id:"PRC-004-Orig",num:"004",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-A, 7999-B",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Transformer for lighting circuits — Arrays 20–44 (480V to 277V)",problem:"480V lighting circuits cannot power 277V LED fixtures. Stepdown transformers required (~10 units minimum). Blocking release of parking sections to public.",resolution:"Larson Electronics 480V/277V stepdown transformers approved. Change order for material + labor.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"E-lighting",attachments:[],boxLinks:[],
+  {id:"PRC-004-Orig",num:"004",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-A, 7999-B",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Transformer for lighting circuits — Arrays 20–44 (480V to 277V)",problem:"480V lighting circuits cannot power 277V LED fixtures. Stepdown transformers required (~10 units minimum). Blocking release of parking sections to public.",resolution:"Larson Electronics 480V/277V stepdown transformers approved. Change order for material + labor.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"E-lighting",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-21",actor:"BPi",action:"Submitted",note:"Voltage mismatch blocking public release."},{date:"2026-01-23",actor:"Coast Energy",action:"Response Issued",note:"Stepdown transformers approved. CO issued."}]},
-  {id:"PRC-005-Orig",num:"005",rev:"Orig",project:"BioMed PRC (Newark)",site:"All POIs",disc:"Civil",priority:"Standard",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Clean sweeping — 45,468 sf Phase 1 before public release",problem:"Parking lot sections require professional sweeping before public release. Not in original scope.",resolution:"T&M sweeping approved at $805 for Phase 1. Within BPi scope.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+  {id:"PRC-005-Orig",num:"005",rev:"Orig",project:"BioMed PRC (Newark)",site:"All POIs",disc:"Civil",priority:"Standard",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",subject:"Clean sweeping — 45,468 sf Phase 1 before public release",problem:"Parking lot sections require professional sweeping before public release. Not in original scope.",resolution:"T&M sweeping approved at $805 for Phase 1. Within BPi scope.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-21",actor:"BPi",action:"Submitted",note:"Sweeping required before public release."},{date:"2026-01-23",actor:"Coast Energy",action:"Response Issued",note:"Approved within BPi scope."}]},
-  {id:"PRC-006-Orig",num:"006",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-10",dateReq:"2026-02-12",dateResp:"2026-02-12",subject:"Rebar in concrete slab — POI conduit path 7999-B (initial)",problem:"Unanticipated reinforced concrete slab (~12 in.) in POI conduit path. Not on plans. Inspector requires structural sign-off.",resolution:"SEoR to provide opinion confirming conduit routing under rebar has no structural impact.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"C-conduit",attachments:[],boxLinks:[],
+  {id:"PRC-006-Orig",num:"006",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-02-10",dateReq:"2026-02-12",dateResp:"2026-02-12",subject:"Rebar in concrete slab — POI conduit path 7999-B (initial)",problem:"Unanticipated reinforced concrete slab (~12 in.) in POI conduit path. Not on plans. Inspector requires structural sign-off.",resolution:"SEoR to provide opinion confirming conduit routing under rebar has no structural impact.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"C-conduit",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-10",actor:"BPi",action:"Submitted",note:"Unanticipated concrete slab with rebar. Inspector holding work."},{date:"2026-02-11",actor:"Morpho Energy",action:"Under Review",note:"Structural EOR reviewing. Site visit scheduled."}]},
-  {id:"PRC-006-Rev",num:"006",rev:"Rev",project:"BioMed PRC (Newark)",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-12",dateReq:"2026-03-14",dateResp:"2026-03-17",subject:"Rebar in concrete slab — 7999-B revised with full rebar detail",problem:"12-in. slab with thickened edges; 3 rebar conditions — two of three locations damaged during excavation.",resolution:"EOR stamped repair 3/17/2026 (MDS-4STEL-2026-03-17): replace rebar, epoxy into slab, backfill 2,500 PSI concrete.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"S2-rebar",attachments:[],boxLinks:[],
+  {id:"PRC-006-Rev",num:"006",rev:"Rev",project:"BioMed PRC (Newark)",site:"7999-B",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",dateSub:"2026-03-12",dateReq:"2026-03-14",dateResp:"2026-03-17",subject:"Rebar in concrete slab — 7999-B revised with full rebar detail",problem:"12-in. slab with thickened edges; 3 rebar conditions — two of three locations damaged during excavation.",resolution:"EOR stamped repair 3/17/2026 (MDS-4STEL-2026-03-17): replace rebar, epoxy into slab, backfill 2,500 PSI concrete.",planRev:"No",costImp:"No",schedImp:"Yes",drawRef:"S2-rebar",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-12",actor:"BPi",action:"Revised",note:"Full rebar detail documented. Revised RFI with photos."},{date:"2026-03-17",actor:"Morpho Energy / Danny Hinks",action:"Response Issued",note:"Stamped repair accepted. Epoxy rebar + 2,500 PSI concrete backfill."}]},
-  {id:"PRC-007-Orig",num:"007",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575, 7677, 7979",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-02-18",dateReq:"2026-02-20",dateResp:"",subject:"Service panel breakers mismatch — all POIs",problem:"60A breakers delivered vs. 70A per plans (inverter inputs); 300A main breakers vs. 350–400A per plans across multiple POIs.",resolution:"60A inverter breakers accepted per NEC 100% CD rule. Main CB resolution still pending.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0062 thru 0068",attachments:[],boxLinks:[],
+  {id:"PRC-007-Orig",num:"007",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575, 7677, 7979",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",dateSub:"2026-02-18",dateReq:"2026-02-20",dateResp:"",subject:"Service panel breakers mismatch — all POIs",problem:"60A breakers delivered vs. 70A per plans (inverter inputs); 300A main breakers vs. 350–400A per plans across multiple POIs.",resolution:"60A inverter breakers accepted per NEC 100% CD rule. Main CB resolution still pending.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0062 thru 0068",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-18",actor:"BPi",action:"Submitted",note:"Breaker mismatch across all POIs."},{date:"2026-02-22",actor:"Coast Energy",action:"Information Provided",note:"60A inverter input breakers accepted — NEC 100% CD rule. Main CB still pending."}]},
-  {id:"PRC-007-Rev",num:"007",rev:"Rev",project:"BioMed PRC (Newark)",site:"All POIs",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Service panel breakers mismatch — revised as-built reconciliation",problem:"All inverter input breakers 60A vs. 70A IFP; all panel main breakers 300A vs. 350/400A. Two EOR letters required for electrical final.",resolution:"Two EOR letters required: (1) 60A NEC 100% CD exception; (2) 300A main CB acceptance.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062–0068",attachments:[],boxLinks:[],
+  {id:"PRC-007-Rev",num:"007",rev:"Rev",project:"BioMed PRC (Newark)",site:"All POIs",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Service panel breakers mismatch — revised as-built reconciliation",problem:"All inverter input breakers 60A vs. 70A IFP; all panel main breakers 300A vs. 350/400A. Two EOR letters required for electrical final.",resolution:"Two EOR letters required: (1) 60A NEC 100% CD exception; (2) 300A main CB acceptance.",planRev:"No",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062–0068",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-25",actor:"BPi",action:"Revised",note:"Full as-built reconciliation. Two EOR letters needed for electrical final."}]},
-  {id:"PRC-008-Orig",num:"008",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"2026-03-04",subject:"Conductor & conduit sizing — Subsystem 7575 panel to disconnect",problem:"Delivered equipment cannot accommodate 7 sets #600kcmil per IFP. Conduits oversized.",resolution:"Approved 3/4/2026: 6 sets #400kcmil Al, 3-in conduit, VD=1.45%. SLD revised.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",attachments:[],boxLinks:[],
+  {id:"PRC-008-Orig",num:"008",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"2026-03-04",subject:"Conductor & conduit sizing — Subsystem 7575 panel to disconnect",problem:"Delivered equipment cannot accommodate 7 sets #600kcmil per IFP. Conduits oversized.",resolution:"Approved 3/4/2026: 6 sets #400kcmil Al, 3-in conduit, VD=1.45%. SLD revised.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-03",actor:"BPi",action:"Submitted",note:"Equipment cannot accommodate 7 sets #600kcmil."},{date:"2026-03-04",actor:"Coast / Pierre Quincy",action:"Response Issued",note:"Approved: 6 sets #400kcmil Al, 3-in conduit."}]},
-  {id:"PRC-008-Rev",num:"008",rev:"Rev",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7575 revised, splice box required",problem:"Panel-A and disconnect each accept max 3 conductor sets — prior 6-set solution not feasible.",resolution:"EOR approval urgently required: 4 sets #350kcmil + splice box at Panel-A, VD=2.52%, 3-in conduit.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",attachments:[],boxLinks:[],
+  {id:"PRC-008-Rev",num:"008",rev:"Rev",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-03-25",dateReq:"2026-03-26",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7575 revised, splice box required",problem:"Panel-A and disconnect each accept max 3 conductor sets — prior 6-set solution not feasible.",resolution:"EOR approval urgently required: 4 sets #350kcmil + splice box at Panel-A, VD=2.52%, 3-in conduit.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0062 E-3.0",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-25",actor:"BPi",action:"Revised",note:"Prior solution not feasible — panel max 3 sets. Splice box solution proposed. URGENT."}]},
-  {id:"PRC-009-Orig",num:"009",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"2026-03-06",subject:"Panel reallocation — Array 8 at POI 7575 (loss of 30 PV panels)",problem:"Unforeseen underground conditions required revision of Array 8; net loss of 30 PV panels.",resolution:"SEoR provided revised layout. BPi to provide revised stringing in as-built.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0062 E-2.0/E-5.0",attachments:[],boxLinks:[],
+  {id:"PRC-009-Orig",num:"009",rev:"Orig",project:"BioMed PRC (Newark)",site:"7575",disc:"Electrical",priority:"Urgent",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",dateSub:"2026-03-03",dateReq:"2026-03-04",dateResp:"2026-03-06",subject:"Panel reallocation — Array 8 at POI 7575 (loss of 30 PV panels)",problem:"Unforeseen underground conditions required revision of Array 8; net loss of 30 PV panels.",resolution:"SEoR provided revised layout. BPi to provide revised stringing in as-built.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"PV2025-0062 E-2.0/E-5.0",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-03",actor:"BPi",action:"Submitted",note:"Underground conditions forced Array 8 revision. 30-panel loss."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"Revised layout provided."}]},
-  {id:"PRC-010-Orig",num:"010",rev:"Orig",project:"BioMed PRC (Newark)",site:"7707",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-05",dateReq:"2026-03-06",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7707 all panels to SWBD",problem:"Delivered equipment cannot accommodate conductor sizes per IFP PV2025-0065 E-3.1. All 7 panel runs require resizing.",resolution:"Proposed: all runs reduced to #250–#350kcmil, all conduits standardized to 3-in. Awaiting EOR approval.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0065 E-3.1",attachments:[],boxLinks:[],
+  {id:"PRC-010-Orig",num:"010",rev:"Orig",project:"BioMed PRC (Newark)",site:"7707",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-03-05",dateReq:"2026-03-06",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7707 all panels to SWBD",problem:"Delivered equipment cannot accommodate conductor sizes per IFP PV2025-0065 E-3.1. All 7 panel runs require resizing.",resolution:"Proposed: all runs reduced to #250–#350kcmil, all conduits standardized to 3-in. Awaiting EOR approval.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0065 E-3.1",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-05",actor:"BPi",action:"Submitted",note:"7 panel runs require resizing. Southwire calcs submitted."}]},
-  {id:"PRC-011-Orig",num:"011",rev:"Orig",project:"BioMed PRC (Newark)",site:"7677",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-24",dateReq:"2026-03-25",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7677 Panel-A to disconnect",problem:"Panel-A and disconnect max 3 conductor sets, max #350kcmil lugs. Bore rig on site — approval urgent.",resolution:"Proposed: 3 sets #350kcmil, 3-in conduit, 613 ft, VD=2.64%. EOR approval urgently required.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0063 E-3.0",attachments:[],boxLinks:[],
+  {id:"PRC-011-Orig",num:"011",rev:"Orig",project:"BioMed PRC (Newark)",site:"7677",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-03-24",dateReq:"2026-03-25",dateResp:"",subject:"Conductor & conduit sizing — Subsystem 7677 Panel-A to disconnect",problem:"Panel-A and disconnect max 3 conductor sets, max #350kcmil lugs. Bore rig on site — approval urgent.",resolution:"Proposed: 3 sets #350kcmil, 3-in conduit, 613 ft, VD=2.64%. EOR approval urgently required.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"PV2025-0063 E-3.0",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-24",actor:"BPi",action:"Submitted",note:"Bore rig on site. Hardware constraint. URGENT."}]},
-  {id:"PRC-012-Orig",num:"012",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-A",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-03-16",dateReq:"2026-03-18",dateResp:"",subject:"7999-A disconnect breaker/fusing discrepancy vs. plans",problem:"Delivered disconnect is 600A/500A fused Siemens unit; plans specify 400A rated unit with 400A fuses.",resolution:"Pending resolution under RFI-007 main CB answer.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0066 SLD",attachments:[],boxLinks:[],
+  {id:"PRC-012-Orig",num:"012",rev:"Orig",project:"BioMed PRC (Newark)",site:"7999-A",disc:"Electrical",priority:"Urgent",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-03-16",dateReq:"2026-03-18",dateResp:"",subject:"7999-A disconnect breaker/fusing discrepancy vs. plans",problem:"Delivered disconnect is 600A/500A fused Siemens unit; plans specify 400A rated unit with 400A fuses.",resolution:"Pending resolution under RFI-007 main CB answer.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"PV2025-0066 SLD",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"Disconnect rating mismatch. Linked to RFI-007."}]},
   // ── AMLI Via Marina (MDR) ─────────────────────────────────────────────────
-  {id:"MDR-001-Orig",num:"001",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"14024 Panay / 4252-4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Closed",bic:"Coast Energy / Chris Jones",submittedBy:"SGS - Peter R.",directedTo:"Coast / Morpho",dateSub:"2025-12-17",dateReq:"2026-01-06",dateResp:"2026-01-06",subject:"Fault current rating — non-fused AC disconnects",problem:"Non-fused PV system AC disconnects may not meet fault current ratings. Fused disconnects requested.",resolution:"Chris Jones directed to proceed with fused disconnects 1/6/2026. SGS procured and installed.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E 3.1",attachments:[],boxLinks:[],
+  {id:"MDR-001-Orig",num:"001",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"14024 Panay / 4252-4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Closed",bic:"Coast Energy / Chris Jones",submittedBy:"SGS - Peter R.",dateSub:"2025-12-17",dateReq:"2026-01-06",dateResp:"2026-01-06",subject:"Fault current rating — non-fused AC disconnects",problem:"Non-fused PV system AC disconnects may not meet fault current ratings. Fused disconnects requested.",resolution:"Chris Jones directed to proceed with fused disconnects 1/6/2026. SGS procured and installed.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E 3.1",attachments:[],boxLinks:[],
    timeline:[{date:"2025-12-17",actor:"SGS - Peter R.",action:"Submitted",note:"Non-fused disconnect fault current concern."},{date:"2026-01-06",actor:"Coast / Chris Jones",action:"Response Issued",note:"Proceed with fused disconnects."}]},
-  {id:"MDR-002-Orig",num:"002",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"All Buildings",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS",directedTo:"Coast / Morpho",dateSub:"2026-01-15",dateReq:"2026-03-06",dateResp:"2026-03-06",subject:"Need placards — signed and stamped",problem:"Required placards not included in plan set. City submission requires stamped placards.",resolution:"Received stamped placards 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+  {id:"MDR-002-Orig",num:"002",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"All Buildings",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS",dateSub:"2026-01-15",dateReq:"2026-03-06",dateResp:"2026-03-06",subject:"Need placards — signed and stamped",problem:"Required placards not included in plan set. City submission requires stamped placards.",resolution:"Received stamped placards 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-15",actor:"SGS",action:"Submitted",note:"Stamped placards needed for city."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"Stamped placards received."}]},
-  {id:"MDR-003-Orig",num:"003",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS",directedTo:"Coast / Morpho",dateSub:"2026-02-01",dateReq:"2026-03-06",dateResp:"2026-03-06",subject:"Update plans — new transformer locations (roof to electrical room)",problem:"Rooftop transformers relocated to electrical room. Plans must reflect new location for city.",resolution:"Updated plans received from Morpho on 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+  {id:"MDR-003-Orig",num:"003",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS",dateSub:"2026-02-01",dateReq:"2026-03-06",dateResp:"2026-03-06",subject:"Update plans — new transformer locations (roof to electrical room)",problem:"Rooftop transformers relocated to electrical room. Plans must reflect new location for city.",resolution:"Updated plans received from Morpho on 3/6/2026.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-01",actor:"SGS",action:"Submitted",note:"Transformer relocation — plans need updating."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"Updated plans issued."}]},
-  {id:"MDR-004-Orig",num:"004",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B6",problem:"Stringing plan does not match approved structural sheets. Official request sent 3/3/2026.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+  {id:"MDR-004-Orig",num:"004",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Victoria V.",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B6",problem:"Stringing plan does not match approved structural sheets. Official request sent 3/3/2026.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-19",actor:"SGS - Victoria V.",action:"Submitted",note:"Stringing plan/structural mismatch."},{date:"2026-03-09",actor:"SGS",action:"Information Provided",note:"Updated stringing plan provided to Morpho."}]},
-  {id:"MDR-005-Orig",num:"005",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B2",problem:"Same issue as RFI-004 for Building B2.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+  {id:"MDR-005-Orig",num:"005",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"Medium",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Victoria V.",dateSub:"2026-02-19",dateReq:"",dateResp:"",subject:"Updated stringing plan to match structural sheets — B2",problem:"Same issue as RFI-004 for Building B2.",resolution:"SGS generated updated stringing plan, provided to Morpho 3/9/2026. Awaiting stamped version.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-19",actor:"SGS - Victoria V.",action:"Submitted",note:"Stringing plan/structural mismatch for B2."},{date:"2026-03-09",actor:"SGS",action:"Information Provided",note:"Updated stringing plan provided."}]},
-  {id:"MDR-006-Orig",num:"006",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast Energy / Chris Jones",submittedBy:"SGS - Ken L.",directedTo:"Coast Energy",dateSub:"2026-03-10",dateReq:"2026-03-10",dateResp:"2026-03-10",subject:"Update SLD — load side tap at 2000A section",problem:"SLD needs to reflect load-side tap configuration at 2000A section for City, SCE, and UL submission.",resolution:"Resolved 3/10/2026.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.1",attachments:[],boxLinks:[],
+  {id:"MDR-006-Orig",num:"006",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast Energy / Chris Jones",submittedBy:"SGS - Ken L.",dateSub:"2026-03-10",dateReq:"2026-03-10",dateResp:"2026-03-10",subject:"Update SLD — load side tap at 2000A section",problem:"SLD needs to reflect load-side tap configuration at 2000A section for City, SCE, and UL submission.",resolution:"Resolved 3/10/2026.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.1",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-10",actor:"SGS - Ken L.",action:"Submitted",note:"SLD update needed for city, SCE, UL."},{date:"2026-03-10",actor:"Coast / Chris Jones",action:"Response Issued",note:"Resolved same day."}]},
-  {id:"MDR-007-Orig",num:"007",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho Energy",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B2)",problem:"Electrical layout does not match fire-department-approved structural layout.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+  {id:"MDR-007-Orig",num:"007",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B2 — 14044 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B2)",problem:"Electrical layout does not match fire-department-approved structural layout.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-24",actor:"SGS - Rick H.",action:"Submitted",note:"Electrical vs. fire-approved structural layout discrepancy. ASAP."}]},
-  {id:"MDR-008-Orig",num:"008",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B3 — 14064 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho Energy",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B3)",problem:"Same issue as RFI-007 for Building B3.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+  {id:"MDR-008-Orig",num:"008",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B3 — 14064 Panay Way",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B3)",problem:"Same issue as RFI-007 for Building B3.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-24",actor:"SGS - Rick H.",action:"Submitted",note:"Electrical vs. fire-approved structural layout discrepancy for B3."}]},
-  {id:"MDR-009-Orig",num:"009",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",directedTo:"Morpho Energy",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B6)",problem:"Same issue as RFI-007 for Building B6.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+  {id:"MDR-009-Orig",num:"009",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B6 — 4254 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Rick H.",dateSub:"2026-03-24",dateReq:"2026-03-27",dateResp:"",subject:"Update electrical plan layout — fire-approved structural layout (B6)",problem:"Same issue as RFI-007 for Building B6.",resolution:"BiC Morpho — update electrical drawings to match new structural layout.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-24",actor:"SGS - Rick H.",action:"Submitted",note:"Electrical vs. fire-approved structural layout discrepancy for B6."}]},
-  {id:"MDR-010-Orig",num:"010",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Ken L.",directedTo:"Morpho Energy",dateSub:"2026-03-26",dateReq:"2026-03-27",dateResp:"",subject:"Update SLD — 600AS/500AF disconnect and revised Wire H",problem:"SLD must reflect 600AS/500AF AC disconnect and Wire H revised to #250 KCMIL in 2½\" conduit.",resolution:"BiC Morpho — urgent SLD update required for city.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"E 3.1",attachments:[],boxLinks:[],
+  {id:"MDR-010-Orig",num:"010",rev:"Orig",project:"AMLI Via Marina (MDR)",site:"B4 — 4214 Via Marina",disc:"Electrical",priority:"High",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"SGS - Ken L.",dateSub:"2026-03-26",dateReq:"2026-03-27",dateResp:"",subject:"Update SLD — 600AS/500AF disconnect and revised Wire H",problem:"SLD must reflect 600AS/500AF AC disconnect and Wire H revised to #250 KCMIL in 2½\" conduit.",resolution:"BiC Morpho — urgent SLD update required for city.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"E 3.1",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-26",actor:"SGS - Ken L.",action:"Submitted",note:"SLD revision needed. City deadline imminent."}]},
   // ── AMLI Broadway (Long Beach) ────────────────────────────────────────────
-  {id:"LB-001-Orig",num:"001",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2025-08-18",dateReq:"2025-10-01",dateResp:"2026-03-24",subject:"Existing conduit size vs. plan — feeder from electrical room to roof",problem:"Plans call for (2) 2½\" conduits; existing spare conduits are (3) 2\" conduits. Wire size changed from 4/0 to 3/0 per prior email.",resolution:"Pierre approved use of existing conduit with revised wire size.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",attachments:[],boxLinks:[],
+  {id:"LB-001-Orig",num:"001",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Electrical",priority:"High",status:"Closed",bic:"Coast Energy / Pierre Quincy",submittedBy:"SGS - Victoria V.",dateSub:"2025-08-18",dateReq:"2025-10-01",dateResp:"2026-03-24",subject:"Existing conduit size vs. plan — feeder from electrical room to roof",problem:"Plans call for (2) 2½\" conduits; existing spare conduits are (3) 2\" conduits. Wire size changed from 4/0 to 3/0 per prior email.",resolution:"Pierre approved use of existing conduit with revised wire size.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",attachments:[],boxLinks:[],
    timeline:[{date:"2025-08-18",actor:"SGS - Victoria V.",action:"Submitted",note:"Conduit size mismatch."},{date:"2026-03-24",actor:"Morpho Energy",action:"Response Issued",note:"Stamped plan revision received."}]},
-  {id:"LB-002-Orig",num:"002",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2025-09-01",dateReq:"2025-10-01",dateResp:"2025-10-30",subject:"Revised stamped plans — Array 1 to Array 36 split (window conflict)",problem:"Plans needed showing Array 1 redesigned to accommodate window that opens into array footprint.",resolution:"Signed and stamped plans received (planset dated 8/14/2025).",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"S-1",attachments:[],boxLinks:[],
+  {id:"LB-002-Orig",num:"002",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",dateSub:"2025-09-01",dateReq:"2025-10-01",dateResp:"2025-10-30",subject:"Revised stamped plans — Array 1 to Array 36 split (window conflict)",problem:"Plans needed showing Array 1 redesigned to accommodate window that opens into array footprint.",resolution:"Signed and stamped plans received (planset dated 8/14/2025).",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"S-1",attachments:[],boxLinks:[],
    timeline:[{date:"2025-09-01",actor:"SGS - Victoria V.",action:"Submitted",note:"Array 1 window conflict."},{date:"2025-10-30",actor:"Morpho Energy",action:"Response Issued",note:"Stamped revised plans received."}]},
-  {id:"LB-003-Orig",num:"003",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"General",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-09",dateReq:"2026-02-28",dateResp:"2026-03-06",subject:"Fire placards — engineered and stamped per Inspector Rosen",problem:"Inspector Rosen requested engineered and stamped fire placards.",resolution:"SGS provided CAD, Morpho provided stamped version.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E-7.0",attachments:[],boxLinks:[],
+  {id:"LB-003-Orig",num:"003",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"General",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",dateSub:"2026-02-09",dateReq:"2026-02-28",dateResp:"2026-03-06",subject:"Fire placards — engineered and stamped per Inspector Rosen",problem:"Inspector Rosen requested engineered and stamped fire placards.",resolution:"SGS provided CAD, Morpho provided stamped version.",planRev:"Yes",costImp:"No",schedImp:"No",drawRef:"E-7.0",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-09",actor:"SGS - Victoria V.",action:"Submitted",note:"Inspector Rosen requires stamped fire placards."},{date:"2026-03-06",actor:"Morpho Energy",action:"Response Issued",note:"SGS CAD + Morpho stamp provided."}]},
-  {id:"LB-004-Orig",num:"004",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"High",status:"Open",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-09",dateReq:"2026-03-15",dateResp:"",subject:"Revised plans — Array 29 pinch point (fire access comment)",problem:"Inspector identified fire access issue at Array 29. Panels shifted but updated drawings not yet received.",resolution:"Decision to shift panels made; revised stamped drawings still pending.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"S-1",attachments:[],boxLinks:[],
+  {id:"LB-004-Orig",num:"004",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Roof",disc:"Structural",priority:"High",status:"Open",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",dateSub:"2026-02-09",dateReq:"2026-03-15",dateResp:"",subject:"Revised plans — Array 29 pinch point (fire access comment)",problem:"Inspector identified fire access issue at Array 29. Panels shifted but updated drawings not yet received.",resolution:"Decision to shift panels made; revised stamped drawings still pending.",planRev:"Yes",costImp:"Unknown",schedImp:"Yes",drawRef:"S-1",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-09",actor:"SGS - Victoria V.",action:"Submitted",note:"Fire inspector flagged Array 29 pinch point."},{date:"2026-02-20",actor:"Coast / Morpho",action:"Information Provided",note:"Decision to shift panels. Stamped drawings being prepared."}]},
-  {id:"LB-005-Orig",num:"005",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Elec Room",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",directedTo:"Coast / Morpho",dateSub:"2026-02-17",dateReq:"2026-03-01",dateResp:"2026-03-24",subject:"150 kVA transformer installed vs. 75 kVA per plans",problem:"Larger 150 kVA transformer was provided and installed. Plans must be revised for city.",resolution:"Revised stamped plans received 3/24/2026 reflecting 150 kVA.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",attachments:[],boxLinks:[],
+  {id:"LB-005-Orig",num:"005",rev:"Orig",project:"AMLI Broadway (Long Beach)",site:"Elec Room",disc:"Electrical",priority:"High",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"SGS - Victoria V.",dateSub:"2026-02-17",dateReq:"2026-03-01",dateResp:"2026-03-24",subject:"150 kVA transformer installed vs. 75 kVA per plans",problem:"Larger 150 kVA transformer was provided and installed. Plans must be revised for city.",resolution:"Revised stamped plans received 3/24/2026 reflecting 150 kVA.",planRev:"Yes",costImp:"No",schedImp:"Yes",drawRef:"E 3.2, E 3.3",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-17",actor:"SGS - Victoria V.",action:"Submitted",note:"150 kVA installed vs. 75 kVA on plans."},{date:"2026-03-24",actor:"Morpho Energy",action:"Response Issued",note:"Revised stamped plans received."}]},
   // ── Berkshire (San Jose) ──────────────────────────────────────────────────
-  {id:"BER-001-Orig",num:"001",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Blocking to roof member attachment",problem:"Rafter blocking required for roof member attachment. Dimensions not specified on plans.",resolution:"Resolution provided by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-001-Orig",num:"001",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Blocking to roof member attachment",problem:"Rafter blocking required for roof member attachment. Dimensions not specified on plans.",resolution:"Resolution provided by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Rafter blocking dimensions missing."},{date:"2026-01-23",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Acceptable blocking approach confirmed."}]},
-  {id:"BER-002-Orig",num:"002",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-22",subject:"Conduit runs on the outside of building",problem:"Conduit routing on building exterior not detailed on plans. Issue between Coast and building owner.",resolution:"Routing confirmed via email.",planRev:"No",costImp:"Unknown",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-002-Orig",num:"002",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-22",subject:"Conduit runs on the outside of building",problem:"Conduit routing on building exterior not detailed on plans. Issue between Coast and building owner.",resolution:"Routing confirmed via email.",planRev:"No",costImp:"Unknown",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Conduit exterior routing detail missing."},{date:"2026-01-22",actor:"Morpho / Danny Hinks",action:"Response Issued",note:"Routing confirmed."}]},
-  {id:"BER-003-Orig",num:"003",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-27",subject:"Shims for a sloped roof",problem:"Roof slope requires shim detailing not shown in plans.",resolution:"Shim approach confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-003-Orig",num:"003",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-27",subject:"Shims for a sloped roof",problem:"Roof slope requires shim detailing not shown in plans.",resolution:"Shim approach confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Shim detail missing for sloped roof."},{date:"2026-01-27",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Shim approach confirmed."}]},
-  {id:"BER-004-Orig",num:"004",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Screw lengths for pads",problem:"Screw lengths for ballast pads not specified.",resolution:"Lengths confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-004-Orig",num:"004",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Closed",bic:"Morpho Energy / Cole Conway",submittedBy:"BPi",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-23",subject:"Screw lengths for pads",problem:"Screw lengths for ballast pads not specified.",resolution:"Lengths confirmed by Morpho EOR.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Pad screw lengths unspecified."},{date:"2026-01-23",actor:"Morpho / Cole Conway",action:"Response Issued",note:"Lengths confirmed."}]},
-  {id:"BER-005-Orig",num:"005",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Wire schedule — lengths have changed",problem:"Wire schedule from original design does not match field-measured lengths.",resolution:"",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-005-Orig",num:"005",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Wire schedule — lengths have changed",problem:"Wire schedule from original design does not match field-measured lengths.",resolution:"",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Field lengths differ from wire schedule. Revised schedule required."}]},
-  {id:"BER-006-Orig",num:"006",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Breaker space not available for POC",problem:"No available breaker space at Point of Connection. BPi notes possible line-side tap alternative.",resolution:"BiC Morpho — review line-side tap notes from BPi.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-006-Orig",num:"006",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",subject:"Breaker space not available for POC",problem:"No available breaker space at Point of Connection. BPi notes possible line-side tap alternative.",resolution:"BiC Morpho — review line-side tap notes from BPi.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"No breaker space at POC. Proposing line-side tap."}]},
-  {id:"BER-007-Orig",num:"007",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-28",subject:"Request to swap equipment",problem:"Equipment substitution required. Verification of RFI-005 needed before fault current calcs.",resolution:"Swap approved. Should be formalized as submittal.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-007-Orig",num:"007",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Closed",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-28",subject:"Request to swap equipment",problem:"Equipment substitution required. Verification of RFI-005 needed before fault current calcs.",resolution:"Swap approved. Should be formalized as submittal.",planRev:"Yes",costImp:"Yes",schedImp:"Yes",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Equipment swap needed. Waiting on RFI-005."},{date:"2026-01-28",actor:"Morpho / Sadia Afrin",action:"Response Issued",note:"Swap approved."}]},
-  {id:"BER-008-Orig",num:"008",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-20",dateReq:"2026-02-07",dateResp:"",subject:"DAS — drawings, status, quantity of Gateways",problem:"DAS gateway count, drawings, and installation status unresolved. AE design sheets pending.",resolution:"BiC Coast — share AE design sheets when available.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-008-Orig",num:"008",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",dateSub:"2026-01-20",dateReq:"2026-02-07",dateResp:"",subject:"DAS — drawings, status, quantity of Gateways",problem:"DAS gateway count, drawings, and installation status unresolved. AE design sheets pending.",resolution:"BiC Coast — share AE design sheets when available.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-20",actor:"BPi",action:"Submitted",note:"Gateway count and DAS drawings not available."}]},
-  {id:"BER-009-Orig",num:"009",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",directedTo:"Coast Energy",dateSub:"2026-01-28",dateReq:"",dateResp:"",subject:"Location of production meters and CT installation",problem:"Meter and CT locations not specified on plans. AE design sheets pending from Coast.",resolution:"BiC Coast — provide AE designs.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-009-Orig",num:"009",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Electrical",priority:"Critical",status:"Open",bic:"Coast Energy / Dustin Albanese",submittedBy:"BPi",dateSub:"2026-01-28",dateReq:"",dateResp:"",subject:"Location of production meters and CT installation",problem:"Meter and CT locations not specified on plans. AE design sheets pending from Coast.",resolution:"BiC Coast — provide AE designs.",planRev:"No",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-01-28",actor:"BPi",action:"Submitted",note:"Meter and CT locations not on plans."}]},
-  {id:"BER-010-Orig",num:"010",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-13",dateReq:"2026-02-17",dateResp:"2026-02-17",subject:"AC disconnect viewing window not required",problem:"Clarification sought whether AC disconnect requires viewing window per code.",resolution:"Morpho confirmed no viewing window required via email 2/17/2026.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-010-Orig",num:"010",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Closed",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",dateSub:"2026-02-13",dateReq:"2026-02-17",dateResp:"2026-02-17",subject:"AC disconnect viewing window not required",problem:"Clarification sought whether AC disconnect requires viewing window per code.",resolution:"Morpho confirmed no viewing window required via email 2/17/2026.",planRev:"No",costImp:"No",schedImp:"No",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-13",actor:"BPi",action:"Submitted",note:"Code clarification on AC disconnect viewing window."},{date:"2026-02-17",actor:"Morpho / Danny Hinks",action:"Response Issued",note:"No viewing window required — confirmed via email."}]},
-  {id:"BER-011-Orig",num:"011",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-02-19",dateReq:"2026-03-25",dateResp:"",subject:"Existing equipment conflicts with new solar equipment in electrical rooms",problem:"Existing equipment occupies space shown for new solar equipment on drawings.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-011-Orig",num:"011",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Standard",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-02-19",dateReq:"2026-03-25",dateResp:"",subject:"Existing equipment conflicts with new solar equipment in electrical rooms",problem:"Existing equipment occupies space shown for new solar equipment on drawings.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-02-19",actor:"BPi",action:"Submitted",note:"Existing equipment conflicts with new solar layout."}]},
-  {id:"BER-014-Orig",num:"014",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Open",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-16",dateReq:"2026-03-16",dateResp:"",subject:"Remedy for elevation changes on system",problem:"Elevation changes across roof deck require design solution not addressed in current plans.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
+  {id:"BER-014-Orig",num:"014",rev:"Orig",project:"Berkshire (San Jose)",site:"Roof Deck",disc:"Structural",priority:"Critical",status:"Open",bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",dateSub:"2026-03-16",dateReq:"2026-03-16",dateResp:"",subject:"Remedy for elevation changes on system",problem:"Elevation changes across roof deck require design solution not addressed in current plans.",resolution:"",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"Elevation changes on roof deck — no design solution in plans. ASAP."}]},
-  {id:"BER-015-Orig",num:"015",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",directedTo:"Morpho Energy",dateSub:"2026-03-16",dateReq:"2026-03-20",dateResp:"",subject:"Updated stamped SLD — tap instead of breaker connection at POI 2",problem:"Engineer of record stamp required showing load-side tap at POI 2 instead of breaker connection.",resolution:"BiC Morpho — EEOR stamp required for POI 2 load-side tap.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"E-POI2",attachments:[],boxLinks:[],
+  {id:"BER-015-Orig",num:"015",rev:"Orig",project:"Berkshire (San Jose)",site:"Elec Room",disc:"Electrical",priority:"Critical",status:"Open",bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",dateSub:"2026-03-16",dateReq:"2026-03-20",dateResp:"",subject:"Updated stamped SLD — tap instead of breaker connection at POI 2",problem:"Engineer of record stamp required showing load-side tap at POI 2 instead of breaker connection.",resolution:"BiC Morpho — EEOR stamp required for POI 2 load-side tap.",planRev:"Yes",costImp:"Unknown",schedImp:"Unknown",drawRef:"E-POI2",attachments:[],boxLinks:[],
    timeline:[{date:"2026-03-16",actor:"BPi",action:"Submitted",note:"EOR stamp needed for load-side tap at POI 2. Urgent."}]},
 ];
 
@@ -790,6 +839,24 @@ const SEED = [
 let DATA = JSON.parse(localStorage.getItem('ce_rfis_v6')||'null') || SEED;
 let sortField='num', sortDir=1, selectedId=null, editId=null;
 function save(){localStorage.setItem('ce_rfis_v6',JSON.stringify(DATA))}
+
+// ── Audit log helper ──────────────────────────────────────────────────────────
+function auditLog(r, action, actor, note, meta){
+  if(!r.timeline) r.timeline=[];
+  const now=new Date();
+  const ts=now.toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'})
+    +' '+now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+  const entry={date:now.toISOString().slice(0,10),ts,actor,action,note,source:'system'};
+  if(meta) entry.meta=meta;
+  r.timeline.push(entry);
+}
+function saveWithoutBlobs(){
+  // Save a copy stripped of dataUrls — metadata and boxUrls persist, binary stays in memory only
+  const lean=DATA.map(r=>({...r,attachments:(r.attachments||[]).map(a=>{
+    const {dataUrl,...rest}=a; return rest;
+  })}));
+  localStorage.setItem('ce_rfis_v6',JSON.stringify(lean));
+}
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 function nem(){return Math.ceil((new Date('2026-04-14')-new Date())/86400000)}
@@ -983,13 +1050,6 @@ function clearFilters(){
   if(s) s.value='';
 }
 
-function statTileClick(idx){
-  if(window._statTileActions&&window._statTileActions[idx]){
-    clearFilters();
-    window._statTileActions[idx]();
-  }
-}
-
 function filterToProject(p){
   showView('list');
   document.getElementById('f-project').value=p;
@@ -1174,19 +1234,18 @@ function quickFieldUpdate(id, field, value){
   const r=DATA.find(x=>x.id===id);
   if(!r) return;
   if(field==='status'&&value==='Closed'){
-    // Intercept — require official response
     openCloseModal(id);
-    renderTable(); // re-render to reset the select
+    renderTable();
     return;
   }
+  const oldVal=r[field]||'—';
   r[field]=value;
-  if(!r.timeline) r.timeline=[];
-  r.timeline.push({date:new Date().toISOString().slice(0,10),actor:'User',action:'Information Provided',
-    note:`${field.charAt(0).toUpperCase()+field.slice(1)} updated to "${value}" via quick edit.`});
+  const label=field==='priority'?'Priority':field==='status'?'Status':field.charAt(0).toUpperCase()+field.slice(1);
+  auditLog(r,'Field Updated','User',`${label} changed`,{field:label,oldVal,newVal:value});
   save();
   renderTable();
   renderDashboard();
-  showToast(`${field.charAt(0).toUpperCase()+field.slice(1)} updated to ${value}`);
+  showToast(`${label} updated to ${value}`);
 }
 
 function buildBICCell(r){
@@ -1225,10 +1284,9 @@ function updateInlineBICPerson(id, person){
   if(!r) return;
   const parts=(r.bic||'').split('/');
   const co=parts[0]?.trim()||'';
+  const oldBic=r.bic||'—';
   r.bic=co+(person?' / '+person:'');
-  if(!r.timeline) r.timeline=[];
-  r.timeline.push({date:new Date().toISOString().slice(0,10),actor:'User',action:'Information Provided',
-    note:`Assigned to updated to "${r.bic}" via quick edit.`});
+  auditLog(r,'Assignment Changed','User','Currently Assigned To updated',{field:'Currently Assigned To',oldVal:oldBic,newVal:r.bic});
   save();
   renderTable();
   renderDashboard();
@@ -1276,9 +1334,427 @@ function openDrawer(id){
       <span style="color:var(--midnight-60)">·</span>
       <span class="drawer-project">${r.disc}</span>
     </div>
-    ${meta.address?`<div class="drawer-address">📍 ${meta.address}</div>`:''}`;
+    ${meta.address?`<div class="drawer-address">📍 ${meta.address}</div>`:''}
+    <div class="drawer-tabs">
+      <button class="drawer-tab active" id="tab-detail-${r.id}" onclick="switchDrawerTab('${r.id}','detail')">Detail</button>
+      <button class="drawer-tab" id="tab-history-${r.id}" onclick="switchDrawerTab('${r.id}','history')">
+        History <span style="font-size:10px;background:rgba(255,255,255,.15);padding:1px 6px;border-radius:10px;margin-left:3px">${(r.timeline||[]).length}</span>
+      </button>
+    </div>`;
 
-  document.getElementById('drawer-body').innerHTML=`
+  document.getElementById('drawer-body').innerHTML=buildDrawerDetail(r);
+
+  document.getElementById('drawer-footer').innerHTML=`
+    <button class="btn btn-ghost btn-sm" onclick="openEditModal('${r.id}')">✎ Edit</button>
+    <button class="btn btn-ghost btn-sm" onclick="openCloseModal('${r.id}')" ${r.status==='Closed'?'disabled style="opacity:.4;cursor:not-allowed"':''}>✓ Close RFI</button>
+    <button class="btn btn-ghost btn-sm" onclick="reassignBIC('${r.id}')">↔ Reassign</button>
+    <button class="btn btn-ghost btn-sm" onclick="printRFI('${r.id}')">⎙ Print</button>
+    <div style="flex:1"></div>
+    <button class="btn btn-ghost btn-sm" style="color:var(--gray-400)" onclick="closeDrawer()">Close Panel</button>`;
+
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  renderTable();
+}
+
+function renderTimeline(r){
+  if(!r.timeline||!r.timeline.length) return`<div style="color:var(--gray-400);font-size:12px">No activity logged.</div>`;
+  return r.timeline.map((t,i)=>{
+    const isLast=i===r.timeline.length-1;
+    const isOfficial=t.official===true;
+    const dotCls=isOfficial?'closed':t.action==='Closed'?'closed':t.action==='Submitted'?'submitted':t.action==='Revised'?'revised':t.action==='Escalated'?'escalated':'';
+    return`<div class="timeline-item ${isOfficial?'official':''}">
+      <div class="timeline-left">
+        <div class="timeline-dot ${dotCls}"></div>
+        ${!isLast?'<div class="timeline-line"></div>':''}
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-header">
+          <span class="timeline-action">${t.action}</span>
+          ${isOfficial?'<span class="timeline-official-badge">OFFICIAL</span>':''}
+          <span class="timeline-actor">· ${t.actor}</span>
+          <span class="timeline-date">${t.date}</span>
+        </div>
+        <div class="timeline-note">${t.note}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAttachments(r){
+  // Build combined card per attachment (uploaded file + optional box link together)
+  // Also render standalone box-link-only entries separately
+  const atts=r.attachments||[];
+  const boxes=r.boxLinks||[];
+
+  // Each attachment card: file info + its own linked box URL (stored in a.boxUrl)
+  const attCards=atts.map((a,i)=>{
+      const fileRow=`<div class="attach-uploaded-file">
+      <div class="attach-uploaded-name">${a.name}</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1px;flex-shrink:0">
+        <div class="attach-uploaded-meta">${a.type||''}</div>
+        ${a.uploadedAt?`<div class="attach-uploaded-meta">${a.uploadedAt}</div>`:''}
+      </div>
+      <div class="attach-actions" style="margin-left:8px">
+        <button class="attach-link" onclick="viewDoc('${r.id}',${i})">View</button>
+        <button class="attach-link" onclick="removeAttachment('${r.id}',${i})">✕</button>
+      </div>
+    </div>`;
+    const boxRow=a.boxUrl
+      ? `<div class="attach-linked-box">
+          
+          <a class="attach-linked-box-url" href="${a.boxUrl}" target="_blank" title="${a.boxUrl}">${a.boxUrl}</a>
+          <button class="attach-link" style="flex-shrink:0" onclick="removeAttachBoxLink('${r.id}',${i})">✕</button>
+         </div>`
+      : `<div class="attach-box-row">
+          <span class="attach-box-label">File link:</span>
+          <input placeholder="Paste file link (Box, SharePoint, Drive…)" id="abl-${r.id}-${i}"
+            onkeydown="if(event.key==='Enter')saveAttachBoxLink('${r.id}',${i})"
+            style="flex:1;border:1px solid var(--gray-200);border-radius:var(--radius);padding:5px 8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--midnight);background:var(--white)">
+          <button class="attach-link" onclick="saveAttachBoxLink('${r.id}',${i})">Save</button>
+         </div>`;
+    return `<div class="attach-card">
+      <div class="attach-card-header">
+        <span class="attach-card-label">${a.type||'Document'}</span>
+      </div>
+      <div class="attach-card-body">
+        ${fileRow}
+        ${boxRow}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Standalone box-only links (legacy / added separately)
+  const boxOnlyCards=boxes.length===0?'':`<div style="margin-top:12px">
+    <div class="attach-group-label">Additional File Links</div>
+    ${boxes.map((b,i)=>`<div class="attach-item" style="margin-top:6px">
+      
+      <div style="flex:1;min-width:0">
+        <div class="attach-name">${b.label||'Box File'}</div>
+        <div style="font-size:10px;color:var(--gray-400);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.url}</div>
+      </div>
+      <div class="attach-actions">
+        <a class="attach-link" href="${b.url}" target="_blank">Open ↗</a>
+        <button class="attach-link" onclick="removeBoxLink('${r.id}',${i})">✕</button>
+      </div>
+    </div>`).join('')}
+    <div class="attach-box-row" style="margin-top:8px">
+      <input class="box-link-input" id="box-url-${r.id}" placeholder="Paste file link…" onkeydown="if(event.key==='Enter')addBoxLink('${r.id}')">
+      <input class="box-link-input" id="box-label-${r.id}" placeholder="Label" style="max-width:120px" onkeydown="if(event.key==='Enter')addBoxLink('${r.id}')">
+      <button class="btn btn-ghost btn-sm" onclick="addBoxLink('${r.id}')">+ Add</button>
+    </div>
+  </div>`;
+
+  return`
+    <div class="attach-group-label">Documents</div>
+    ${atts.length===0?'<div style="font-size:12px;color:var(--gray-400);font-style:italic;margin-bottom:8px">No documents uploaded yet.</div>':attCards}
+    <div class="attach-card" style="margin-top:10px">
+      <div class="attach-card-header">
+        <span class="attach-card-label">+ Add Document</span>
+      </div>
+      <div class="attach-card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="attach-drop-zone" onclick="triggerUpload('${r.id}','orig')">
+            <input type="file" id="file-orig-${r.id}" style="display:none"
+              accept=".pdf,.png,.jpg,.jpeg,.gif,.webp,.bmp,.tif,.tiff,.dwg,.dxf,.docx,.doc,.xlsx,.xls,.csv,.pptx,.ppt,.txt,.rtf,.zip,.msg,.eml"
+              onchange="handleUpload(event,'${r.id}','Original RFI')">
+            <strong>+ Original RFI</strong>
+            <p>Click to upload</p>
+          </div>
+          <div class="attach-drop-zone" onclick="triggerUpload('${r.id}','rev')">
+            <input type="file" id="file-rev-${r.id}" style="display:none"
+              accept=".pdf,.png,.jpg,.jpeg,.gif,.webp,.bmp,.tif,.tiff,.dwg,.dxf,.docx,.doc,.xlsx,.xls,.csv,.pptx,.ppt,.txt,.rtf,.zip,.msg,.eml"
+              onchange="handleUpload(event,'${r.id}','Revision')">
+            <strong>+ Revision / Response</strong>
+            <p>Click to upload</p>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--gray-400);text-align:center">
+          PDF · Word · Excel · PowerPoint · Image · DWG · CSV · ZIP · Email · and more
+        </div>
+      </div>
+    </div>
+    ${boxOnlyCards}
+    <div id="doc-viewer-${r.id}" class="doc-viewer"></div>`;
+}
+
+function triggerUpload(id,type){document.getElementById(`file-${type}-${id}`).click()}
+
+function saveAttachBoxLink(id,idx){
+  const input=document.getElementById('abl-'+id+'-'+idx);
+  if(!input) return;
+  const url=input.value.trim();
+  if(!url){showToast('Paste a Box link first');return;}
+  const r=DATA.find(x=>x.id===id);
+  if(!r||!r.attachments[idx]) return;
+  r.attachments[idx].boxUrl=url;
+  save();
+  refreshAttachmentPanel(id);
+  showToast('Box link saved to document');
+}
+
+function removeAttachBoxLink(id,idx){
+  const r=DATA.find(x=>x.id===id);
+  if(!r||!r.attachments[idx]) return;
+  delete r.attachments[idx].boxUrl;
+  save();
+  refreshAttachmentPanel(id);
+  showToast('Box link removed');
+}
+
+function handleUpload(event,id,type){
+  const file=event.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const r=DATA.find(x=>x.id===id);
+    if(!r.attachments) r.attachments=[];
+    const now=new Date();
+    const ts=now.toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'})+
+      ' '+now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
+    const attObj={name:file.name,type,dataUrl:e.target.result,mimeType:file.type,uploadedAt:ts};
+    r.attachments.push(attObj);
+    // Save without binary data to keep localStorage lean
+    saveWithoutBlobs();
+    refreshAttachmentPanel(id);
+    showToast(`${file.name} uploaded`);
+  };
+  reader.readAsDataURL(file);
+}
+
+function refreshAttachmentPanel(id){
+  const r=DATA.find(x=>x.id===id);
+  if(!r) return;
+  const drawerBody=document.getElementById('drawer-body');
+  if(!drawerBody) return;
+  const sections=drawerBody.querySelectorAll('.drawer-section');
+  for(const sec of sections){
+    const lbl=sec.querySelector('.section-label');
+    if(lbl&&lbl.textContent.trim()==='Documents & Attachments'){
+      sec.innerHTML='<div class="section-label">Documents & Attachments</div>'+renderAttachments(r);
+      return;
+    }
+  }
+}
+
+function viewDoc(id,idx){
+  const r=DATA.find(x=>x.id===id);
+  if(!r||!r.attachments||!r.attachments[idx]){showToast('Document not found — please re-upload.');return;}
+  const att=r.attachments[idx];
+  if(!att.dataUrl){
+    // dataUrl is session-only — not persisted. If Box/file link exists, can still preview.
+    if(att.boxUrl){
+      const viewer2=document.getElementById('doc-viewer-'+id);
+      if(viewer2){
+        viewer2.classList.add('open');
+        const ext2=(att.name||'').split('.').pop().toLowerCase();
+        const isPdf2=ext2==='pdf';
+        const isOffice2=['doc','docx','ppt','pptx','xls','xlsx'].includes(ext2);
+        let vUrl='';
+        if(isPdf2) vUrl='https://docs.google.com/viewer?url='+encodeURIComponent(att.boxUrl)+'&embedded=true';
+        else if(isOffice2) vUrl='https://view.officeapps.live.com/op/embed.aspx?src='+encodeURIComponent(att.boxUrl);
+        if(vUrl){
+          viewer2.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><iframe src="${vUrl}" style="width:100%;height:520px;border:none;display:block"></iframe>`;
+          viewer2.scrollIntoView({behavior:'smooth',block:'nearest'});
+          return;
+        }
+      }
+    }
+    const viewer2=document.getElementById('doc-viewer-'+id);
+    if(viewer2){
+      viewer2.classList.add('open');
+      viewer2.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><div class="doc-placeholder"><p style="font-weight:500;color:var(--midnight);margin-bottom:6px">File not available in this session</p><p style="font-size:12px;color:var(--gray-600)">Uploaded files are session-only. Re-upload the file or add a File Link to enable preview.</p></div>`;
+      viewer2.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+    return;
+  }
+  const viewer=document.getElementById('doc-viewer-'+id);
+  if(!viewer){showToast('Viewer not ready — try again.');return;}
+  viewer.classList.add('open');
+  const header=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div>`;
+  const ext=(att.name||'').split('.').pop().toLowerCase();
+  const mime=att.mimeType||'';
+  const isImage=mime.startsWith('image/')||['png','jpg','jpeg','gif','webp','bmp','tif','tiff'].includes(ext);
+  const isPdf=mime==='application/pdf'||ext==='pdf';
+  const isOffice=['doc','docx','ppt','pptx','xls','xlsx'].includes(ext);
+
+  if(isImage){
+    // Images always work — render directly
+    viewer.innerHTML=header+`<img src="${att.dataUrl}" style="width:100%;max-height:520px;object-fit:contain;display:block;background:#1a1a1a">`;
+  } else if(isPdf||isOffice){
+    // PDFs and Office files need a public URL to use external viewers
+    // Check if a Box link is attached to this document
+    if(att.boxUrl){
+      let viewerUrl;
+      if(isPdf){
+        // Google PDF Viewer — works with any public URL
+        viewerUrl='https://docs.google.com/viewer?url='+encodeURIComponent(att.boxUrl)+'&embedded=true';
+      } else {
+        // Microsoft Office Online viewer — works with any public URL
+        viewerUrl='https://view.officeapps.live.com/op/embed.aspx?src='+encodeURIComponent(att.boxUrl);
+      }
+      viewer.innerHTML=header+`<iframe src="${viewerUrl}" title="${att.name}" style="width:100%;height:520px;border:none;display:block"></iframe>`;
+    } else {
+      // No Box URL — offer download + explain how to enable preview
+      const blob=dataURLtoBlob(att.dataUrl);
+      const blobUrl=URL.createObjectURL(blob);
+      const viewerName=isPdf?'Google PDF Viewer':'Microsoft Office Online';
+      viewer.innerHTML=header+`<div class="doc-placeholder">
+        <div style="max-width:380px;text-align:center">
+          <p style="font-weight:500;color:var(--midnight);margin-bottom:8px">In-app preview requires a Box link</p>
+          <p style="font-size:12px;color:var(--gray-600);line-height:1.6;margin-bottom:16px">
+            To preview this ${isPdf?'PDF':'Office document'} in-app, paste the Box.com share link for this file
+            in the Box link field above — ${viewerName} will load it securely.
+          </p>
+          <a class="attach-link" href="${blobUrl}" download="${att.name}" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;font-size:13px">⬇ Download ${att.name}</a>
+        </div>
+      </div>`;
+    }
+  } else {
+    // Other file types — download only
+    const blob=dataURLtoBlob(att.dataUrl);
+    const blobUrl=URL.createObjectURL(blob);
+    viewer.innerHTML=header+`<div class="doc-placeholder">
+      <p>Preview not available for this file type.</p>
+      <a class="attach-link" href="${blobUrl}" download="${att.name}">⬇ Download ${att.name}</a>
+    </div>`;
+  }
+  viewer.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function dataURLtoBlob(dataUrl){
+  const arr=dataUrl.split(',');
+  const mime=arr[0].match(/:(.*?);/)[1];
+  const bstr=atob(arr[1]);
+  let n=bstr.length;
+  const u8=new Uint8Array(n);
+  while(n--) u8[n]=bstr.charCodeAt(n);
+  return new Blob([u8],{type:mime});
+}
+
+function closeViewer(id){
+  const v=document.getElementById(`doc-viewer-${id}`);
+  v.classList.remove('open');v.innerHTML='';
+}
+
+function removeAttachment(id,idx){
+  const r=DATA.find(x=>x.id===id);
+  r.attachments.splice(idx,1);
+  save();
+  // Close viewer if open, then refresh panel
+  closeViewer(id);
+  refreshAttachmentPanel(id);
+  showToast('Document removed');
+}
+
+function addBoxLink(id){
+  const url=document.getElementById(`box-url-${id}`).value.trim();
+  const label=document.getElementById(`box-label-${id}`).value.trim()||'Box File';
+  if(!url){showToast('Paste a Box link first');return;}
+  const r=DATA.find(x=>x.id===id);
+  if(!r.boxLinks) r.boxLinks=[];
+  r.boxLinks.push({url,label});
+  save();openDrawer(id);showToast('Box link added');
+}
+
+function removeBoxLink(id,idx){
+  const r=DATA.find(x=>x.id===id);
+  r.boxLinks.splice(idx,1);
+  save();openDrawer(id);showToast('Box link removed');
+}
+
+function toggleUpdateForm(id){document.getElementById('update-form-'+id).classList.toggle('open')}
+
+function submitUpdate(id){
+  const action=document.getElementById('uf-action').value;
+  const actor=document.getElementById('uf-actor').value||'Unknown';
+  const note=document.getElementById('uf-note').value;
+  const isOfficial=document.getElementById('uf-official')?.checked||false;
+  if(!note){showToast('Add a note before saving.');return;}
+  const r=DATA.find(x=>x.id===id);
+  if(!r.timeline) r.timeline=[];
+  const now3=new Date();
+  const ts3=now3.toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'})
+    +' '+now3.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+  const entry={date:now3.toISOString().slice(0,10),ts:ts3,actor,action,note,source:isOfficial?'official':'manual'};
+  if(isOfficial) entry.official=true;
+  r.timeline.push(entry);
+  if(isOfficial){r.officialResponse={text:note,by:actor,date:now3.toISOString().slice(0,10)};}
+  save();openDrawer(id);showToast(isOfficial?'Official response recorded':'Update added to timeline');
+}
+
+// ── Close RFI intercept ───────────────────────────────────────────────────────
+let closeTargetId=null;
+function openCloseModal(id){
+  const r=DATA.find(x=>x.id===id);
+  if(r.status==='Closed'){showToast('RFI is already closed.');return;}
+  closeTargetId=id;
+  document.getElementById('cr-response').value='';
+  document.getElementById('cr-by').value=r.bic||'';
+  document.getElementById('cr-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('cr-char').textContent='0 / 20 minimum';
+  document.getElementById('cr-char').className='char-counter';
+  document.getElementById('cr-confirm').disabled=true;
+  document.getElementById('cr-confirm').style.opacity='.5';
+  document.getElementById('close-modal-overlay').classList.add('open');
+}
+function checkCloseForm(){
+  const txt=document.getElementById('cr-response').value.trim();
+  const by=document.getElementById('cr-by').value.trim();
+  const len=txt.length;
+  const counter=document.getElementById('cr-char');
+  counter.textContent=`${len} / 20 minimum`;
+  counter.className='char-counter'+(len>=20?' good':'');
+  const ok=len>=20&&by.length>0;
+  document.getElementById('cr-confirm').disabled=!ok;
+  document.getElementById('cr-confirm').style.opacity=ok?'1':'.5';
+}
+function confirmCloseRFI(){
+  const id=closeTargetId;
+  if(!id) return;
+  const r=DATA.find(x=>x.id===id);
+  const txt=document.getElementById('cr-response').value.trim();
+  const by=document.getElementById('cr-by').value.trim();
+  const dt=document.getElementById('cr-date').value||new Date().toISOString().slice(0,10);
+  if(txt.length<20||!by){showToast('Please complete all required fields.');return;}
+  r.status='Closed';
+  r.dateResp=dt;
+  r.officialResponse={text:txt,by,date:dt};
+  if(!r.timeline) r.timeline=[];
+  const now2=new Date();
+  const ts2=now2.toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'})
+    +' '+now2.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+  r.timeline.push({date:dt,ts:ts2,actor:by,action:'Response Issued',note:txt,official:true,source:'official',
+    meta:{field:'Status',oldVal:'Open',newVal:'Closed'}});
+  save();
+  document.getElementById('close-modal-overlay').classList.remove('open');
+  closeTargetId=null;
+  openDrawer(id);
+  renderDashboard();
+  showToast('RFI closed — official response recorded');
+}
+function cancelCloseRFI(){
+  document.getElementById('close-modal-overlay').classList.remove('open');
+  closeTargetId=null;
+}
+
+function reassignBIC(id){
+  const r=DATA.find(x=>x.id===id);
+  const newBIC=prompt('Reassign to (Company / Person):',r.bic);
+  if(newBIC&&newBIC!==r.bic){
+    const oldBIC=r.bic;
+    r.bic=newBIC;
+    auditLog(r,'Assignment Reassigned','User',`Reassigned from ${oldBIC} to ${newBIC}`,{field:'Currently Assigned To',oldVal:oldBIC,newVal:newBIC});
+    save();openDrawer(id);showToast('Assignment updated');
+  }
+}
+
+function buildDrawerDetail(r){
+  const bicParts=(r.bic||'').split('/');
+  const bicCompany=bicParts[0]?.trim()||r.bic;
+  const bicPerson=bicParts[1]?.trim()||'';
+  const do_=daysOpen(r);
+  return`
     <!-- Accountability -->
     <div class="drawer-section">
       <div class="section-label">Accountability</div>
@@ -1292,7 +1768,7 @@ function openDrawer(id){
       </div>
       <div class="fields-grid">
         <div><div class="field-label">Submitted By</div><div class="field-value">${r.submittedBy||'—'}</div></div>
-        <div><div class="field-label">Directed To</div><div class="field-value">${r.directedTo||'—'}</div></div>
+        
         <div><div class="field-label">Date Submitted</div><div class="field-value mono">${r.dateSub||'—'}</div></div>
         <div><div class="field-label">Date Required</div><div class="field-value mono">${r.dateReq||'—'}</div></div>
         <div><div class="field-label">Date Responded</div><div class="field-value mono">${r.dateResp||'Pending'}</div></div>
@@ -1350,231 +1826,66 @@ function openDrawer(id){
       <div class="section-label">Documents & Attachments</div>
       ${renderAttachments(r)}
     </div>`;
-
-  document.getElementById('drawer-footer').innerHTML=`
-    <button class="btn btn-ghost btn-sm" onclick="openEditModal('${r.id}')">✎ Edit</button>
-    <button class="btn btn-ghost btn-sm" onclick="openCloseModal('${r.id}')" ${r.status==='Closed'?'disabled style="opacity:.4;cursor:not-allowed"':''}>✓ Close RFI</button>
-    <button class="btn btn-ghost btn-sm" onclick="reassignBIC('${r.id}')">↔ Reassign</button>
-    <button class="btn btn-ghost btn-sm" onclick="printRFI('${r.id}')">⎙ Print</button>
-    <div style="flex:1"></div>
-    <button class="btn btn-ghost btn-sm" style="color:var(--gray-400)" onclick="closeDrawer()">Close Panel</button>`;
-
-  document.getElementById('drawer-overlay').classList.add('open');
-  document.getElementById('drawer').classList.add('open');
-  renderTable();
 }
 
-function renderTimeline(r){
-  if(!r.timeline||!r.timeline.length) return`<div style="color:var(--gray-400);font-size:12px">No activity logged.</div>`;
-  return r.timeline.map((t,i)=>{
-    const isLast=i===r.timeline.length-1;
-    const isOfficial=t.official===true;
-    const dotCls=isOfficial?'closed':t.action==='Closed'?'closed':t.action==='Submitted'?'submitted':t.action==='Revised'?'revised':t.action==='Escalated'?'escalated':'';
-    return`<div class="timeline-item ${isOfficial?'official':''}">
-      <div class="timeline-left">
-        <div class="timeline-dot ${dotCls}"></div>
-        ${!isLast?'<div class="timeline-line"></div>':''}
+// ── Drawer tab switching ─────────────────────────────────────────────────────
+function switchDrawerTab(id, tab){
+  const detailTab=document.getElementById('tab-detail-'+id);
+  const historyTab=document.getElementById('tab-history-'+id);
+  const body=document.getElementById('drawer-body');
+  if(!body||!detailTab||!historyTab) return;
+  if(tab==='detail'){
+    detailTab.classList.add('active');
+    historyTab.classList.remove('active');
+    // Re-render detail view
+    const r=DATA.find(x=>x.id===id);
+    if(r) body.innerHTML=buildDrawerDetail(r);
+  } else {
+    historyTab.classList.add('active');
+    detailTab.classList.remove('active');
+    const r=DATA.find(x=>x.id===id);
+    body.innerHTML=renderAuditLog(r);
+  }
+}
+
+function renderAuditLog(r){
+  const entries=[...(r.timeline||[])].reverse(); // newest first
+  if(entries.length===0){
+    return`<div class="audit-empty">No history recorded yet.<br><span style="font-size:12px">Actions like edits, status changes, and updates will appear here.</span></div>`;
+  }
+  const html=entries.map((t,i)=>{
+    const isLast=i===entries.length-1;
+    const src=t.source||'manual';
+    const dotCls=src==='official'?'close':src==='system'?'system':t.action==='Escalated'?'escalate':'edit';
+    const srcLabel=src==='official'?'Official':src==='system'?'Auto':src==='manual'?'Manual':'';
+    const ts=t.ts||t.date||'';
+    // Change indicator
+    let changeHtml='';
+    if(t.meta&&t.meta.oldVal&&t.meta.newVal){
+      changeHtml=`<div class="audit-change">
+        <span class="old">${t.meta.oldVal}</span>
+        <span class="arrow">→</span>
+        <span class="new">${t.meta.newVal}</span>
+      </div>`;
+    }
+    return`<div class="audit-entry">
+      <div class="audit-left">
+        <div class="audit-dot ${dotCls}"></div>
+        ${!isLast?'<div class="audit-line"></div>':''}
       </div>
-      <div class="timeline-content">
-        <div class="timeline-header">
-          <span class="timeline-action">${t.action}</span>
-          ${isOfficial?'<span class="timeline-official-badge">OFFICIAL</span>':''}
-          <span class="timeline-actor">· ${t.actor}</span>
-          <span class="timeline-date">${t.date}</span>
+      <div class="audit-content">
+        <div class="audit-header">
+          <span class="audit-action">${t.action}</span>
+          <span class="audit-actor">· ${t.actor||'Unknown'}</span>
+          ${srcLabel?`<span class="audit-source">${srcLabel}</span>`:''}
+          <span class="audit-ts">${ts}</span>
         </div>
-        <div class="timeline-note">${t.note}</div>
+        ${t.note?`<div class="audit-detail">${t.note}</div>`:''}
+        ${changeHtml}
       </div>
     </div>`;
   }).join('');
-}
-
-function renderAttachments(r){
-  const atts=r.attachments||[];
-  const boxes=r.boxLinks||[];
-  return`
-    <div class="attach-group-label">Uploaded Documents</div>
-    <div class="attach-list" id="attach-list-${r.id}">
-      ${atts.length===0?`<div style="font-size:12px;color:var(--gray-400);font-style:italic">No documents uploaded yet.</div>`
-      :atts.map((a,i)=>`<div class="attach-item">
-        <div class="attach-icon">📄</div>
-        <div class="attach-name">${a.name}</div>
-        <div class="attach-meta">${a.type||''}</div>
-        <div class="attach-actions">
-          <button class="attach-link" onclick="viewDoc('${r.id}',${i})">View</button>
-          <button class="attach-link" onclick="removeAttachment('${r.id}',${i})">✕</button>
-        </div>
-      </div>`).join('')}
-    </div>
-    <div class="attach-upload-zone" onclick="triggerUpload('${r.id}','orig')">
-      <input type="file" id="file-orig-${r.id}" style="display:none" accept=".pdf,.png,.jpg,.jpeg,.dwg,.docx,.xlsx" onchange="handleUpload(event,'${r.id}','Original RFI')">
-      <strong>+ Upload Original RFI Document</strong>
-      <p>PDF, image, DWG, Word, Excel</p>
-    </div>
-    <div class="attach-upload-zone" onclick="triggerUpload('${r.id}','rev')">
-      <input type="file" id="file-rev-${r.id}" style="display:none" accept=".pdf,.png,.jpg,.jpeg,.dwg,.docx,.xlsx" onchange="handleUpload(event,'${r.id}','Revision')">
-      <strong>+ Upload Revision Document</strong>
-      <p>Upload revised drawings, responses, or stamped plans</p>
-    </div>
-    <div id="doc-viewer-${r.id}" class="doc-viewer"></div>
-
-    <div class="attach-group-label" style="margin-top:16px">Box.com Links</div>
-    <div id="box-links-${r.id}">
-      ${boxes.length===0?`<div style="font-size:12px;color:var(--gray-400);font-style:italic;margin-bottom:8px">No Box links added yet.</div>`
-      :boxes.map((b,i)=>`<div class="attach-item">
-        <div class="attach-icon" style="font-size:16px">📦</div>
-        <div style="flex:1;min-width:0">
-          <div class="attach-name">${b.label||'Box File'}</div>
-          <div style="font-size:10px;color:var(--gray-400);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.url}</div>
-        </div>
-        <div class="attach-actions">
-          <a class="attach-link" href="${b.url}" target="_blank">Open ↗</a>
-          <button class="attach-link" onclick="removeBoxLink('${r.id}',${i})">✕</button>
-        </div>
-      </div>`).join('')}
-    </div>
-    <div class="box-link-row">
-      <input class="box-link-input" id="box-url-${r.id}" placeholder="Paste Box.com share link…" onkeydown="if(event.key==='Enter')addBoxLink('${r.id}')">
-      <input class="box-link-input" id="box-label-${r.id}" placeholder="Label (e.g. RFI-007 Response)" style="max-width:180px" onkeydown="if(event.key==='Enter')addBoxLink('${r.id}')">
-      <button class="btn btn-ghost btn-sm" onclick="addBoxLink('${r.id}')">+ Add</button>
-    </div>`;
-}
-
-function triggerUpload(id,type){document.getElementById(`file-${type}-${id}`).click()}
-
-function handleUpload(event,id,type){
-  const file=event.target.files[0];
-  if(!file) return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const r=DATA.find(x=>x.id===id);
-    if(!r.attachments) r.attachments=[];
-    r.attachments.push({name:file.name,type,dataUrl:e.target.result,mimeType:file.type});
-    save();
-    openDrawer(id);
-    showToast(`${file.name} uploaded`);
-  };
-  reader.readAsDataURL(file);
-}
-
-function viewDoc(id,idx){
-  const r=DATA.find(x=>x.id===id);
-  const att=r.attachments[idx];
-  const viewer=document.getElementById(`doc-viewer-${id}`);
-  viewer.classList.add('open');
-  if(att.mimeType&&att.mimeType.startsWith('image/')){
-    viewer.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><img src="${att.dataUrl}" style="width:100%;max-height:500px;object-fit:contain;display:block;background:#000">`;
-  } else if(att.mimeType==='application/pdf'){
-    viewer.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><iframe src="${att.dataUrl}" title="${att.name}"></iframe>`;
-  } else {
-    viewer.innerHTML=`<div class="doc-viewer-header"><span class="doc-viewer-title">${att.name}</span><button class="doc-viewer-close" onclick="closeViewer('${id}')">✕</button></div><div class="doc-placeholder"><p>Preview not available for this file type.</p><a class="attach-link" href="${att.dataUrl}" download="${att.name}">⬇ Download ${att.name}</a></div>`;
-  }
-  viewer.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-function closeViewer(id){
-  const v=document.getElementById(`doc-viewer-${id}`);
-  v.classList.remove('open');v.innerHTML='';
-}
-
-function removeAttachment(id,idx){
-  const r=DATA.find(x=>x.id===id);
-  r.attachments.splice(idx,1);
-  save();openDrawer(id);showToast('Document removed');
-}
-
-function addBoxLink(id){
-  const url=document.getElementById(`box-url-${id}`).value.trim();
-  const label=document.getElementById(`box-label-${id}`).value.trim()||'Box File';
-  if(!url){showToast('Paste a Box link first');return;}
-  const r=DATA.find(x=>x.id===id);
-  if(!r.boxLinks) r.boxLinks=[];
-  r.boxLinks.push({url,label});
-  save();openDrawer(id);showToast('Box link added');
-}
-
-function removeBoxLink(id,idx){
-  const r=DATA.find(x=>x.id===id);
-  r.boxLinks.splice(idx,1);
-  save();openDrawer(id);showToast('Box link removed');
-}
-
-function toggleUpdateForm(id){document.getElementById('update-form-'+id).classList.toggle('open')}
-
-function submitUpdate(id){
-  const action=document.getElementById('uf-action').value;
-  const actor=document.getElementById('uf-actor').value||'Unknown';
-  const note=document.getElementById('uf-note').value;
-  const isOfficial=document.getElementById('uf-official')?.checked||false;
-  if(!note){showToast('Add a note before saving.');return;}
-  const r=DATA.find(x=>x.id===id);
-  if(!r.timeline) r.timeline=[];
-  const entry={date:new Date().toISOString().slice(0,10),actor,action,note};
-  if(isOfficial) entry.official=true;
-  r.timeline.push(entry);
-  if(isOfficial){r.officialResponse={text:note,by:actor,date:new Date().toISOString().slice(0,10)};}
-  save();openDrawer(id);showToast(isOfficial?'Official response recorded':'Update added to timeline');
-}
-
-// ── Close RFI intercept ───────────────────────────────────────────────────────
-let closeTargetId=null;
-function openCloseModal(id){
-  const r=DATA.find(x=>x.id===id);
-  if(r.status==='Closed'){showToast('RFI is already closed.');return;}
-  closeTargetId=id;
-  document.getElementById('cr-response').value='';
-  document.getElementById('cr-by').value=r.bic||'';
-  document.getElementById('cr-date').value=new Date().toISOString().slice(0,10);
-  document.getElementById('cr-char').textContent='0 / 20 minimum';
-  document.getElementById('cr-char').className='char-counter';
-  document.getElementById('cr-confirm').disabled=true;
-  document.getElementById('cr-confirm').style.opacity='.5';
-  document.getElementById('close-modal-overlay').classList.add('open');
-}
-function checkCloseForm(){
-  const txt=document.getElementById('cr-response').value.trim();
-  const by=document.getElementById('cr-by').value.trim();
-  const len=txt.length;
-  const counter=document.getElementById('cr-char');
-  counter.textContent=`${len} / 20 minimum`;
-  counter.className='char-counter'+(len>=20?' good':'');
-  const ok=len>=20&&by.length>0;
-  document.getElementById('cr-confirm').disabled=!ok;
-  document.getElementById('cr-confirm').style.opacity=ok?'1':'.5';
-}
-function confirmCloseRFI(){
-  const id=closeTargetId;
-  if(!id) return;
-  const r=DATA.find(x=>x.id===id);
-  const txt=document.getElementById('cr-response').value.trim();
-  const by=document.getElementById('cr-by').value.trim();
-  const dt=document.getElementById('cr-date').value||new Date().toISOString().slice(0,10);
-  if(txt.length<20||!by){showToast('Please complete all required fields.');return;}
-  r.status='Closed';
-  r.dateResp=dt;
-  r.officialResponse={text:txt,by,date:dt};
-  if(!r.timeline) r.timeline=[];
-  r.timeline.push({date:dt,actor:by,action:'Response Issued',note:txt,official:true});
-  save();
-  document.getElementById('close-modal-overlay').classList.remove('open');
-  closeTargetId=null;
-  openDrawer(id);
-  renderDashboard();
-  showToast('RFI closed — official response recorded');
-}
-function cancelCloseRFI(){
-  document.getElementById('close-modal-overlay').classList.remove('open');
-  closeTargetId=null;
-}
-
-function reassignBIC(id){
-  const r=DATA.find(x=>x.id===id);
-  const newBIC=prompt('Reassign to (Company / Person):',r.bic);
-  if(newBIC&&newBIC!==r.bic){
-    const old=r.bic;r.bic=newBIC;
-    if(!r.timeline) r.timeline=[];
-    r.timeline.push({date:new Date().toISOString().slice(0,10),actor:'System',action:'Information Provided',note:`Reassigned from ${old} to ${newBIC}.`});
-    save();openDrawer(id);showToast('Assignment updated');
-  }
+  return`<div class="audit-log">${html}</div>`;
 }
 
 function closeDrawer(){
@@ -1613,7 +1924,6 @@ function openEditModal(id){
   document.getElementById('m-priority').value=r.priority;
   document.getElementById('m-status').value=r.status;
   document.getElementById('m-submittedBy').value=r.submittedBy;
-  // directedTo removed
   document.getElementById('m-dateSub').value=r.dateSub;
   document.getElementById('m-dateReq').value=(r.dateReq==='ASAP'?'':r.dateReq)||'';
   document.getElementById('m-subject').value=r.subject;
@@ -1653,7 +1963,6 @@ function saveRFI(){
     site:document.getElementById('m-site').value,disc:document.getElementById('m-disc').value,
     priority:document.getElementById('m-priority').value,status:document.getElementById('m-status').value,
     bic,submittedBy:document.getElementById('m-submittedBy').value,
-    directedTo:'',  // field removed from UI
     dateSub:document.getElementById('m-dateSub').value,
     dateReq:document.getElementById('m-dateReq').value,dateResp:'',subject,
     problem:document.getElementById('m-problem').value,
@@ -1671,7 +1980,11 @@ function saveRFI(){
     rfi.attachments=DATA[idx].attachments||[];
     rfi.boxLinks=DATA[idx].boxLinks||[];
     DATA[idx]=rfi;
-  } else DATA.push(rfi);
+    auditLog(rfi,'RFI Edited','User','RFI fields updated via Edit form');
+  } else {
+    DATA.push(rfi);
+    auditLog(rfi,'RFI Created','User','New RFI submitted');
+  }
   save();closeModal();renderTable();renderDashboard();
   showToast(editId?'RFI updated':'New RFI added');
   if(editId) openDrawer(rfi.id);
@@ -1693,8 +2006,8 @@ function printList(){
 // ── Export ────────────────────────────────────────────────────────────────────
 function exportCSV(){
   const rows=filteredData();
-  const cols=['num','rev','project','site','disc','priority','status','bic','submittedBy','directedTo','dateSub','dateReq','dateResp','subject','problem','resolution','planRev','costImp','schedImp','drawRef'];
-  const header='RFI #,Rev,Project,Site,Discipline,Priority,Status,Currently Assigned To,Submitted By,Directed To,Date Sub,Date Req,Date Resp,Description,Problem,Resolution,Plan Rev,Cost Impact,Sched Impact,Drawing Ref';
+  const cols=['num','rev','project','site','disc','priority','status','bic','submittedBy','dateSub','dateReq','dateResp','subject','problem','resolution','planRev','costImp','schedImp','drawRef'];
+  const header='RFI #,Rev,Project,Site,Discipline,Priority,Status,Currently Assigned To,Submitted By,Date Sub,Date Req,Date Resp,Description,Problem,Resolution,Plan Rev,Cost Impact,Sched Impact,Drawing Ref';
   const csv=[header,...rows.map(r=>cols.map(c=>`"${(r[c]||'').replace(/"/g,'""')}"`).join(','))].join('\n');
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
@@ -1719,6 +2032,23 @@ document.addEventListener('keydown',e=>{
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 (function init(){
+  // Clean any previously stored attachment binary data from localStorage
+  // (removing uploaded file blobs keeps localStorage lean)
+  try{
+    const stored=localStorage.getItem('ce_rfis_v6');
+    if(stored){
+      const data=JSON.parse(stored);
+      let cleaned=false;
+      data.forEach(r=>{
+        if(r.attachments&&r.attachments.length>0){
+          r.attachments.forEach(a=>{
+            if(a.dataUrl){delete a.dataUrl; cleaned=true;}
+          });
+        }
+      });
+      if(cleaned) localStorage.setItem('ce_rfis_v6',JSON.stringify(data));
+    }
+  }catch(e){}
   const days=nem();
   const el=document.getElementById('countdown-val');
   el.textContent=days;
