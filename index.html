@@ -59,7 +59,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .btn-sm{padding:5px 10px;font-size:12px}
 /* ── Views ── */
 .content{flex:1;overflow:hidden;display:flex;position:relative}
-.view{display:none;flex:1;overflow-y:auto;padding:24px}
+.view{display:none;flex:1;overflow-y:auto;padding:24px;overflow-x:hidden}
 .view.active{display:flex;flex-direction:column;gap:20px}
 /* ── Stat strip ── */
 .stat-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
@@ -134,7 +134,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .list-meta{display:flex;align-items:center;justify-content:space-between}
 .list-meta-count{font-size:12px;color:var(--gray-600)}
 /* ── Table ── */
-.rfi-table-wrap{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+.rfi-table-wrap{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:auto;max-height:calc(100vh - 240px)}
 .rfi-table{width:100%;border-collapse:collapse}
 .rfi-table thead th{background:var(--midnight);color:var(--gray-300);font-size:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:600;padding:10px 14px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0;z-index:1}
 .rfi-table thead th:hover{color:var(--white)}
@@ -189,7 +189,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .drawer-rfi-num{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--golden)}
 .drawer-close{background:none;border:none;color:var(--gray-400);cursor:pointer;padding:4px;border-radius:4px;font-size:18px;line-height:1;transition:var(--transition)}
 .drawer-close:hover{color:var(--white);background:var(--midnight-80)}
-.drawer-title{color:var(--white);font-size:15px;font-weight:500;line-height:1.4;margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:calc(100% - 40px)}
+.drawer-title{color:var(--white);font-size:15px;font-weight:500;line-height:1.4;margin-bottom:8px;word-break:break-word;white-space:normal}
 .drawer-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .drawer-project{font-size:11px;color:var(--dawn);letter-spacing:.3px}
 .drawer-address{font-size:10px;color:var(--gray-400);font-style:italic;margin-top:3px}
@@ -227,9 +227,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--sandstone);color:var(--mi
 .timeline-actor{font-size:11px;color:var(--gray-600)}
 .timeline-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gray-400);margin-left:auto}
 .timeline-note{font-size:12px;color:var(--gray-800);line-height:1.5}
+.timeline-edit-row{display:flex;gap:6px;margin-top:6px;opacity:0;transition:opacity .15s}
+.timeline-item:hover .timeline-edit-row{opacity:1}
+.timeline-edit-btn{font-size:10px;color:var(--bic-fg);background:var(--bic-bg);border:1px solid var(--bic-border);border-radius:4px;padding:2px 7px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+.timeline-edit-btn:hover{background:var(--dawn);color:var(--midnight)}
+.timeline-edit-btn.del{color:var(--overdue-fg);background:var(--overdue-bg);border-color:var(--overdue-border)}
 .add-update-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--bic-fg);font-weight:500;background:none;border:1px dashed var(--bic-border);border-radius:var(--radius);padding:6px 12px;cursor:pointer;transition:var(--transition);margin-top:10px}
 .add-update-btn:hover{background:var(--bic-bg)}
-.update-form{margin-top:12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;display:none}
+.update-form{background:var(--gray-50);border-bottom:2px solid var(--golden);padding:16px 24px;display:none;position:sticky;top:0;z-index:10;box-shadow:0 4px 12px rgba(5,28,44,.12)}
 .update-form.open{display:block}
 .update-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .update-form select,.update-form input,.update-form textarea{width:100%;border:1px solid var(--gray-200);border-radius:var(--radius);padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:12px;background:var(--white);color:var(--midnight)}
@@ -765,7 +770,7 @@ const SEED = [
      {date:"2026-01-23",actor:"Coast Energy / Pierre Quincy",action:"Information Provided",note:"approved by Coast",source:"manual"}]},
 
   {id:"PRC-005-Orig",num:"005",rev:"Orig",project:"BioMed PRC (Newark)",
-   site:"7999-A, 7999-B (Phase 1); all POIs (future phases)",disc:"Civil",priority:"Low",status:"Closed",
+   site:"7999-A, 7999-B (Phase 1); all POIs (future phases)",disc:"Civil",priority:"High",status:"Closed",
    bic:"Coast Energy / Pierre Quincy",submittedBy:"BPi",
    dateSub:"2026-01-21",dateReq:"2026-01-23",dateResp:"2026-01-23",
    subject:"Clean Sweeping - 45,468 sft of Section 7999-B / 7999-A",
@@ -1163,7 +1168,7 @@ const SEED = [
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Blocking to roof member attachement",source:"manual"}]},
 
   {id:"BER-002-Orig",num:"002",rev:"Orig",project:"Berkshire (San Jose)",
-   site:"",disc:"Electrical",priority:"Low",status:"Closed",
+   site:"",disc:"Electrical",priority:"Medium",status:"Closed",
    bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",
    dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"2026-01-22",
    subject:"Conduit runs on the outside of building",
@@ -1208,7 +1213,7 @@ const SEED = [
    timeline:[{date:"2026-01-22",actor:"BPi",action:"Submitted",note:"Wire schedule; lengths have changed",source:"manual"}]},
 
   {id:"BER-006-Orig",num:"006",rev:"Orig",project:"Berkshire (San Jose)",
-   site:"",disc:"Electrical",priority:"Low",status:"Open",
+   site:"",disc:"Electrical",priority:"Medium",status:"Open",
    bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",
    dateSub:"2026-01-22",dateReq:"2026-02-05",dateResp:"",
    subject:"Breaker space not available for POC",
@@ -1256,7 +1261,7 @@ const SEED = [
      {date:"2026-01-28",actor:"BPi",action:"Information Provided",note:"BiC - Coast to provide AE's deigns.",source:"manual"}]},
 
   {id:"BER-010-Orig",num:"010",rev:"Orig",project:"Berkshire (San Jose)",
-   site:"",disc:"Electrical",priority:"Low",status:"Closed",
+   site:"",disc:"Electrical",priority:"Medium",status:"Closed",
    bic:"Morpho Energy / Danny Hinks",submittedBy:"BPi",
    dateSub:"2026-02-13",dateReq:"2026-02-17",dateResp:"2026-02-17",
    subject:"Clarification that the AC disconnect does not require a viewing window",
@@ -1268,7 +1273,7 @@ const SEED = [
      {date:"2026-02-13",actor:"BPi",action:"Information Provided",note:"Morpho confirmed via email",source:"manual"}]},
 
   {id:"BER-011-Orig",num:"011",rev:"Orig",project:"Berkshire (San Jose)",
-   site:"",disc:"Electrical",priority:"Low",status:"Open",
+   site:"",disc:"Electrical",priority:"Medium",status:"Open",
    bic:"Morpho Energy / Sadia Afrin",submittedBy:"BPi",
    dateSub:"2026-02-19",dateReq:"2026-03-25",dateResp:"",
    subject:"There is existing equipment located in the electrical rooms where the new solar equipment is shown on the drawings.",
@@ -1311,11 +1316,11 @@ function nowTS(){
     +' '+n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
 }
 // ── State ──────────────────────────────────────────────────────────────────────
-let DATA = JSON.parse(localStorage.getItem('ce_rfis_v22')||'null') || SEED;
+let DATA = JSON.parse(localStorage.getItem('ce_rfis_v23')||'null') || SEED;
 let sortField='num', sortDir=1, sortOverride=false, selectedId=null, editId=null;
 let DATA_MAP={};
 function rebuildMap(){DATA_MAP={};DATA.forEach((r,i)=>DATA_MAP[r.id]=i);}
-function save(){localStorage.setItem('ce_rfis_v22',JSON.stringify(DATA));rebuildMap();}
+function save(){localStorage.setItem('ce_rfis_v23',JSON.stringify(DATA));rebuildMap();}
 function findById(id){const i=DATA_MAP[id];return i!==undefined?DATA[i]:undefined;}
 
 // ── Audit log helper ──────────────────────────────────────────────────────────
@@ -1891,6 +1896,7 @@ function renderTimeline(r){
     const dotCls=isOfficial?'closed':t.action==='Closed'?'closed':t.action==='Submitted'?'submitted':t.action==='Revised'?'revised':t.action==='Escalated'?'escalated':'';
     // Link attached to this entry (from new RFI submission or Add Update)
     const linkHtml=t.link?.url?`<div style="margin-top:6px"><a href="${t.link.url}" target="_blank" class="attach-link" style="font-size:11px;display:inline-flex;align-items:center;gap:4px">🔗 ${t.link.label||'Link'} ↗</a></div>`:'';
+    const canEdit=t.source!=='system'; // don't edit system audit entries
     return`<div class="timeline-item ${isOfficial?'official':''}">
       <div class="timeline-left">
         <div class="timeline-dot ${dotCls}"></div>
@@ -1905,12 +1911,26 @@ function renderTimeline(r){
         </div>
         ${t.note?`<div class="timeline-note">${t.note}</div>`:''}
         ${linkHtml}
+        ${canEdit?`<div class="timeline-edit-row">
+          <button class="timeline-edit-btn" onclick="event.stopPropagation();editTimelineEntry('${r.id}',${i})">✎ Edit</button>
+          <button class="timeline-edit-btn del" onclick="event.stopPropagation();deleteTimelineEntry('${r.id}',${i})">✕ Remove</button>
+        </div>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
-function toggleUpdateForm(id){document.getElementById('update-form-'+id).classList.toggle('open')}
+function toggleUpdateForm(id){
+  const form=document.getElementById('update-form-'+id);
+  if(!form) return;
+  form.classList.toggle('open');
+  // Reset edit state when closing
+  if(!form.classList.contains('open')){
+    window._editingTimelineId=null;window._editingTimelineIdx=undefined;
+    const btn=form.querySelector('.btn-primary');
+    if(btn) btn.textContent='Add to Timeline';
+  }
+}
 
 
 function updateUFPersonDropdown(){
@@ -1939,8 +1959,15 @@ function submitUpdate(id){
   const entry={date:todayStr,ts:ts3,actor,action,note,source:isOfficial?'official':'manual'};
   if(linkUrl) entry.link={url:linkUrl,label:linkLabel};
   if(isOfficial) entry.official=true;
-  r.timeline.push(entry);
-  r.dateResp=todayStr;
+  // Edit mode: replace existing entry; append mode: push new
+  if(window._editingTimelineId===id&&window._editingTimelineIdx!==undefined){
+    r.timeline[window._editingTimelineIdx]=entry;
+    window._editingTimelineId=null;
+    window._editingTimelineIdx=undefined;
+  } else {
+    r.timeline.push(entry);
+    r.dateResp=todayStr;
+  }
   if(isOfficial){r.officialResponse={text:note,by:actor,date:todayStr};}
   // If this revision is voided, revert the parent to Open
   if(action==='Voided'&&r.parentId){
@@ -1957,6 +1984,10 @@ function submitUpdate(id){
   ['uf-action','uf-company','uf-person'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   ['uf-note','uf-link','uf-link-label'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   const offEl=document.getElementById('uf-official');if(offEl)offEl.checked=false;
+  window._editingTimelineId=null;window._editingTimelineIdx=undefined;
+  // Reset button label
+  const saveBtn=document.querySelector('#update-form-'+id+' .btn-primary');
+  if(saveBtn) saveBtn.textContent='Add to Timeline';
   openDrawer(id);
   showToast(isOfficial?'Official response recorded':'Update added to timeline');
 }
@@ -2067,6 +2098,53 @@ function openRevisionModal(parentId){
   document.getElementById('m-num').dataset.revNum=revCount;
 }
 
+
+// ── Timeline entry editing ────────────────────────────────────────────────────
+function editTimelineEntry(id, idx){
+  const r=findById(id);
+  if(!r||!r.timeline[idx]) return;
+  const t=r.timeline[idx];
+  // Store edit index so submitUpdate knows to replace rather than append
+  window._editingTimelineId=id;
+  window._editingTimelineIdx=idx;
+  // Open the update form and pre-fill
+  const form=document.getElementById('update-form-'+id);
+  if(form){
+    form.classList.add('open');
+    form.scrollIntoView({behavior:'smooth',block:'start'});
+    const actEl=document.getElementById('uf-action');
+    if(actEl) actEl.value=t.action||'';
+    const coEl=document.getElementById('uf-company');
+    const peEl=document.getElementById('uf-person');
+    if(coEl&&t.actor){
+      const parts=(t.actor||'').split(' / ');
+      const co=parts[0]?.trim()||'';
+      coEl.value=co; updateUFPersonDropdown();
+      setTimeout(()=>{if(peEl) peEl.value=parts[1]?.trim()||'';},50);
+    }
+    const noteEl=document.getElementById('uf-note');
+    if(noteEl) noteEl.value=t.note||'';
+    const linkEl=document.getElementById('uf-link');
+    if(linkEl) linkEl.value=t.link?.url||'';
+    const lblEl=document.getElementById('uf-link-label');
+    if(lblEl) lblEl.value=t.link?.label||'';
+    const offEl=document.getElementById('uf-official');
+    if(offEl) offEl.checked=t.official||false;
+    // Update button label to show Edit mode
+    const btn=form.querySelector('.btn-primary');
+    if(btn) btn.textContent='Save Edit';
+  }
+}
+
+function deleteTimelineEntry(id, idx){
+  const r=findById(id);
+  if(!r||!r.timeline[idx]) return;
+  if(!confirm('Remove this timeline entry? This cannot be undone.')) return;
+  r.timeline.splice(idx,1);
+  save();
+  openDrawer(id);
+  showToast('Timeline entry removed');
+}
 function reassignBIC(id){
   const r=findById(id);
   const newBIC=prompt('Reassign to (Company / Person):',r.bic);
@@ -2113,18 +2191,12 @@ function buildDrawerDetail(r){
     </div>
 
     <!-- Resolution Timeline -->
-    <div class="drawer-section">
-      <div class="section-label" style="display:flex;align-items:center;justify-content:space-between">
-        Resolution Timeline
-        <button class="add-update-btn" onclick="toggleUpdateForm('${r.id}')">+ Add Update</button>
-      </div>
-      <div class="timeline">${renderTimeline(r)}</div>
-      <div class="update-form" id="update-form-${r.id}">
+    <div class="update-form" id="update-form-${r.id}">
         <!-- Row 1: Update Type alone -->
         <div style="margin-bottom:8px">
           <select id="uf-action" style="width:100%;border:1px solid var(--gray-200);border-radius:var(--radius);padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:12px;background:var(--white);color:var(--midnight)">
             <option value="">Update Type…</option>
-            <option>Information Provided</option><option>Response Issued</option>
+            <option>Proposed Resolution</option><option>Information Provided</option><option>Response Issued</option>
             <option>Response Required</option><option>Revision Requested</option><option>Voided</option>
           </select>
         </div>
@@ -2165,7 +2237,13 @@ function buildDrawerDetail(r){
           <button class="btn btn-primary btn-sm" onclick="submitUpdate('${r.id}')">Add to Timeline</button>
           <button class="btn btn-ghost btn-sm" onclick="toggleUpdateForm('${r.id}')">Cancel</button>
         </div>
+    </div>
+    <div class="drawer-section">
+      <div class="section-label" style="display:flex;align-items:center;justify-content:space-between">
+        Resolution Timeline
+        <button class="add-update-btn" onclick="toggleUpdateForm('${r.id}')">+ Add Update</button>
       </div>
+      <div class="timeline">${renderTimeline(r)}</div>
     </div>
     <!-- Impacts -->
     <div class="drawer-section">
@@ -2421,6 +2499,13 @@ function saveRFI(){
       link:rfiLink?{url:rfiLink,label:rfiLinkLabel}:null,
       source:'manual'
     });
+    // If a proposed resolution was entered, add it as a second timeline entry
+    if(rfi.resolution&&rfi.resolution.trim()){
+      rfi.timeline.push({
+        date:todayISO,ts:ts0,actor:submittedBy||'User',action:'Proposed Resolution',
+        note:rfi.resolution.trim(),source:'manual'
+      });
+    }
     auditLog(rfi,'RFI Created','User','New RFI added');
   }
   save();closeModal();renderTable();renderDashboard();
@@ -2483,16 +2568,20 @@ document.addEventListener('keydown',e=>{
         r.timeline.unshift({date:r.dateSub||'',actor:r.submittedBy||'',action:'Submitted',note:r.problem,source:'manual'});
       }
     }
-    // Ensure resolution text appears as IP entry (if not already there)
+    // Ensure resolution text appears as Proposed Resolution entry (if not already there)
     if(r.resolution&&r.resolution.trim()){
       const res=r.resolution.trim();
-      const hasIP=r.timeline.some(t=>t.action==='Information Provided'&&t.note.trim()===res);
-      if(!hasIP){
+      const hasPR=r.timeline.some(t=>(t.action==='Proposed Resolution'||t.action==='Information Provided')&&t.note.trim()===res);
+      if(!hasPR){
         const subIdx=r.timeline.findIndex(t=>t.action==='Submitted');
-        const entry={date:r.dateResp||r.dateSub||'',actor:r.bic||'',action:'Information Provided',note:res,source:'manual'};
+        const entry={date:r.dateSub||'',actor:r.submittedBy||r.bic||'',action:'Proposed Resolution',note:res,source:'manual'};
         if(subIdx>=0) r.timeline.splice(subIdx+1,0,entry);
         else r.timeline.push(entry);
       }
+      // Relabel any existing IP entry that exactly matches resolution text
+      r.timeline.forEach(t=>{
+        if(t.action==='Information Provided'&&t.note.trim()===res) t.action='Proposed Resolution';
+      });
     }
     // Deduplicate: remove any entries with identical action+note
     const seen=new Set();
@@ -2503,7 +2592,7 @@ document.addEventListener('keydown',e=>{
     });
   });
   // Normalize legacy priority values (Urgent→High, Standard→Low)
-  const PRIORITY_MAP={'Urgent':'High','Standard':'Low'};
+  const PRIORITY_MAP={'Urgent':'High','Standard':'Medium'};
   DATA.forEach(r=>{ if(PRIORITY_MAP[r.priority]) r.priority=PRIORITY_MAP[r.priority]; });
   // Don't persist migration to localStorage — it applies from SEED on fresh load
   const days=nem();
